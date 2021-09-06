@@ -1,0 +1,262 @@
+.playbar {
+  min-width: 650px;
+  height: 90px;
+  background-color: #181818;
+  border-top: 1px solid #282828;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 16px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.playbar .active::after {
+  background-color: #1db954;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  height: 4px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 4px;
+}
+
+.playbar .active path {
+  fill: #1db954;
+}
+
+.playbar .active:hover::after {
+  background-color: #1ed760;
+}
+
+.playbar .active:hover path {
+  fill: #1ed760;
+}
+
+.playbar__desc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 20%;
+  min-width: 180px;
+  width: 30%;
+}
+
+.playbar__desc a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.playbar__desc img {
+  width: 56px;
+  height: 56px;
+}
+
+.playbar__desc__name {
+  margin: 0 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.playbar__desc__name p a:hover,
+.playbar__desc__name span a:hover {
+  text-decoration: underline;
+}
+
+.playbar__desc__name p {
+  margin: 0;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.playbar__desc__name span {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 200;
+  text-transform: capitalize;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playbar__desc__icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.playbar__controls {
+  max-width: 722px;
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.playbar__controls__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.playbar__controls__buttons button {
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: none;
+  margin: 2px;
+  position: relative;
+}
+
+.playbar__controls__buttons button path {
+  fill: #b3b3b3;
+}
+
+.playbar__controls__buttons button:hover path {
+  fill: #fff;
+}
+
+.playbar__controls__buttons .repeat .a {
+  fill: none;
+}
+
+.playbar__controls__buttons .repeat .b {
+  fill: #1db954;
+}
+
+.playbar__controls__buttons .play {
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.playbar__controls__buttons .play .a {
+  fill: none;
+}
+
+.playbar__controls__buttons .play .b {
+  fill: black;
+}
+
+.playbar__controls__buttons .play:hover {
+  -webkit-transform: scale(1.06) !important;
+          transform: scale(1.06) !important;
+}
+
+.playbar__controls__buttons .play:hover path {
+  fill: black;
+}
+
+.playbar__controls__slider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+.playbar__controls__slider span {
+  text-align: center;
+  font-size: 10px;
+  color: #b3b3b3;
+  min-width: 40px;
+}
+
+.playbar__controls__slider .ant-slider {
+  width: 100%;
+}
+
+.playbar__extras {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.playbar__extras button {
+  background-color: transparent;
+  border: none;
+  color: #b3b3b3;
+  height: 32px;
+  min-width: 32px;
+  width: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+}
+
+.playbar__extras button path {
+  fill: #b3b3b3;
+}
+
+.playbar__extras button:hover path {
+  fill: #fff;
+}
+
+.playbar__extras__volume-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.playbar__extras__volume-bar .ant-slider {
+  width: 93px;
+}
+/*# sourceMappingURL=index.css.map */

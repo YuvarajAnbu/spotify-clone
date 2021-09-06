@@ -1,0 +1,149 @@
+.sidebar {
+  background-color: #000000;
+  padding-top: 24px;
+  text-decoration: none;
+  width: 241px;
+  height: calc(100vh - 90px);
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+.sidebar__line {
+  width: calc(100% - 48px);
+  margin: 8px 24px;
+  height: 1px;
+  background-color: #282828;
+}
+
+.sidebar__logo {
+  color: white;
+  padding: 24px;
+}
+
+.sidebar__logo svg {
+  height: 40px;
+  max-width: 131px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.sidebar__links, .sidebar__playlists, .sidebar__install {
+  list-style-type: none;
+}
+
+.sidebar__links__link, .sidebar__playlists__link, .sidebar__install__link {
+  padding: 0 8px;
+  color: #b3b3b3;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-timing-function: linear;
+          transition-timing-function: linear;
+}
+
+.sidebar__links__link:hover, .sidebar__playlists__link:hover, .sidebar__install__link:hover {
+  color: white;
+}
+
+.sidebar__links__link a, .sidebar__playlists__link a, .sidebar__install__link a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0 16px;
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  height: 40px;
+  text-transform: capitalize;
+}
+
+.sidebar__links__link a .icon,
+.sidebar__links__link a .active-icon, .sidebar__playlists__link a .icon,
+.sidebar__playlists__link a .active-icon, .sidebar__install__link a .icon,
+.sidebar__install__link a .active-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.sidebar__links__link a .active-icon, .sidebar__playlists__link a .active-icon, .sidebar__install__link a .active-icon {
+  display: none;
+}
+
+.sidebar__links__link--active a, .sidebar__playlists__link--active a, .sidebar__install__link--active a {
+  background-color: #282828;
+  color: white;
+}
+
+.sidebar__links__link--active a .icon, .sidebar__playlists__link--active a .icon, .sidebar__install__link--active a .icon {
+  display: none;
+}
+
+.sidebar__links__link--active a .active-icon, .sidebar__playlists__link--active a .active-icon, .sidebar__install__link--active a .active-icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sidebar__playlists {
+  margin-top: 24px;
+}
+
+.sidebar__playlists__link {
+  color: white;
+  opacity: 0.7;
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+}
+
+.sidebar__playlists__link a .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: linear-gradient(135deg, #450af5, #c4efd9);
+  border-radius: 1px;
+}
+
+.sidebar__playlists__link:hover {
+  opacity: 1;
+}
+
+.sidebar__install {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: 0;
+}
+
+.sidebar__install svg {
+  padding: 2px;
+}
+/*# sourceMappingURL=index.css.map */

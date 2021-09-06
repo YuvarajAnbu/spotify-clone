@@ -1,0 +1,126 @@
+.sidebar {
+  background-color: #000000;
+  padding-top: 24px;
+  text-decoration: none;
+  width: 241px;
+  height: calc(100vh - 90px);
+  position: relative;
+  user-select: none;
+
+  a {
+    text-decoration: none;
+    color: currentColor;
+  }
+
+  &__line {
+    width: calc(100% - 48px);
+    margin: 8px 24px;
+    height: 1px;
+    background-color: #282828;
+  }
+
+  &__logo {
+    color: white;
+    padding: 24px;
+
+    svg {
+      height: 40px;
+      max-width: 131px;
+      width: 100%;
+      margin-bottom: 18px;
+    }
+  }
+
+  &__links,
+  &__playlists,
+  &__install {
+    list-style-type: none;
+
+    &__link {
+      padding: 0 8px;
+      color: #b3b3b3;
+      transition-duration: 0.2s;
+      transition-property: color;
+      transition-timing-function: linear;
+
+      &:hover {
+        color: white;
+      }
+
+      a {
+        color: inherit;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 0 16px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        cursor: pointer;
+        height: 40px;
+        text-transform: capitalize;
+
+        .icon,
+        .active-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .active-icon {
+          display: none;
+        }
+      }
+
+      &--active {
+        a {
+          background-color: #282828;
+          color: white;
+
+          .icon {
+            display: none;
+          }
+
+          .active-icon {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+
+  &__playlists {
+    margin-top: 24px;
+
+    &__link {
+      color: white;
+      opacity: 0.7;
+      transition: opacity 0.2s linear;
+      a {
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 24px;
+          height: 24px;
+          background: linear-gradient(135deg, #450af5, #c4efd9);
+          border-radius: 1px;
+        }
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__install {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 0;
+
+    svg {
+      padding: 2px;
+    }
+  }
+}
