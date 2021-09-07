@@ -1,8 +1,8 @@
 .playbar {
   min-width: 650px;
   height: 90px;
-  background-color: #181818;
-  border-top: 1px solid #282828;
+  background-color: var(--playbar-background-color);
+  border-top: 1px solid var(--faded-background-color);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,10 +17,13 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .playbar .active::after {
-  background-color: #1db954;
+  background-color: var(--spotify-faded-color);
   border-radius: 50%;
   content: '';
   display: block;
@@ -34,15 +37,15 @@
 }
 
 .playbar .active path {
-  fill: #1db954;
+  fill: var(--spotify-faded-color);
 }
 
 .playbar .active:hover::after {
-  background-color: #1ed760;
+  background-color: var(--spotify-bright-color);
 }
 
 .playbar .active:hover path {
-  fill: #1ed760;
+  fill: var(--spotify-bright-color);
 }
 
 .playbar__desc {
@@ -55,7 +58,6 @@
 }
 
 .playbar__desc a {
-  text-decoration: none;
   color: inherit;
 }
 
@@ -80,6 +82,7 @@
 
 .playbar__desc__name p a:hover,
 .playbar__desc__name span a:hover {
+  color: var(--primary-text-color);
   text-decoration: underline;
 }
 
@@ -92,12 +95,12 @@
 .playbar__desc__name span {
   margin: 0;
   font-size: 10px;
-  font-weight: 200;
   text-transform: capitalize;
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: var(--secondary-text-color);
 }
 
 .playbar__desc__icon {
@@ -107,6 +110,18 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.playbar__desc__icon .a path {
+  fill: var(--secondary-text-color);
+}
+
+.playbar__desc__icon .a:hover path {
+  fill: var(--primary-text-color);
+}
+
+.playbar__desc__icon .b .b {
+  fill: var(--spotify-faded-color);
 }
 
 .playbar__controls {
@@ -149,23 +164,15 @@
 }
 
 .playbar__controls__buttons button path {
-  fill: #b3b3b3;
+  fill: var(--secondary-text-color);
 }
 
 .playbar__controls__buttons button:hover path {
-  fill: #fff;
-}
-
-.playbar__controls__buttons .repeat .a {
-  fill: none;
-}
-
-.playbar__controls__buttons .repeat .b {
-  fill: #1db954;
+  fill: var(--primary-text-color);
 }
 
 .playbar__controls__buttons .play {
-  background-color: #fff;
+  background-color: var(--primary-text-color);
   border-radius: 50%;
 }
 
@@ -174,7 +181,7 @@
 }
 
 .playbar__controls__buttons .play .b {
-  fill: black;
+  fill: var(--secondary-background-color);
 }
 
 .playbar__controls__buttons .play:hover {
@@ -183,7 +190,15 @@
 }
 
 .playbar__controls__buttons .play:hover path {
-  fill: black;
+  fill: var(--secondary-background-color);
+}
+
+.playbar__controls__buttons .repeat .a {
+  fill: none;
+}
+
+.playbar__controls__buttons .repeat .b {
+  fill: var(--spotify-faded-color);
 }
 
 .playbar__controls__slider {
@@ -202,7 +217,7 @@
 .playbar__controls__slider span {
   text-align: center;
   font-size: 10px;
-  color: #b3b3b3;
+  color: var(--secondary-text-color);
   min-width: 40px;
 }
 
@@ -222,7 +237,7 @@
 .playbar__extras button {
   background-color: transparent;
   border: none;
-  color: #b3b3b3;
+  color: var(--secondary-text-color);
   height: 32px;
   min-width: 32px;
   width: 32px;
@@ -239,11 +254,11 @@
 }
 
 .playbar__extras button path {
-  fill: #b3b3b3;
+  fill: var(--secondary-text-color);
 }
 
 .playbar__extras button:hover path {
-  fill: #fff;
+  fill: var(--primary-text-color);
 }
 
 .playbar__extras__volume-bar {

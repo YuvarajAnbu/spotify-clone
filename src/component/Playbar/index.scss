@@ -1,17 +1,20 @@
 .playbar {
   min-width: 650px;
   height: 90px;
-  background-color: #181818;
-  border-top: 1px solid #282828;
+  background-color: var(--playbar-background-color);
+  border-top: 1px solid var(--faded-background-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
   user-select: none;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 
   .active {
     &::after {
-      background-color: #1db954;
+      background-color: var(--spotify-faded-color);
       border-radius: 50%;
       content: '';
       display: block;
@@ -24,16 +27,16 @@
     }
 
     path {
-      fill: #1db954;
+      fill: var(--spotify-faded-color);
     }
 
     &:hover {
       &::after {
-        background-color: #1ed760;
+        background-color: var(--spotify-bright-color);
       }
 
       path {
-        fill: #1ed760;
+        fill: var(--spotify-bright-color);
       }
     }
   }
@@ -45,7 +48,6 @@
     width: 30%;
 
     a {
-      text-decoration: none;
       color: inherit;
     }
 
@@ -62,6 +64,7 @@
 
       p a:hover,
       span a:hover {
+        color: var(--primary-text-color);
         text-decoration: underline;
       }
 
@@ -74,18 +77,35 @@
       span {
         margin: 0;
         font-size: 10px;
-        font-weight: 200;
         text-transform: capitalize;
         width: 100%;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        color: var(--secondary-text-color);
       }
     }
 
     &__icon {
       display: flex;
       align-items: center;
+
+      .a {
+        path {
+          fill: var(--secondary-text-color);
+        }
+        &:hover {
+          path {
+            fill: var(--primary-text-color);
+          }
+        }
+      }
+
+      .b {
+        .b {
+          fill: var(--spotify-faded-color);
+        }
+      }
     }
   }
 
@@ -110,11 +130,32 @@
         position: relative;
 
         path {
-          fill: #b3b3b3;
+          fill: var(--secondary-text-color);
         }
 
         &:hover path {
-          fill: #fff;
+          fill: var(--primary-text-color);
+        }
+      }
+
+      .play {
+        background-color: var(--primary-text-color);
+        border-radius: 50%;
+
+        .a {
+          fill: none;
+        }
+
+        .b {
+          fill: var(--secondary-background-color);
+        }
+
+        &:hover {
+          transform: scale(1.06) !important;
+        }
+
+        &:hover path {
+          fill: var(--secondary-background-color);
         }
       }
 
@@ -123,28 +164,7 @@
           fill: none;
         }
         .b {
-          fill: #1db954;
-        }
-      }
-
-      .play {
-        background-color: #fff;
-        border-radius: 50%;
-
-        .a {
-          fill: none;
-        }
-
-        .b {
-          fill: black;
-        }
-
-        &:hover {
-          transform: scale(1.06) !important;
-        }
-
-        &:hover path {
-          fill: black;
+          fill: var(--spotify-faded-color);
         }
       }
     }
@@ -158,7 +178,7 @@
       span {
         text-align: center;
         font-size: 10px;
-        color: rgb(179, 179, 179);
+        color: var(--secondary-text-color);
         min-width: 40px;
       }
 
@@ -174,7 +194,7 @@
     button {
       background-color: transparent;
       border: none;
-      color: #b3b3b3;
+      color: var(--secondary-text-color);
       height: 32px;
       min-width: 32px;
       width: 32px;
@@ -184,11 +204,11 @@
       position: relative;
 
       path {
-        fill: #b3b3b3;
+        fill: var(--secondary-text-color);
       }
 
       &:hover path {
-        fill: #fff;
+        fill: var(--primary-text-color);
       }
     }
 

@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { ActiveContext } from '../../App';
 import { Link } from 'react-router-dom';
 import './index.css';
 
 function Sidebar() {
+  const { activeComponent, setActiveComponent } = useContext(ActiveContext);
+
   return (
     <div className="sidebar">
       <Link className="sidebar__logo" to="/">
@@ -16,7 +19,18 @@ function Sidebar() {
       </Link>
 
       <ul className="sidebar__links">
-        <li className="sidebar__links__link sidebar__links__link--active">
+        <li
+          className={
+            activeComponent === 'home'
+              ? 'sidebar__links__link sidebar__links__link--active'
+              : 'sidebar__links__link'
+          }
+          onClick={() => {
+            if (activeComponent !== 'home') {
+              setActiveComponent('home');
+            }
+          }}
+        >
           <Link to="/">
             <div className="icon">
               <svg
@@ -48,7 +62,18 @@ function Sidebar() {
             <span>Home</span>
           </Link>
         </li>
-        <li className="sidebar__links__link">
+        <li
+          className={
+            activeComponent === 'search'
+              ? 'sidebar__links__link sidebar__links__link--active'
+              : 'sidebar__links__link'
+          }
+          onClick={() => {
+            if (activeComponent !== 'search') {
+              setActiveComponent('search');
+            }
+          }}
+        >
           <Link to="/search">
             <div className="icon">
               <svg
@@ -60,7 +85,7 @@ function Sidebar() {
                 <path
                   d="M349.714 347.937l93.714 109.969-16.254 13.969-93.969-109.969q-48.508 36.825-109.207 36.825-36.826 0-70.476-14.349t-57.905-38.603-38.603-57.905-14.349-70.476 14.349-70.476 38.603-57.905 57.905-38.603 70.476-14.349 70.476 14.349 57.905 38.603 38.603 57.905 14.349 70.476q0 37.841-14.73 71.619t-40.889 58.921zM224 377.397q43.428 0 80.254-21.461t58.286-58.286 21.461-80.254-21.461-80.254-58.286-58.285-80.254-21.46-80.254 21.46-58.285 58.285-21.46 80.254 21.46 80.254 58.285 58.286 80.254 21.461z"
                   fill="currentColor"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                 ></path>
               </svg>
             </div>
@@ -80,9 +105,20 @@ function Sidebar() {
             <span>Search</span>
           </Link>
         </li>
-        <li className="sidebar__links__link">
+        <li
+          className={
+            activeComponent === 'playlists'
+              ? 'sidebar__links__link sidebar__links__link--active'
+              : 'sidebar__links__link'
+          }
+          onClick={() => {
+            if (activeComponent !== 'playlists') {
+              setActiveComponent('playlists');
+            }
+          }}
+        >
           <div>
-            <Link to="/collection">
+            <Link to="/collection/playlists">
               <div className="icon">
                 <svg
                   viewBox="0 0 512 512"
@@ -115,9 +151,20 @@ function Sidebar() {
         </li>
       </ul>
       <ul className="sidebar__playlists">
-        <li className="sidebar__playlists__link">
+        <li
+          className={
+            activeComponent === 'track'
+              ? 'sidebar__playlists__link sidebar__playlists__link--active'
+              : 'sidebar__playlists__link'
+          }
+          onClick={() => {
+            if (activeComponent !== 'track') {
+              setActiveComponent('track');
+            }
+          }}
+        >
           <Link to="/collection/tracks">
-            <div className="icon">
+            <div className="default-icon">
               <svg role="img" height="12" width="12" viewBox="0 0 16 16">
                 <path fill="none" d="M0 0h16v16H0z"></path>
                 <path
@@ -133,9 +180,20 @@ function Sidebar() {
       </ul>
 
       <ul className="sidebar__install">
-        <li className="sidebar__install__link">
+        <li
+          className={
+            activeComponent === 'install'
+              ? 'sidebar__install__link sidebar__install__link--active'
+              : 'sidebar__install__link'
+          }
+          onClick={() => {
+            if (activeComponent !== 'install') {
+              setActiveComponent('install');
+            }
+          }}
+        >
           <Link to="/download">
-            <div className="icon">
+            <div className="default-icon">
               <svg role="img" height="24" width="24" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"

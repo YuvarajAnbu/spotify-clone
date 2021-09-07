@@ -6,10 +6,30 @@
           box-sizing: border-box;
 }
 
+:root {
+  --background-noise: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=');
+}
+
+.dark-theme {
+  --logo-color: rgb(255, 255, 255);
+  --primary-background-color: #121212;
+  --secondary-background-color: #000;
+  --playbar-background-color: #181818;
+  --transparent-white-color: rgba(0, 0, 0, 0.7);
+  --transparent-black-color: rgba(225, 225, 225, 0.1);
+  --faded-background-color: #282828;
+  --primary-text-color: #fff;
+  --secondary-text-color: #b3b3b3;
+  --spotify-faded-color: #1db954;
+  --spotify-bright-color: #1ed760;
+  --slider-rail-color: #535353;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #121212;
-  color: white;
+  background-color: var(--primary-background-color) !important;
+  color: var(--primary-text-color);
+  overflow: hidden;
 }
 
 body p,
@@ -17,16 +37,26 @@ body span {
   font-size: 13px;
 }
 
+body ol,
+body ul {
+  list-style-type: none;
+}
+
+body a {
+  text-decoration: none;
+  color: currentColor;
+}
+
 body .ant-slider-rail {
-  background-color: #535353;
+  background-color: var(--slider-rail-color);
 }
 
 body .ant-slider-track {
-  background-color: #b3b3b3;
+  background-color: var(--secondary-text-color);
 }
 
 body .ant-slider:hover .ant-slider-track {
-  background-color: #1db954;
+  background-color: var(--spotify-faded-color);
 }
 
 body .ant-slider-handle {
@@ -38,12 +68,25 @@ body .ant-slider:hover .ant-slider-handle {
 }
 
 body .ant-slider:hover .ant-slider-rail {
-  background-color: #535353;
+  background-color: var(--slider-rail-color);
 }
 
 body .one-line {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.App {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.App .main {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  width: 100%;
+  height: calc(100vh - 90px);
 }
 /*# sourceMappingURL=App.css.map */

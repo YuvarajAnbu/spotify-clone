@@ -1,7 +1,8 @@
 .sidebar {
-  background-color: #000000;
+  background-color: var(--secondary-background-color);
   padding-top: 24px;
-  text-decoration: none;
+  min-width: 241px;
+  max-width: 241px;
   width: 241px;
   height: calc(100vh - 90px);
   position: relative;
@@ -11,37 +12,29 @@
           user-select: none;
 }
 
-.sidebar a {
-  text-decoration: none;
-  color: currentColor;
-}
-
 .sidebar__line {
   width: calc(100% - 48px);
   margin: 8px 24px;
   height: 1px;
-  background-color: #282828;
+  background-color: var(--faded-background-color);
 }
 
 .sidebar__logo {
-  color: white;
-  padding: 24px;
+  padding: 0 24px;
+  display: block;
 }
 
 .sidebar__logo svg {
+  color: var(--logo-color);
   height: 40px;
   max-width: 131px;
   width: 100%;
   margin-bottom: 18px;
 }
 
-.sidebar__links, .sidebar__playlists, .sidebar__install {
-  list-style-type: none;
-}
-
 .sidebar__links__link, .sidebar__playlists__link, .sidebar__install__link {
   padding: 0 8px;
-  color: #b3b3b3;
+  color: var(--secondary-text-color);
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
   -webkit-transition-property: color;
@@ -51,7 +44,7 @@
 }
 
 .sidebar__links__link:hover, .sidebar__playlists__link:hover, .sidebar__install__link:hover {
-  color: white;
+  color: var(--primary-text-color);
 }
 
 .sidebar__links__link a, .sidebar__playlists__link a, .sidebar__install__link a {
@@ -73,8 +66,11 @@
 }
 
 .sidebar__links__link a .icon,
+.sidebar__links__link a .default-icon,
 .sidebar__links__link a .active-icon, .sidebar__playlists__link a .icon,
+.sidebar__playlists__link a .default-icon,
 .sidebar__playlists__link a .active-icon, .sidebar__install__link a .icon,
+.sidebar__install__link a .default-icon,
 .sidebar__install__link a .active-icon {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -92,8 +88,8 @@
 }
 
 .sidebar__links__link--active a, .sidebar__playlists__link--active a, .sidebar__install__link--active a {
-  background-color: #282828;
-  color: white;
+  background-color: var(--faded-background-color);
+  color: var(--primary-text-color);
 }
 
 .sidebar__links__link--active a .icon, .sidebar__playlists__link--active a .icon, .sidebar__install__link--active a .icon {
@@ -111,13 +107,21 @@
 }
 
 .sidebar__playlists__link {
-  color: white;
+  color: var(--primary-text-color);
   opacity: 0.7;
   -webkit-transition: opacity 0.2s linear;
   transition: opacity 0.2s linear;
 }
 
-.sidebar__playlists__link a .icon {
+.sidebar__playlists__link--active {
+  opacity: 1;
+}
+
+.sidebar__playlists__link--active a {
+  background-color: transparent;
+}
+
+.sidebar__playlists__link a .default-icon {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -139,8 +143,9 @@
 
 .sidebar__install {
   position: absolute;
+  width: 100%;
   bottom: 0;
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 .sidebar__install svg {

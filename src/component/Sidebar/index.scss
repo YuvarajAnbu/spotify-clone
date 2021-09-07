@@ -1,29 +1,26 @@
 .sidebar {
-  background-color: #000000;
+  background-color: var(--secondary-background-color);
   padding-top: 24px;
-  text-decoration: none;
+  min-width: 241px;
+  max-width: 241px;
   width: 241px;
   height: calc(100vh - 90px);
   position: relative;
   user-select: none;
 
-  a {
-    text-decoration: none;
-    color: currentColor;
-  }
-
   &__line {
     width: calc(100% - 48px);
     margin: 8px 24px;
     height: 1px;
-    background-color: #282828;
+    background-color: var(--faded-background-color);
   }
 
   &__logo {
-    color: white;
-    padding: 24px;
+    padding: 0 24px;
+    display: block;
 
     svg {
+      color: var(--logo-color);
       height: 40px;
       max-width: 131px;
       width: 100%;
@@ -34,17 +31,15 @@
   &__links,
   &__playlists,
   &__install {
-    list-style-type: none;
-
     &__link {
       padding: 0 8px;
-      color: #b3b3b3;
+      color: var(--secondary-text-color);
       transition-duration: 0.2s;
       transition-property: color;
       transition-timing-function: linear;
 
       &:hover {
-        color: white;
+        color: var(--primary-text-color);
       }
 
       a {
@@ -61,6 +56,7 @@
         text-transform: capitalize;
 
         .icon,
+        .default-icon,
         .active-icon {
           display: flex;
           align-items: center;
@@ -74,8 +70,8 @@
 
       &--active {
         a {
-          background-color: #282828;
-          color: white;
+          background-color: var(--faded-background-color);
+          color: var(--primary-text-color);
 
           .icon {
             display: none;
@@ -93,11 +89,18 @@
     margin-top: 24px;
 
     &__link {
-      color: white;
+      color: var(--primary-text-color);
       opacity: 0.7;
       transition: opacity 0.2s linear;
+
+      &--active {
+        opacity: 1;
+        a {
+          background-color: transparent;
+        }
+      }
       a {
-        .icon {
+        .default-icon {
           display: flex;
           align-items: center;
           justify-content: center;
@@ -116,8 +119,9 @@
 
   &__install {
     position: absolute;
+    width: 100%;
     bottom: 0;
-    margin-bottom: 0;
+    margin-bottom: 5px;
 
     svg {
       padding: 2px;
