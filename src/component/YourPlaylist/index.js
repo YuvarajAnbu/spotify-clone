@@ -15,7 +15,7 @@ function YourPlaylist() {
   useEffect(() => {
     setActiveComponent('playlists');
     document.title = 'Spotify - Your Library';
-  }, []);
+  }, [setActiveComponent]);
 
   return <Album res={res} />;
 }

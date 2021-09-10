@@ -8,7 +8,7 @@ function Install() {
   useEffect(() => {
     setActiveComponent('install');
     document.title = 'Spotify - Download';
-  }, []);
+  }, [setActiveComponent]);
 
   return (
     <div className="install">

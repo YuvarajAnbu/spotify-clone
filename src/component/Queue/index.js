@@ -10,7 +10,7 @@ function Queue() {
   useEffect(() => {
     setActiveComponent('queue');
     document.title = 'Spotify - Play Queue';
-  }, []);
+  }, [setActiveComponent]);
 
   return (
     <div className="queue">

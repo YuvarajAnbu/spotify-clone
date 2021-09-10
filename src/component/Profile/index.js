@@ -11,10 +11,9 @@ function Profile() {
     color: '#524d49',
     name: user.username,
   };
-  console.log(user);
   useEffect(() => {
     document.title = `Spotify - ${res.name}`;
-  }, [user]);
+  }, [res.name]);
   return <Album res={res} />;
 }
 

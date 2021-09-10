@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ActiveContext } from '../../App.js';
 import HomeDefault from '../SmallComponents/HomeDefault/index.js';
@@ -32,10 +32,10 @@ function Home() {
   useEffect(() => {
     setActiveComponent('home');
     document.title = 'Spotify - Web Player';
-  }, []);
+  }, [setActiveComponent]);
 
-  const [arr1, setArr1] = useState(arr);
-  const [arr2, setArr2] = useState(arr);
+  const arr1 = arr;
+  const arr2 = arr;
 
   return (
     <div className="home">

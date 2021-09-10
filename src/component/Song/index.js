@@ -11,7 +11,7 @@ function Song() {
 
   useEffect(() => {
     document.title = `Spotify - ${res.name}`;
-  }, []);
+  }, [res.name]);
   return <Album res={res} />;
 }
 

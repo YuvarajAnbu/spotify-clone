@@ -17,6 +17,7 @@ import Artist from './component/Artist';
 import Profile from './component/Profile';
 import Queue from './component/Queue';
 import Install from './component/Install';
+import ScrollToTop from './ScrollToTop';
 
 export const ActiveContext = createContext();
 export const WindowSizeContext = createContext();
@@ -26,7 +27,7 @@ export const PopupContext = createContext();
 export const UserContext = createContext();
 
 function App() {
-  const [theme, setTheme] = useState('dark-theme');
+  const theme = 'dark-theme';
   // const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [scrollTop, setScollTop] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -114,6 +115,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop />
         <ActiveContext.Provider value={{ activeComponent, setActiveComponent }}>
           {/* <WindowSizeContext.Provider value={windowSize}> */}
           <ScrollTopContext.Provider value={scrollTop}>

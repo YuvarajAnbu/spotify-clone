@@ -15,7 +15,7 @@ function LikedSongs() {
   useEffect(() => {
     setActiveComponent('liked');
     document.title = 'Spotify - Liked Songs';
-  }, []);
+  }, [setActiveComponent]);
 
   return <Album res={res} />;
 }

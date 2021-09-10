@@ -136,7 +136,6 @@ function Header() {
             </form>
           </div>
         )}
-        {console.log(isLoggedIn)}
         {isLoggedIn && user.username ? (
           <div className="header__profile">
             <Popover

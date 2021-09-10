@@ -87,7 +87,6 @@ body .one-line {
 }
 
 .App .main-view {
-  scroll-behavior: smooth;
   overflow-x: hidden;
   scrollbar-width: thin;
   position: relative;

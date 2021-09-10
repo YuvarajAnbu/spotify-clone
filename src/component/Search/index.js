@@ -52,7 +52,7 @@ function Search() {
   useEffect(() => {
     setActiveComponent('search');
     document.title = 'Spotify - Search';
-  }, []);
+  }, [setActiveComponent]);
 
   return (
     <div className="search">
