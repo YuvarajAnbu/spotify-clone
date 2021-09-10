@@ -1,15 +1,17 @@
 .sidebar {
   background-color: var(--secondary-background-color);
   padding-top: 24px;
-  min-width: 241px;
-  max-width: 241px;
-  width: 241px;
-  height: calc(100vh - 90px);
+  min-width: var(--sidebar-width);
+  max-width: var(--sidebar-width);
+  width: var(--sidebar-width);
+  height: calc(100vh - var(--playbar-height));
   position: relative;
+  z-index: 5;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  overflow-x: hidden;
 }
 
 .sidebar__line {
@@ -26,7 +28,7 @@
 
 .sidebar__logo svg {
   color: var(--logo-color);
-  height: 40px;
+  height: 30px;
   max-width: 131px;
   width: 100%;
   margin-bottom: 18px;
@@ -63,6 +65,7 @@
   cursor: pointer;
   height: 40px;
   text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .sidebar__links__link a .icon,
@@ -81,6 +84,8 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  width: 24px;
+  height: 24px;
 }
 
 .sidebar__links__link a .active-icon, .sidebar__playlists__link a .active-icon, .sidebar__install__link a .active-icon {
@@ -100,6 +105,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.sidebar .mobile {
+  display: none;
 }
 
 .sidebar__playlists {
@@ -150,5 +159,55 @@
 
 .sidebar__install svg {
   padding: 2px;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar {
+    padding: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 68px;
+  }
+  .sidebar__logo, .sidebar__playlists, .sidebar__install {
+    display: none;
+  }
+  .sidebar__links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    margin-bottom: 0;
+  }
+  .sidebar__links .mobile {
+    display: initial;
+  }
+  .sidebar__links__link a {
+    padding: 10px;
+    border-radius: 0px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    gap: 0;
+    height: 100%;
+    background-color: transparent;
+  }
+  .sidebar__links__link a .icon,
+  .sidebar__links__link a .default-icon,
+  .sidebar__links__link a .active-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .sidebar__links__link a span {
+    margin: none;
+    margin-top: 3px;
+    font-size: 10px;
+    font-weight: 600;
+  }
 }
 /*# sourceMappingURL=index.css.map */

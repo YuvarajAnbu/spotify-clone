@@ -1,1 +1,264 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+.home {
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+}
+
+.home__top-background {
+  background-color: #5028f0;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0, 0, 0.6)), to(#121212)), var(--background-noise);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise);
+  height: 332px;
+  margin-top: -60px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  -webkit-transition: background 1s ease;
+  transition: background 1s ease;
+  z-index: -1;
+}
+
+.home__section {
+  grid-gap: 24px;
+  display: -ms-grid;
+  display: grid;
+  padding-top: 24px;
+  padding: 24px 32px 32px;
+}
+
+.home__section__top-section {
+  margin-bottom: 16px;
+}
+
+.home__section__top-section h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: currentColor;
+  margin-bottom: 16px;
+}
+
+.home__section__top-section__songs {
+  display: -ms-grid;
+  display: grid;
+  grid-auto-rows: auto;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  grid-gap: 24px;
+  row-gap: 16px;
+  -ms-grid-columns: (minmax(270px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+}
+
+.home__section__top-section__songs__song {
+  -webkit-box-flex: 0;
+      -ms-flex-positive: 0;
+          flex-grow: 0;
+  -ms-flex-preferred-size: 25%;
+      flex-basis: 25%;
+  position: relative;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.home__section__top-section__songs__song:hover .home__section__top-section__songs__song__desc {
+  background-color: var(--transparent-black-color-hover);
+}
+
+.home__section__top-section__songs__song__desc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 4px;
+  height: 80px;
+  position: relative;
+  -webkit-transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  background-color: var(--transparent-black-color);
+}
+
+.home__section__top-section__songs__song__desc__image-container {
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+}
+
+.home__section__top-section__songs__song__desc__image-container__image {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  padding-bottom: 100%;
+  position: relative;
+}
+
+.home__section__top-section__songs__song__desc__image-container__image img {
+  border-radius: 4px 0 0 4px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.home__section__top-section__songs__song__desc__image-container__image svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.home__section__top-section__songs__song__desc__image-container__image svg path {
+  fill: var(--primary-text-color);
+}
+
+.home__section__top-section__songs__song__desc p {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: normal;
+  text-transform: capitalize;
+  padding: 16px;
+  white-space: normal;
+  margin: 0;
+  margin-right: 50px;
+}
+
+.home__section__top-section__songs__song button {
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 16px;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
+  background-color: var(--spotify-faded-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.home__section__top-section__songs__song button:hover {
+  -webkit-transform: translateY(-50%) scale(1.06);
+          transform: translateY(-50%) scale(1.06);
+}
+
+.home__section__top-section__songs__song .active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.home__section__top-section__songs__song:hover button {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.home__section__default-section {
+  margin-bottom: 16px;
+}
+
+.home__section__default-section__title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 16px;
+}
+
+.home__section__default-section__title a:hover {
+  text-decoration: underline;
+}
+
+.home__section__default-section__title h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 28px;
+  text-transform: none;
+  color: currentColor;
+  margin: 0;
+}
+
+.home__section__default-section__title span {
+  margin-left: 8px;
+  color: var(--secondary-text-color);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 16px;
+}
+
+@media screen and (max-width: 1767px) {
+  .home__section__top-section__songs__song:nth-child(9), .home__section__top-section__songs__song:nth-child(10) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1473px) {
+  .home__section__top-section__songs__song:nth-child(8), .home__section__top-section__songs__song:nth-child(7) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1179px) {
+  .home__section__top-section__songs__song:nth-child(6), .home__section__top-section__songs__song:nth-child(5) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .home__section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .home__section__top-section h2 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .home__section__default-section__title h2 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .home__section__default-section__title span {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .home__section__top-section__songs__song__desc p {
+    margin-right: 0;
+  }
+  .home__section__top-section__songs__song button {
+    display: none;
+  }
+}
+/*# sourceMappingURL=index.css.map */

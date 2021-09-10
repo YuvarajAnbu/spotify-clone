@@ -1,0 +1,231 @@
+.album {
+  transform: translateY(-60px);
+  &__info {
+    height: 30vh;
+    max-height: 500px;
+    min-height: 340px;
+    display: flex;
+    align-items: flex-end;
+    max-width: none;
+    overflow: hidden;
+    padding: 0 32px;
+    padding-bottom: 24px;
+    position: relative;
+    color: var(--primary-text-color);
+    user-select: none;
+
+    &__background,
+    &__background-noise {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__background-noise {
+      background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%),
+        var(--background-noise);
+    }
+
+    &__image-container {
+      position: relative;
+      height: 232px;
+      min-width: 232px;
+      width: 232px;
+      margin-inline-end: 24px;
+
+      &__image {
+        border-radius: 4px;
+        width: 100%;
+        background-color: #282828;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        padding-bottom: 100%;
+        position: relative;
+        img {
+          border-radius: inherit;
+          display: block;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+        }
+
+        svg {
+          position: absolute;
+          width: 70%;
+          height: 70%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          path {
+            fill: var(--secondary-text-color);
+          }
+        }
+      }
+    }
+
+    &__desc {
+      position: relative;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      text-transform: capitalize;
+
+      h1 {
+        color: currentColor;
+        padding: 0.08em 0px;
+        font-size: 90px;
+        margin-bottom: 0;
+        font-weight: 700;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        white-space: unset;
+        letter-spacing: -0.049em;
+        line-height: 85px;
+        -webkit-box-orient: vertical;
+      }
+
+      p {
+        color: var(--secondary-text-color);
+        font-weight: 600;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &__background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%),
+      var(--background-noise);
+    height: 232px;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &__play {
+    padding: 24px 32px;
+    button {
+      width: 56px;
+      height: 56px;
+      margin-right: 32px;
+      background-color: var(--spotify-faded-color);
+      color: var(--primary-text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 33ms cubic-bezier(0.3, 0, 0, 1);
+      border: 0;
+      border-radius: 500px;
+
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      &:hover {
+        transform: scale(1.06);
+      }
+    }
+  }
+
+  &__songs {
+    padding: 0 32px;
+  }
+}
+
+.artist {
+  .album__info {
+    &__image-container {
+      display: none;
+    }
+
+    &__background {
+      background-repeat: no-repeat;
+      background-position: top;
+      background-size: cover;
+    }
+  }
+}
+
+.profile {
+  .album__info__image-container {
+    &__image {
+      border-radius: 500px;
+    }
+  }
+}
+
+@media screen and (max-width: 1480px) {
+  .album {
+    &__info {
+      &__desc {
+        h1 {
+          font-weight: 600;
+          font-size: 70px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .album {
+    &__info {
+      &__image-container {
+        height: 192px;
+        min-width: 192px;
+        width: 192px;
+      }
+
+      &__desc {
+        h1 {
+          font-weight: 600;
+          font-size: 70px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .album {
+    &__info {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+
+      &__image-container {
+        width: 150px;
+        height: 150px;
+        min-width: 150px;
+      }
+
+      &__desc {
+        text-align: center;
+        h1 {
+          font-size: 40px;
+          line-height: 55px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .album {
+    &__play {
+      button {
+        width: 46px;
+        height: 46px;
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }
+}

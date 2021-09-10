@@ -1,0 +1,19 @@
+.queue {
+  padding: 16px 32px;
+  position: relative;
+  display: grid;
+
+  &__no {
+    color: var(--primary-text-color);
+    grid-column: 1/-1;
+    padding-top: 25%;
+    text-align: center;
+    h1 {
+      color: currentColor;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.049em;
+      line-height: 28px;
+    }
+  }
+}

@@ -8,28 +8,27 @@
 
 :root {
   --background-noise: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=');
-}
-
-.dark-theme {
   --logo-color: rgb(255, 255, 255);
   --primary-background-color: #121212;
   --secondary-background-color: #000;
   --playbar-background-color: #181818;
   --transparent-white-color: rgba(0, 0, 0, 0.7);
   --transparent-black-color: rgba(225, 225, 225, 0.1);
+  --transparent-black-color-hover: rgba(225, 225, 225, 0.2);
   --faded-background-color: #282828;
   --primary-text-color: #fff;
   --secondary-text-color: #b3b3b3;
   --spotify-faded-color: #1db954;
   --spotify-bright-color: #1ed760;
   --slider-rail-color: #535353;
+  --sidebar-width: 241px;
+  --playbar-height: 90px;
 }
 
 body {
   font-family: 'Montserrat', sans-serif;
   background-color: var(--primary-background-color) !important;
   color: var(--primary-text-color);
-  overflow: hidden;
 }
 
 body p,
@@ -44,6 +43,10 @@ body ul {
 
 body a {
   text-decoration: none;
+  color: currentColor;
+}
+
+body a:hover, body a:active {
   color: currentColor;
 }
 
@@ -83,10 +86,136 @@ body .one-line {
   display: flex;
 }
 
-.App .main {
-  overflow-y: auto;
+.App .main-view {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  position: relative;
   width: 100%;
+  max-width: 1955px;
   height: calc(100vh - 90px);
+}
+
+.popup {
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.popup__container {
+  padding: 50px;
+  border-radius: 8px;
+  min-width: 500px;
+  background-color: var(--primary-background-color);
+  -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.popup__container h1 {
+  color: currentColor;
+  font-size: 25px;
+  font-weight: 600;
+  border-bottom: 1px solid currentColor;
+  margin-bottom: 20px;
+}
+
+.popup__container .ant-alert-error {
+  background-color: #2a1215;
+  border: 1px solid #58181c;
+  color: #fff;
+}
+
+.popup__container .ant-alert-message {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.popup__container .ant-alert-close-icon .anticon-close {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.popup__container form {
+  margin-top: 30px;
+}
+
+.popup__container__input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.popup__container__input-container input {
+  font-size: 13px;
+}
+
+.popup__container__input-container label {
+  color: currentColor;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.popup__container__input-container label span {
+  margin-left: 5px;
+  color: #a61d24;
+}
+
+.popup__container .btn {
+  padding: 10px 25px;
+  border: none;
+  font-weight: 600;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-left: auto;
+  text-transform: capitalize;
+  float: right;
+  cursor: pointer;
+  background-color: var(--spotify-faded-color);
+}
+
+.popup__hover-box {
+  background-color: rgba(0, 0, 0, 0.548);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .dark-theme {
+    --sidebar-width: 100vw;
+  }
+  .App .main-view {
+    height: calc(100vh - var(--playbar-height) - 65px);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .popup__container {
+    padding: 30px;
+    width: 90%;
+    min-width: 200px;
+  }
+  .popup__container h1 {
+    font-size: 20px;
+  }
 }
 /*# sourceMappingURL=App.css.map */

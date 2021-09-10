@@ -1,0 +1,22 @@
+.queue {
+  padding: 16px 32px;
+  position: relative;
+  display: -ms-grid;
+  display: grid;
+}
+
+.queue__no {
+  color: var(--primary-text-color);
+  grid-column: 1/-1;
+  padding-top: 25%;
+  text-align: center;
+}
+
+.queue__no h1 {
+  color: currentColor;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.049em;
+  line-height: 28px;
+}
+/*# sourceMappingURL=index.css.map */
