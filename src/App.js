@@ -145,32 +145,42 @@ function App() {
                         >
                           <Header />
                           <Switch>
-                            <Route component={Home} path="/" exact />
-                            <Route component={Search} path="/search" exact />
-                            <Route
-                              component={Results}
-                              path="/search/:id"
-                              exact
-                            />
-                            <Route
-                              component={YourPlaylist}
-                              path="/collection"
-                              exact
-                            />
-                            <Route
-                              component={LikedSongs}
-                              path="/collection/tracks"
-                              exact
-                            />
-                            <Route component={Song} path="/album/:id" exact />
-                            <Route
-                              component={Artist}
-                              path="/artist/:id"
-                              exact
-                            />
-                            <Route component={Profile} path="/user/:id" exact />
-                            <Route component={Queue} path="/queue" exact />
-                            <Route component={Install} path="/download" exact />
+                            <Suspense fallback={<div></div>}>
+                              <Route component={Home} path="/" exact />
+                              <Route component={Search} path="/search" exact />
+                              <Route
+                                component={Results}
+                                path="/search/:id"
+                                exact
+                              />
+                              <Route
+                                component={YourPlaylist}
+                                path="/collection"
+                                exact
+                              />
+                              <Route
+                                component={LikedSongs}
+                                path="/collection/tracks"
+                                exact
+                              />
+                              <Route component={Song} path="/album/:id" exact />
+                              <Route
+                                component={Artist}
+                                path="/artist/:id"
+                                exact
+                              />
+                              <Route
+                                component={Profile}
+                                path="/user/:id"
+                                exact
+                              />
+                              <Route component={Queue} path="/queue" exact />
+                              <Route
+                                component={Install}
+                                path="/download"
+                                exact
+                              />
+                            </Suspense>
                           </Switch>
                         </div>
                       </UserContext.Provider>
