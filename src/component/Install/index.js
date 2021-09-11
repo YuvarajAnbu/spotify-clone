@@ -1,6 +1,7 @@
 import { useEffect, useContext } from 'react';
 import './index.css';
 import { ActiveContext } from '../../App';
+import ScrollToTop from '../../ScrollToTop';
 
 function Install() {
   const { setActiveComponent } = useContext(ActiveContext);
@@ -12,6 +13,7 @@ function Install() {
 
   return (
     <div className="install">
+      <ScrollToTop />
       <img
         src="https://open.scdn.co/cdn/images/devices/mac.5f2975e9.png"
         alt=""

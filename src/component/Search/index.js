@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useContext } from 'react';
 import './index.css';
 import { ActiveContext } from '../../App';
+import ScrollToTop from '../../ScrollToTop';
 
 function Search() {
   const arr = [
@@ -56,6 +57,7 @@ function Search() {
 
   return (
     <div className="search">
+      <ScrollToTop />
       <div className="search__genres">
         <h2>Browse all</h2>
         <div className="search__genres__container">

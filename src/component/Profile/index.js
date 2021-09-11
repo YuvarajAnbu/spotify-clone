@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { UserContext } from '../../App';
+import ScrollToTop from '../../ScrollToTop';
 import Album from '../Album';
 
 function Profile() {
@@ -14,7 +15,12 @@ function Profile() {
   useEffect(() => {
     document.title = `Spotify - ${res.name}`;
   }, [res.name]);
-  return <Album res={res} />;
+  return (
+    <>
+      <ScrollToTop />
+      <Album res={res} />
+    </>
+  );
 }
 
 export default Profile;

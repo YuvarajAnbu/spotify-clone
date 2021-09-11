@@ -70,6 +70,7 @@
   grid-column: 1/-1;
   padding-top: 25%;
   text-align: center;
+  display: none;
 }
 
 .search__mobile-text h1 {

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { ActiveContext } from '../../App';
+import ScrollToTop from '../../ScrollToTop';
 import Album from '../Album';
 
 function LikedSongs() {
@@ -17,7 +18,12 @@ function LikedSongs() {
     document.title = 'Spotify - Liked Songs';
   }, [setActiveComponent]);
 
-  return <Album res={res} />;
+  return (
+    <>
+      <ScrollToTop />
+      <Album res={res} />
+    </>
+  );
 }
 
 export default LikedSongs;

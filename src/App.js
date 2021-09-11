@@ -1,23 +1,30 @@
-import { useEffect, useState, createContext } from 'react';
+import {
+  useEffect,
+  useState,
+  createContext,
+  lazy,
+  Suspense,
+  Fragment,
+} from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import 'antd/dist/antd.css';
 import { Alert, Input } from 'antd';
 import './App.css';
-import Playbar from './component/Playbar';
-import Sidebar from './component/Sidebar';
-import Header from './component/header';
-import Home from './component/Home';
-import Search from './component/Search';
-import Results from './component/Results';
-import YourPlaylist from './component/YourPlaylist';
-import LikedSongs from './component/LikedSongs';
-import Song from './component/Song';
-import Artist from './component/Artist';
-import Profile from './component/Profile';
-import Queue from './component/Queue';
-import Install from './component/Install';
-import ScrollToTop from './ScrollToTop';
+import ErrorBoundary from './ErrorBoundary';
+
+const Playbar = lazy(() => import('./component/Playbar'));
+const Sidebar = lazy(() => import('./component/Sidebar'));
+const Header = lazy(() => import('./component/header'));
+const Home = lazy(() => import('./component/Home'));
+const Search = lazy(() => import('./component/Search'));
+const Results = lazy(() => import('./component/Results'));
+const YourPlaylist = lazy(() => import('./component/YourPlaylist'));
+const LikedSongs = lazy(() => import('./component/LikedSongs'));
+const Song = lazy(() => import('./component/Song'));
+const Artist = lazy(() => import('./component/Artist'));
+const Profile = lazy(() => import('./component/Profile'));
+const Queue = lazy(() => import('./component/Queue'));
+const Install = lazy(() => import('./component/Install'));
 
 export const ActiveContext = createContext();
 export const WindowSizeContext = createContext();
@@ -115,49 +122,66 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <ScrollToTop />
-        <ActiveContext.Provider value={{ activeComponent, setActiveComponent }}>
-          {/* <WindowSizeContext.Provider value={windowSize}> */}
-          <ScrollTopContext.Provider value={scrollTop}>
-            <IsLoggedInContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-              <PopupContext.Provider value={{ popup, setPopup }}>
-                <UserContext.Provider value={{ user, setUser }}>
-                  <Sidebar />
-                  <Playbar />
-                  <div
-                    className="main-view"
-                    onScroll={(e) => {
-                      setScollTop(e.target.scrollTop);
-                    }}
+        <Fragment>
+          <ErrorBoundary>
+            <Suspense fallback={<div></div>}>
+              <ActiveContext.Provider
+                value={{ activeComponent, setActiveComponent }}
+              >
+                {/* <WindowSizeContext.Provider value={windowSize}> */}
+                <ScrollTopContext.Provider value={scrollTop}>
+                  <IsLoggedInContext.Provider
+                    value={{ isLoggedIn, setIsLoggedIn }}
                   >
-                    <Header />
-                    <Switch>
-                      <Route component={Home} path="/" exact />
-                      <Route component={Search} path="/search" exact />
-                      <Route component={Results} path="/search/:id" exact />
-                      <Route
-                        component={YourPlaylist}
-                        path="/collection"
-                        exact
-                      />
-                      <Route
-                        component={LikedSongs}
-                        path="/collection/tracks"
-                        exact
-                      />
-                      <Route component={Song} path="/album/:id" exact />
-                      <Route component={Artist} path="/artist/:id" exact />
-                      <Route component={Profile} path="/user/:id" exact />
-                      <Route component={Queue} path="/queue" exact />
-                      <Route component={Install} path="/download" exact />
-                    </Switch>
-                  </div>
-                </UserContext.Provider>
-              </PopupContext.Provider>
-            </IsLoggedInContext.Provider>
-          </ScrollTopContext.Provider>
-          {/* </WindowSizeContext.Provider> */}
-        </ActiveContext.Provider>
+                    <PopupContext.Provider value={{ popup, setPopup }}>
+                      <UserContext.Provider value={{ user, setUser }}>
+                        <Sidebar />
+                        <Playbar />
+                        <div
+                          className="main-view"
+                          onScroll={(e) => {
+                            setScollTop(e.target.scrollTop);
+                          }}
+                        >
+                          <Header />
+                          <Switch>
+                            <Route component={Home} path="/" exact />
+                            <Route component={Search} path="/search" exact />
+                            <Route
+                              component={Results}
+                              path="/search/:id"
+                              exact
+                            />
+                            <Route
+                              component={YourPlaylist}
+                              path="/collection"
+                              exact
+                            />
+                            <Route
+                              component={LikedSongs}
+                              path="/collection/tracks"
+                              exact
+                            />
+                            <Route component={Song} path="/album/:id" exact />
+                            <Route
+                              component={Artist}
+                              path="/artist/:id"
+                              exact
+                            />
+                            <Route component={Profile} path="/user/:id" exact />
+                            <Route component={Queue} path="/queue" exact />
+                            <Route component={Install} path="/download" exact />
+                          </Switch>
+                        </div>
+                      </UserContext.Provider>
+                    </PopupContext.Provider>
+                  </IsLoggedInContext.Provider>
+                </ScrollTopContext.Provider>
+                {/* </WindowSizeContext.Provider> */}
+              </ActiveContext.Provider>
+            </Suspense>
+          </ErrorBoundary>
+        </Fragment>
       </Router>
 
       {popup !== '' && (

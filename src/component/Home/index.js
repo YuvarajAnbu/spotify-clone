@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ActiveContext } from '../../App.js';
 import HomeDefault from '../SmallComponents/HomeDefault/index.js';
 import './index.css';
+import ScrollToTop from '../../ScrollToTop';
 
 function Home() {
   const arr = [
@@ -39,6 +40,7 @@ function Home() {
 
   return (
     <div className="home">
+      <ScrollToTop />
       <div className="home__top-background"></div>
 
       <div className="home__section">

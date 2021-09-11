@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ScrollToTop from '../../ScrollToTop.js';
 import HomeDefault from '../SmallComponents/HomeDefault/index.js';
 import './index.css';
 
@@ -28,6 +29,7 @@ function Results() {
 
   return (
     <div className="results">
+      <ScrollToTop />
       <div className="results__section">
         {/* <div className="results__section__no-results">
           <h1>No results found for "dfgdfgdfgseefsdfsd"</h1>

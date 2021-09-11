@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import ScrollToTop from '../../ScrollToTop';
 import Album from '../Album';
 
 function Artist() {
@@ -12,7 +13,12 @@ function Artist() {
   useEffect(() => {
     document.title = `Spotify - ${res.name}`;
   }, [res.name]);
-  return <Album res={res} />;
+  return (
+    <>
+      <ScrollToTop />
+      <Album res={res} />
+    </>
+  );
 }
 
 export default Artist;
