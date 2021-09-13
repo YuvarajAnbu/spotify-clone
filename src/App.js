@@ -5,6 +5,7 @@ import {
   lazy,
   Suspense,
   Fragment,
+  useRef,
 } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import 'antd/dist/antd.css';
@@ -32,6 +33,7 @@ export const ScrollTopContext = createContext();
 export const IsLoggedInContext = createContext();
 export const PopupContext = createContext();
 export const UserContext = createContext();
+export const AudioContext = createContext();
 
 function App() {
   const theme = 'dark-theme';
@@ -48,21 +50,56 @@ function App() {
   });
   const [user, setUser] = useState({});
   const [alert, setAlert] = useState('');
+  const [currentAudio, setCurrentAudio] = useState(
+    'https://res.cloudinary.com/xander-ecommerce/video/upload/v1631346908/No_lie_Feel_your_eyes_they_all_over_me_Sean_Paul_-_No_Lie_ft._Dua_Lipa_tdomfb.mp3'
+  );
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const [audioDuration, setAudioDuration] = useState(0);
+  const [audioCurrentTime, setAudioCurrentTime] = useState(0);
+  const [audioVolume, setAudioVolume] = useState(0.5);
+  const [audioMuted, setAudioMuted] = useState(false);
+
+  //audio
+  const audio = useRef(null);
+
+  const audioPlay = () => {
+    setIsAudioPlaying(true);
+    audio.current.play();
+  };
+
+  const audioPause = () => {
+    setIsAudioPlaying(false);
+    audio.current.pause();
+  };
+
+  const audioChangeCurrentTime = (e) => {
+    audio.current.currentTime = e;
+  };
+
+  const audioChangeVolume = (e) => {
+    setAudioVolume(e);
+    audio.current.volume = e;
+  };
+
+  const audioMute = (e) => {
+    setAudioMuted(e);
+    audio.current.muted = e;
+  };
+
+  useEffect(() => {
+    audio.current.src = currentAudio;
+  }, [currentAudio]);
 
   useEffect(() => {
     document.querySelector('body').className = theme;
   }, [theme]);
 
-  // useLayoutEffect(() => {
-  //   function updateSize() {
-  //     setWindowSize(window.innerWidth);
-  //   }
-  //   window.addEventListener('resize', updateSize);
-  //   updateSize();
-  //   return () => window.removeEventListener('resize', updateSize);
-  // }, []);
-
   useEffect(() => {
+    // setTimeout(() => {
+    //   console.log(1);
+    //   audio.current.currentTime = 230.5;
+    // }, 10000);
+
     const userArr = localStorage.getItem('user');
     const isLogged = localStorage.getItem('isLogged');
     if (!isLogged) {
@@ -121,7 +158,22 @@ function App() {
 
   return (
     <div className="App">
+      <audio
+        ref={audio}
+        onTimeUpdate={(e) => {
+          setAudioCurrentTime(e.target.currentTime);
+        }}
+        onCanPlay={(e) => {
+          setAudioDuration(e.target.duration);
+        }}
+        onEnded={(e) => {
+          audioPause();
+          setAudioCurrentTime(0);
+          console.log(e.target);
+        }}
+      />
       <Router>
+        {console.log(2)}
         <Fragment>
           <ErrorBoundary>
             <Suspense fallback={<div></div>}>
@@ -129,64 +181,64 @@ function App() {
                 value={{ activeComponent, setActiveComponent }}
               >
                 {/* <WindowSizeContext.Provider value={windowSize}> */}
-                <ScrollTopContext.Provider value={scrollTop}>
-                  <IsLoggedInContext.Provider
-                    value={{ isLoggedIn, setIsLoggedIn }}
-                  >
-                    <PopupContext.Provider value={{ popup, setPopup }}>
-                      <UserContext.Provider value={{ user, setUser }}>
-                        <Sidebar />
-                        <Playbar />
-                        <div
-                          className="main-view"
-                          onScroll={(e) => {
-                            setScollTop(e.target.scrollTop);
-                          }}
-                        >
+                <IsLoggedInContext.Provider
+                  value={{ isLoggedIn, setIsLoggedIn }}
+                >
+                  <UserContext.Provider value={{ user, setUser }}>
+                    <Sidebar />
+                    <AudioContext.Provider
+                      value={{
+                        isAudioPlaying,
+                        audioPause,
+                        audioPlay,
+                        audioDuration,
+                        audioCurrentTime,
+                        audioChangeCurrentTime,
+                        audioVolume,
+                        audioChangeVolume,
+                        audioMuted,
+                        setAudioMuted,
+                        audioMute,
+                      }}
+                    >
+                      <Playbar />
+                    </AudioContext.Provider>
+                    <div
+                      className="main-view"
+                      onScroll={(e) => {
+                        setScollTop(e.target.scrollTop);
+                      }}
+                    >
+                      <ScrollTopContext.Provider value={scrollTop}>
+                        <PopupContext.Provider value={{ popup, setPopup }}>
                           <Header />
-                          <Switch>
-                            <Suspense fallback={<div></div>}>
-                              <Route component={Home} path="/" exact />
-                              <Route component={Search} path="/search" exact />
-                              <Route
-                                component={Results}
-                                path="/search/:id"
-                                exact
-                              />
-                              <Route
-                                component={YourPlaylist}
-                                path="/collection"
-                                exact
-                              />
-                              <Route
-                                component={LikedSongs}
-                                path="/collection/tracks"
-                                exact
-                              />
-                              <Route component={Song} path="/album/:id" exact />
-                              <Route
-                                component={Artist}
-                                path="/artist/:id"
-                                exact
-                              />
-                              <Route
-                                component={Profile}
-                                path="/user/:id"
-                                exact
-                              />
-                              <Route component={Queue} path="/queue" exact />
-                              <Route
-                                component={Install}
-                                path="/download"
-                                exact
-                              />
-                            </Suspense>
-                          </Switch>
-                        </div>
-                      </UserContext.Provider>
-                    </PopupContext.Provider>
-                  </IsLoggedInContext.Provider>
-                </ScrollTopContext.Provider>
+                        </PopupContext.Provider>
+                      </ScrollTopContext.Provider>
+                      <Switch>
+                        <Suspense fallback={<div></div>}>
+                          <Route component={Home} path="/" exact />
+                          <Route component={Search} path="/search" exact />
+                          <Route component={Results} path="/search/:id" exact />
+                          <Route
+                            component={YourPlaylist}
+                            path="/collection"
+                            exact
+                          />
+                          <Route
+                            component={LikedSongs}
+                            path="/collection/tracks"
+                            exact
+                          />
+                          <Route component={Song} path="/album/:id" exact />
+                          <Route component={Artist} path="/artist/:id" exact />
+                          <Route component={Profile} path="/user/:id" exact />
+                          <Route component={Queue} path="/queue" exact />
+                          <Route component={Install} path="/download" exact />
+                        </Suspense>
+                      </Switch>
+                    </div>
+                  </UserContext.Provider>
+                </IsLoggedInContext.Provider>
                 {/* </WindowSizeContext.Provider> */}
               </ActiveContext.Provider>
             </Suspense>

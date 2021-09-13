@@ -1,16 +1,45 @@
 import { Slider } from 'antd';
 import { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { ActiveContext } from '../../App';
+import { useEffect } from 'react/cjs/react.development';
+import { ActiveContext, AudioContext } from '../../App';
 import './index.css';
+import ReactSlider from 'react-slider';
 
 function Playbar() {
   let history = useHistory();
 
   const { activeComponent } = useContext(ActiveContext);
+  const {
+    isAudioPlaying,
+    audioPlay,
+    audioPause,
+    audioDuration,
+    audioCurrentTime,
+    audioChangeCurrentTime,
+    audioVolume,
+    audioChangeVolume,
+    audioMuted,
+    setAudioMuted,
+    audioMute,
+  } = useContext(AudioContext);
 
   //pop over
   const [isOpen, setIsOpen] = useState(false);
+
+  const fmtMSS = (s) => {
+    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
+  };
+
+  const [sliderValue, setSliderValue] = useState(0);
+
+  const [isSliderChanging, setIsSliderChanging] = useState(false);
+
+  useEffect(() => {
+    if (!isSliderChanging) {
+      setSliderValue(audioCurrentTime);
+    }
+  }, [audioCurrentTime, isSliderChanging]);
 
   return (
     <div className={isOpen ? 'playbar-container open' : 'playbar-container'}>
@@ -99,18 +128,31 @@ function Playbar() {
               </svg>
             </button>
 
-            <button type="button" className="play">
-              {/* <svg role="img" height="16" width="16" viewBox="0 0 16 16">
-                <path className="a" fill="none" d="M0 0h16v16H0z"></path>
-                <path
-                  className="b"
-                  fill="#ffffff"
-                  d="M3 2h3v12H3zm7 0h3v12h-3z"
-                ></path>
-              </svg> */}
-              <svg role="img" height="16" width="16" viewBox="0 0 16 16">
-                <path className="b" d="M4.018 14L14.41 8 4.018 2z"></path>
-              </svg>
+            <button
+              type="button"
+              className="play"
+              onClick={() => {
+                if (isAudioPlaying) {
+                  audioPause();
+                } else {
+                  audioPlay();
+                }
+              }}
+            >
+              {isAudioPlaying ? (
+                <svg role="img" height="16" width="16" viewBox="0 0 16 16">
+                  <path className="a" fill="none" d="M0 0h16v16H0z"></path>
+                  <path
+                    className="b"
+                    fill="#ffffff"
+                    d="M3 2h3v12H3zm7 0h3v12h-3z"
+                  ></path>
+                </svg>
+              ) : (
+                <svg role="img" height="16" width="16" viewBox="0 0 16 16">
+                  <path className="b" d="M4.018 14L14.41 8 4.018 2z"></path>
+                </svg>
+              )}
             </button>
 
             <button type="button" className="next">
@@ -134,9 +176,44 @@ function Playbar() {
           </div>
 
           <div className="playbar__controls__slider">
-            <span>2:04</span>
-            <Slider
-              max={420}
+            <span>{fmtMSS(sliderValue)}</span>
+
+            <input
+              className="progressBar"
+              style={{
+                '--seek-before-width': `${
+                  (sliderValue / audioDuration) * 100
+                }%`,
+              }}
+              type="range"
+              value={sliderValue}
+              max={audioDuration}
+              onChange={(e) => {
+                setIsSliderChanging(true);
+                setSliderValue(e.target.value);
+              }}
+              onMouseUp={(e) => {
+                setSliderValue(e.target.value);
+                audioChangeCurrentTime(e.target.value);
+                setTimeout(() => {
+                  setIsSliderChanging(false);
+                }, 1000);
+              }}
+            />
+            {/* <Slider
+              max={audioDuration}
+              value={sliderValue}
+              onChange={(e) => {
+                setIsSliderChanging(true);
+                setSliderValue(e);
+              }}
+              onAfterChange={(e) => {
+                setSliderValue(e);
+                audioChangeCurrentTime(e);
+                setTimeout(() => {
+                  setIsSliderChanging(false);
+                }, 800);
+              }}
               tooltipVisible={false}
               handleStyle={{
                 backgroundColor: '#fff',
@@ -144,8 +221,8 @@ function Playbar() {
                 outline: 'none',
                 boxShadow: 'none',
               }}
-            />
-            <span>4:19</span>
+            /> */}
+            <span>{fmtMSS(audioDuration)}</span>
           </div>
         </div>
 
@@ -191,30 +268,71 @@ function Playbar() {
             </svg>
           </button>
           <div className="playbar__extras__volume-bar">
-            <button>
+            <button
+              onClick={() => {
+                if (audioMuted) {
+                  {
+                    audioMute(false);
+                  }
+                } else {
+                  audioMute(true);
+                }
+              }}
+            >
               <svg
                 role="presentation"
                 height="16"
                 width="16"
                 viewBox="0 0 16 16"
               >
-                <path d="M12.945 1.379l-.652.763c1.577 1.462 2.57 3.544 2.57 5.858s-.994 4.396-2.57 5.858l.651.763a8.966 8.966 0 00.001-13.242zm-2.272 2.66l-.651.763a4.484 4.484 0 01-.001 6.397l.651.763c1.04-1 1.691-2.404 1.691-3.961s-.65-2.962-1.69-3.962zM0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732z"></path>
+                {audioMuted ? (
+                  <path d="M0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732zm8.623 2.121l-.707-.707-2.147 2.147-2.146-2.147-.707.707L12.062 8l-2.146 2.146.707.707 2.146-2.147 2.147 2.147.707-.707L13.477 8l2.146-2.147z"></path>
+                ) : audioVolume === 0 ? (
+                  <path d="M0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732zm8.623 2.121l-.707-.707-2.147 2.147-2.146-2.147-.707.707L12.062 8l-2.146 2.146.707.707 2.146-2.147 2.147 2.147.707-.707L13.477 8l2.146-2.147z"></path>
+                ) : audioVolume > 0 && audioVolume <= 0.3 ? (
+                  <path d="M10.04 5.984l.658-.77q.548.548.858 1.278.31.73.31 1.54 0 .54-.144 1.055-.143.516-.4.957-.259.44-.624.805l-.658-.77q.825-.865.825-2.047 0-1.183-.825-2.048zM0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302z"></path>
+                ) : audioVolume > 0.3 && audioVolume <= 0.6 ? (
+                  <path d="M0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302zm4.464-2.314q.401-.925.401-1.956 0-1.032-.4-1.957-.402-.924-1.124-1.623L11 3.69q.873.834 1.369 1.957.496 1.123.496 2.385 0 1.262-.496 2.385-.496 1.123-1.369 1.956l-.659-.762q.722-.698 1.123-1.623z"></path>
+                ) : (
+                  <path d="M12.945 1.379l-.652.763c1.577 1.462 2.57 3.544 2.57 5.858s-.994 4.396-2.57 5.858l.651.763a8.966 8.966 0 00.001-13.242zm-2.272 2.66l-.651.763a4.484 4.484 0 01-.001 6.397l.651.763c1.04-1 1.691-2.404 1.691-3.961s-.65-2.962-1.69-3.962zM0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732z"></path>
+                )}
+                {/* )} 0 30 60 100 */}
                 {/* <path d="M0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732zm8.623 2.121l-.707-.707-2.147 2.147-2.146-2.147-.707.707L12.062 8l-2.146 2.146.707.707 2.146-2.147 2.147 2.147.707-.707L13.477 8l2.146-2.147z"></path> */}
+                {/* <path d="M10.04 5.984l.658-.77q.548.548.858 1.278.31.73.31 1.54 0 .54-.144 1.055-.143.516-.4.957-.259.44-.624.805l-.658-.77q.825-.865.825-2.047 0-1.183-.825-2.048zM0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302z"></path> */}
                 {/* <path d="M0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302zm4.464-2.314q.401-.925.401-1.956 0-1.032-.4-1.957-.402-.924-1.124-1.623L11 3.69q.873.834 1.369 1.957.496 1.123.496 2.385 0 1.262-.496 2.385-.496 1.123-1.369 1.956l-.659-.762q.722-.698 1.123-1.623z"></path> */}
+                {/* <path d="M12.945 1.379l-.652.763c1.577 1.462 2.57 3.544 2.57 5.858s-.994 4.396-2.57 5.858l.651.763a8.966 8.966 0 00.001-13.242zm-2.272 2.66l-.651.763a4.484 4.484 0 01-.001 6.397l.651.763c1.04-1 1.691-2.404 1.691-3.961s-.65-2.962-1.69-3.962zM0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732z"></path> */}
               </svg>
             </button>
-            <Slider
-              className="playbar__extras__slider"
-              defaultValue={100}
+            <input
+              type="range"
+              className="progressBar"
+              style={{
+                '--seek-before-width': `${audioVolume * 100}%`,
+              }}
+              value={audioMuted ? 0 : audioVolume * 100}
+              onChange={(e) => {
+                audioMute(false);
+                audioChangeVolume(e.target.value / 100);
+              }}
+              min={0}
               max={100}
-              tooltipVisible={false}
+            />
+            {/* <Slider
+              className="playbar__extras__slider"
+              defaultValue={audioVolume * 100}
+              onChange={(e) => {
+                console.log(e / 100);
+                audioChangeVolume(e / 100);
+              }}
+              min={0}
+              max={100}
               handleStyle={{
                 backgroundColor: '#fff',
                 border: 'none',
                 outline: 'none',
                 boxShadow: 'none',
               }}
-            />
+            /> */}
           </div>
         </div>
 
