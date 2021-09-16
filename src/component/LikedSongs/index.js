@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import { ActiveContext } from '../../App';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
 import ScrollToTop from '../../ScrollToTop';
 import Album from '../Album';
 
 function LikedSongs() {
-  const { setActiveComponent } = useContext(ActiveContext);
+  const dispatch = useDispatch();
 
   const res = {
     img: 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png',
@@ -14,9 +15,9 @@ function LikedSongs() {
   };
 
   useEffect(() => {
-    setActiveComponent('liked');
+    dispatch(changeActiveComponent('liked'));
     document.title = 'Spotify - Liked Songs';
-  }, [setActiveComponent]);
+  }, [dispatch]);
 
   return (
     <>

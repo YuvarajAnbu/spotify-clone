@@ -64,7 +64,8 @@
   background-color: var(--transparent-black-color);
 }
 
-.songs__song:hover .songs__song__index p {
+.songs__song:hover .songs__song__index p,
+.songs__song:hover .songs__song__index img {
   display: none;
 }
 
@@ -84,6 +85,14 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.songs__song__index img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .songs__song__index p {
@@ -182,6 +191,10 @@
   -webkit-box-orient: vertical;
   margin-bottom: 0;
   text-transform: capitalize;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .songs__song__desc__content p {
@@ -191,6 +204,17 @@
 .songs__song__desc__content span {
   color: var(--secondary-text-color);
   font-size: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.songs__song__desc__content span div {
+  margin-right: 3px;
+}
+
+.songs__song__desc__content span a:hover {
+  text-decoration: underline;
 }
 
 .songs__song__views, .songs__song__duration {
@@ -212,6 +236,10 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+
+.active .songs__song__desc p, .active .songs__song__index p {
+  color: var(--spotify-faded-color);
 }
 
 @media screen and (max-width: 800px) {

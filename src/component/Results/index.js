@@ -1,10 +1,13 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice.js';
 import ScrollToTop from '../../ScrollToTop.js';
 import HomeDefault from '../SmallComponents/HomeDefault/index.js';
 import './index.css';
 
 function Results() {
+  const dispatch = useDispatch();
   const arr = [
     {
       type: 'artist',
@@ -26,6 +29,11 @@ function Results() {
       type: 'artist',
     },
   ];
+
+  useEffect(() => {
+    dispatch(changeActiveComponent('search'));
+    document.title = 'Spotify - Search';
+  }, [dispatch]);
 
   return (
     <div className="results">

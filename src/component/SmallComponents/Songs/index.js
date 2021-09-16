@@ -1,7 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {
+  changeCurrentSong,
+  pauseSong,
+  playSong,
+} from '../../../redux/songs/songsSlice';
 import './index.css';
 
-function Songs() {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+function Songs(props) {
+  const { queue, isPlaying, currentSong } = useSelector((state) => state.songs);
+  const dispatch = useDispatch();
+  const arr = props.arr || queue;
+
   return (
     <div className="songs">
       <div className="songs__header">
@@ -18,25 +28,62 @@ function Songs() {
         </div>
       </div>
       {arr.map((e, i) => (
-        <div className="songs__song" key={i}>
-          <div className="songs__song__index">
-            <p>{i + 1}</p>
-            <button>
-              <svg height="32" role="img" width="32" viewBox="0 0 24 24">
-                <polygon
-                  points="21.57 12 5.98 3 5.98 21 21.57 12"
-                  fill="currentColor"
-                ></polygon>
-              </svg>
-              {/* <svg
-          height="32"
-          role="img"
-          width="32"
-          viewBox="0 0 24 24"
+        <div
+          className={
+            currentSong.song === e.song ? 'songs__song active' : 'songs__song'
+          }
+          key={i}
         >
-          <rect x="5" y="3" width="4" height="18" fill="currentColor"></rect>
-          <rect x="15" y="3" width="4" height="18" fill="currentColor"></rect>
-        </svg> */}
+          <div className="songs__song__index">
+            {currentSong.song === e.song && isPlaying ? (
+              <img
+                alt=""
+                src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif"
+                width="14"
+                height="14"
+              />
+            ) : (
+              <p>{i + 1}</p>
+            )}
+
+            <button
+              onClick={() => {
+                if (currentSong.song === e.song) {
+                  if (isPlaying) {
+                    dispatch(pauseSong());
+                  } else {
+                    dispatch(playSong());
+                  }
+                } else {
+                  dispatch(changeCurrentSong({ song: e, index: i }));
+                }
+              }}
+            >
+              {currentSong.song === e.song && isPlaying ? (
+                <svg height="32" role="img" width="32" viewBox="0 0 24 24">
+                  <rect
+                    x="5"
+                    y="3"
+                    width="4"
+                    height="18"
+                    fill="currentColor"
+                  ></rect>
+                  <rect
+                    x="15"
+                    y="3"
+                    width="4"
+                    height="18"
+                    fill="currentColor"
+                  ></rect>
+                </svg>
+              ) : (
+                <svg height="32" role="img" width="32" viewBox="0 0 24 24">
+                  <polygon
+                    points="21.57 12 5.98 3 5.98 21 21.57 12"
+                    fill="currentColor"
+                  ></polygon>
+                </svg>
+              )}
             </button>
           </div>
           <div className="songs__song__desc">
@@ -45,8 +92,8 @@ function Songs() {
                 <img
                   loading="lazy"
                   draggable="false"
-                  src="https://i.scdn.co/image/ab67706f000000027cda1a881997b0bb1ca0eb92"
-                  alt="dua"
+                  src={e.img}
+                  alt=""
                   onError={(e) => {
                     e.target.insertAdjacentHTML(
                       'afterend',
@@ -58,12 +105,30 @@ function Songs() {
               </div>
             </div>
             <div className="songs__song__desc__content">
-              <p className="one-line">Venom - Music From The Motion Picture</p>
-              <span className="one-line">Eminem</span>
+              <p className="one-line">{e.name}</p>
+              <span className="one-line">
+                {e.artists.map((el, k) => {
+                  if (k < e.artists.length - 1) {
+                    return (
+                      <div key={k}>
+                        <Link to={`/artist/${el}`}>{el}</Link>,{' '}
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div key={k}>
+                        <Link to={`/artist/${el}`}>{el}</Link>
+                      </div>
+                    );
+                  }
+                })}
+              </span>
             </div>
           </div>
-          <div className="songs__song__views">714,413,140</div>
-          <div className="songs__song__duration">4:29</div>
+          <div className="songs__song__views">
+            {e.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          </div>
+          <div className="songs__song__duration">{e.duration}</div>
         </div>
       ))}
     </div>

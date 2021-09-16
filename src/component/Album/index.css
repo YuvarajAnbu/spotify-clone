@@ -186,10 +186,6 @@
     min-width: 192px;
     width: 192px;
   }
-  .album__info__desc h1 {
-    font-weight: 600;
-    font-size: 70px;
-  }
 }
 
 @media screen and (max-width: 1000px) {

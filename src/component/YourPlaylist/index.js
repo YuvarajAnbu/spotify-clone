@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-import { ActiveContext } from '../../App';
+import React, { useEffect } from 'react';
 import ScrollToTop from '../../ScrollToTop';
 import Album from '../Album';
+import { useDispatch } from 'react-redux';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice.js';
 
 function YourPlaylist() {
-  const { setActiveComponent } = useContext(ActiveContext);
+  const dispatch = useDispatch();
 
   const res = {
     img: 'guyhgvjhv',
@@ -14,9 +15,9 @@ function YourPlaylist() {
   };
 
   useEffect(() => {
-    setActiveComponent('playlists');
+    dispatch(changeActiveComponent('playlists'));
     document.title = 'Spotify - Your Library';
-  }, [setActiveComponent]);
+  }, [dispatch]);
 
   return (
     <>

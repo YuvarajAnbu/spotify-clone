@@ -1,15 +1,16 @@
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import './index.css';
-import { ActiveContext } from '../../App';
 import ScrollToTop from '../../ScrollToTop';
+import { useDispatch } from 'react-redux';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
 
 function Install() {
-  const { setActiveComponent } = useContext(ActiveContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setActiveComponent('install');
+    dispatch(changeActiveComponent('install'));
     document.title = 'Spotify - Download';
-  }, [setActiveComponent]);
+  }, [dispatch]);
 
   return (
     <div className="install">

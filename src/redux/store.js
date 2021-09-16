@@ -1,8 +1,13 @@
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
+import { activeComponentSlice } from './activeComponent/activeComponentSlice';
+import { songsSlice } from './songs/songsSlice';
 
-import rootReducer from './rootReducer';
+import { userSlice } from './user/userSlice';
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware()));
-
-export default store;
+export default configureStore({
+  reducer: {
+    user: userSlice.reducer,
+    activeComponent: activeComponentSlice.reducer,
+    songs: songsSlice.reducer,
+  },
+});

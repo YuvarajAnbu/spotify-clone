@@ -44,7 +44,8 @@
     }
 
     &:hover &__index {
-      p {
+      p,
+      img {
         display: none;
       }
       button {
@@ -58,6 +59,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 
       p {
         color: var(--secondary-text-color);
@@ -135,6 +143,7 @@
           -webkit-box-orient: vertical;
           margin-bottom: 0;
           text-transform: capitalize;
+          user-select: none;
         }
 
         p {
@@ -144,6 +153,15 @@
         span {
           color: var(--secondary-text-color);
           font-size: 12px;
+          display: flex;
+
+          div {
+            margin-right: 3px;
+          }
+
+          a:hover {
+            text-decoration: underline;
+          }
         }
       }
     }
@@ -165,6 +183,17 @@
   }
 }
 
+.active {
+  .songs__song {
+    &__desc,
+    &__index {
+      p {
+        color: var(--spotify-faded-color);
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 800px) {
   .songs {
     &__song,
@@ -176,6 +205,7 @@
     }
   }
 }
+
 @media screen and (max-width: 800px) {
   .songs {
     &__song,

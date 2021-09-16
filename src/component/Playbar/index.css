@@ -74,7 +74,6 @@
 .playbar__desc__image-container__image {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
   -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   padding-bottom: 100%;
@@ -82,7 +81,6 @@
 }
 
 .playbar__desc__image-container__image img {
-  border-radius: 4px 0 0 4px;
   display: block;
   width: 100%;
   height: 100%;
@@ -131,7 +129,14 @@
   text-transform: capitalize;
 }
 
+.playbar__desc__name div {
+  margin-right: 3px;
+}
+
 .playbar__desc__name span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   margin: 0;
   font-size: 10px;
   text-transform: capitalize;
@@ -239,6 +244,10 @@
 
 .playbar__controls__buttons .repeat .b {
   fill: var(--spotify-faded-color);
+}
+
+.playbar__controls__buttons .repeat:hover .a {
+  fill: none;
 }
 
 .playbar__controls__slider {
@@ -403,6 +412,30 @@
   z-index: -1;
 }
 
+.disabled .playbar__desc__image-container, .disabled .playbar__desc__name, .disabled .playbar__desc__icon {
+  display: none;
+}
+
+.disabled .playbar__controls {
+  pointer-events: none;
+}
+
+.disabled .playbar__controls button::after {
+  display: none;
+}
+
+.disabled .playbar__controls button path {
+  fill: var(--slider-rail-color);
+}
+
+.disabled .playbar__controls .play {
+  background-color: var(--slider-rail-color);
+}
+
+.disabled .playbar__controls .play .b {
+  fill: var(--playbar-background-color);
+}
+
 .progressBar {
   --bar-bg: var(--slider-rail-color);
   --seek-before-width: 0;
@@ -418,8 +451,6 @@
   position: relative;
   width: 100%;
   height: 4px;
-  border-top: 4px solid var(--playbar-background-color);
-  border-bottom: 4px solid var(--playbar-background-color);
   outline: none;
 }
 
@@ -598,12 +629,13 @@
         -ms-flex-direction: column;
             flex-direction: column;
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
+    text-align: center;
   }
   .open .playbar__desc__image-container {
     width: 200px;
     height: 200px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
   .open .playbar__desc__name {
     margin: 0;

@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import './index.css';
-import { ActiveContext } from '../../App';
 import ScrollToTop from '../../ScrollToTop';
+import { useDispatch } from 'react-redux';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
 
 function Search() {
+  const dispatch = useDispatch();
   const arr = [
     {
       img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
@@ -48,12 +50,10 @@ function Search() {
     },
   ];
 
-  const { setActiveComponent } = useContext(ActiveContext);
-
   useEffect(() => {
-    setActiveComponent('search');
+    dispatch(changeActiveComponent('search'));
     document.title = 'Spotify - Search';
-  }, [setActiveComponent]);
+  }, [dispatch]);
 
   return (
     <div className="search">
@@ -62,7 +62,7 @@ function Search() {
         <h2>Browse all</h2>
         <div className="search__genres__container">
           {arr.map((el, i) => (
-            <Link to="/genre" key={i}>
+            <Link to="/genre/k-pop" key={i}>
               <div
                 className="search__genres__container__genre"
                 style={{ backgroundColor: el.color }}

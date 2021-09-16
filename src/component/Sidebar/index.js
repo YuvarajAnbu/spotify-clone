@@ -1,10 +1,17 @@
-import { useContext } from 'react';
-import { ActiveContext } from '../../App';
 import { Link } from 'react-router-dom';
 import './index.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
 
 function Sidebar() {
-  const { activeComponent, setActiveComponent } = useContext(ActiveContext);
+  const { active: activeComponent } = useSelector(
+    (state) => state.activeComponent
+  );
+  const dispatch = useDispatch();
+
+  const setActiveComponent = (value) => {
+    dispatch(changeActiveComponent(value));
+  };
 
   return (
     <div className="sidebar">

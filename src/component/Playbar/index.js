@@ -1,45 +1,250 @@
-import { Slider } from 'antd';
-import { useContext, useState } from 'react';
+import { message } from 'antd';
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { useEffect } from 'react/cjs/react.development';
-import { ActiveContext, AudioContext } from '../../App';
+import {
+  disableRepeat,
+  disableShuffle,
+  enableRepeat,
+  enableShuffle,
+  getRepeat,
+  getShuffle,
+  getVolume,
+  mute,
+  nextSong,
+  onceRepeat,
+  pauseSong,
+  playSong,
+  prevSong,
+  setCurrentTime,
+  setDuration,
+  setQueue,
+  setVolume,
+  unMute,
+} from '../../redux/songs/songsSlice';
 import './index.css';
-import ReactSlider from 'react-slider';
 
 function Playbar() {
   let history = useHistory();
 
-  const { activeComponent } = useContext(ActiveContext);
+  const { active: activeComponent } = useSelector(
+    (state) => state.activeComponent
+  );
+
   const {
-    isAudioPlaying,
-    audioPlay,
-    audioPause,
-    audioDuration,
-    audioCurrentTime,
-    audioChangeCurrentTime,
-    audioVolume,
-    audioChangeVolume,
-    audioMuted,
-    setAudioMuted,
-    audioMute,
-  } = useContext(AudioContext);
+    initialQueue,
+    currentSong,
+    currentIndex,
+    isPlaying,
+    duration,
+    currentTime,
+    volume,
+    muted,
+    suffle,
+    repeat,
+  } = useSelector((state) => state.songs);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isPlaying) {
+      document.title = 'Crazy Life · Free Hexel, Free Hexel';
+    } else {
+      document.title = `Spotify - Web Player`;
+    }
+  }, [isPlaying]);
 
   //pop over
   const [isOpen, setIsOpen] = useState(false);
 
+  const [audio] = useState(new Audio());
+  const [sliderValue, setSliderValue] = useState(0);
+  const [isSliderChanging, setIsSliderChanging] = useState(false);
+  const [isLoaded, setisLoaded] = useState(false);
+  const [isError, setisError] = useState(false);
+
+  //getting from local storage if exists
+  useEffect(() => {
+    dispatch(getVolume());
+    dispatch(setQueue());
+    dispatch(getShuffle());
+    dispatch(getRepeat());
+  }, [dispatch]);
+
+  //slider value
+  useEffect(() => {
+    if (!isSliderChanging) {
+      setSliderValue(currentTime);
+    }
+  }, [currentTime, isSliderChanging]);
+
+  //creating audio based on song
+  useEffect(() => {
+    if (initialQueue.length >= 1) {
+      audio.src = currentSong.song;
+    }
+  }, [audio, currentSong, initialQueue]);
+
+  //setting event listeners
+  // check audio failed
+  useEffect(() => {
+    audio.addEventListener('error', (e) => {
+      setisError(true);
+      message.error('Loading song Failed. Try reloading the page');
+    });
+    return () => {
+      audio.removeEventListener('error', (e) => {
+        setisError(true);
+        message.error('Loading song Failed. Try reloading the page');
+      });
+    };
+  }, [audio]);
+
+  //check audio loaded
+  useEffect(() => {
+    audio.addEventListener('loadeddata', (e) => {
+      setisLoaded(true);
+      dispatch(setDuration(audio.duration));
+    });
+    return () => {
+      audio.removeEventListener('loadeddata', (e) => {
+        setisLoaded(true);
+        dispatch(setDuration(audio.duration));
+      });
+    };
+  }, [dispatch, audio]);
+
+  // get currentDuration
+  useEffect(() => {
+    if (isLoaded) {
+      audio.addEventListener('timeupdate', (e) => {
+        dispatch(setCurrentTime(e.target.currentTime));
+      });
+      return () => {
+        audio.removeEventListener('timeupdate', (e) => {
+          dispatch(setCurrentTime(e.target.currentTime));
+        });
+      };
+    }
+  }, [isLoaded, dispatch, audio]);
+
+  //to access repeat state on event listner
+  const repeatRef = useRef(repeat);
+  useEffect(() => {
+    repeatRef.current = repeat;
+  }, [repeat]);
+
+  //on ended
+  useEffect(() => {
+    if (isLoaded) {
+      audio.addEventListener('ended', (e) => {
+        dispatch(setCurrentTime(0));
+        setSliderValue(0);
+        if (repeatRef.current === 'once') {
+          audio.currentTime = 0;
+          audio.play();
+        } else {
+          dispatch(nextSong());
+        }
+      });
+      return () => {
+        audio.removeEventListener('ended', (e) => {
+          dispatch(setCurrentTime(0));
+          setSliderValue(0);
+          if (repeatRef.current === 'once') {
+            audio.currentTime = 0;
+            audio.play();
+          } else {
+            dispatch(nextSong());
+          }
+        });
+      };
+    }
+  }, [isLoaded, dispatch, audio]);
+
+  //keypress event
+  const playingRef = useRef(isPlaying);
+  useEffect(() => {
+    playingRef.current = isPlaying;
+  }, [isPlaying]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', (e) => {
+      if (e.keyCode === 32 || e.code === 'Space') {
+        if (playingRef.current) {
+          audio.pause();
+          dispatch(pauseSong());
+        } else {
+          audio.play();
+          dispatch(playSong());
+        }
+      }
+    });
+
+    return () => {
+      window.removeEventListener('keydown', (e) => {
+        if (e.keyCode === 32 || e.code === 'Space') {
+          if (playingRef.current) {
+            audio.pause();
+            dispatch(pauseSong());
+          } else {
+            audio.play();
+            dispatch(playSong());
+          }
+        }
+      });
+    };
+  }, [audio, dispatch]);
+
+  //mute
+  useEffect(() => {
+    if (audio) {
+      audio.muted = muted;
+    }
+  }, [audio, muted]);
+
+  //change volume
+  useEffect(() => {
+    if (audio) {
+      audio.volume = volume;
+    }
+  }, [audio, volume]);
+
+  // const play = () => {
+  //   audio.play();
+  //   dispatch(playSong());
+  // };
+
+  // const pause = () => {
+  //   audio.pause();
+  //   dispatch(pauseSong());
+  // };
+
+  // useEffect(() => {
+  //   if (isLoaded && isPlaying) {
+  //     audio.play();
+  //   }
+  // }, [currentSong, isLoaded, isPlaying, audio]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      if (isPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  }, [isPlaying, isLoaded, audio, currentSong]);
+
+  // useEffect(() => {
+  //   if (isLoaded && !isPlaying) {
+  //     audio.pause();
+  //   }
+  // }, [currentSong, isLoaded, isPlaying, audio]);
+
   const fmtMSS = (s) => {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
   };
-
-  const [sliderValue, setSliderValue] = useState(0);
-
-  const [isSliderChanging, setIsSliderChanging] = useState(false);
-
-  useEffect(() => {
-    if (!isSliderChanging) {
-      setSliderValue(audioCurrentTime);
-    }
-  }, [audioCurrentTime, isSliderChanging]);
 
   return (
     <div className={isOpen ? 'playbar-container open' : 'playbar-container'}>
@@ -49,7 +254,13 @@ function Playbar() {
           setIsOpen(false);
         }}
       ></div>
-      <div className="playbar">
+      <div
+        className={`${
+          !isError && isLoaded && initialQueue.length >= 1
+            ? 'playbar'
+            : 'playbar disabled'
+        }`}
+      >
         <div className="playbar__desc">
           <Link to="/album/sdfvk">
             <div className="playbar__desc__image-container">
@@ -57,8 +268,8 @@ function Playbar() {
                 <img
                   loading="lazy"
                   draggable="false"
-                  src="https://i.scdn.co/image/ab67706f000000027cda1a881997b0bb1ca0eb92"
-                  alt="dua"
+                  src={currentSong.img}
+                  alt=""
                   onError={(e) => {
                     e.target.insertAdjacentHTML(
                       'afterend',
@@ -78,11 +289,26 @@ function Playbar() {
           </Link>
           <div className="playbar__desc__name one-line">
             <p className="one-line">
-              <Link to="/album/jghj">crazy life</Link>
+              <Link to={`/album/${currentSong.name}`}>{currentSong.name}</Link>
             </p>
             <span className="one-line">
-              <Link to="/artist/dsf">free hexel</Link>,{' '}
-              <Link to="/artist/dsf">free hexel</Link>
+              {currentSong.artists.map((e, i) => {
+                if (i < currentSong.artists.length - 1) {
+                  return (
+                    <div key={i}>
+                      <Link to={`/artist/${e}`}>{e}</Link>,{' '}
+                    </div>
+                  );
+                } else {
+                  return (
+                    <div key={i}>
+                      <Link key={i} to={`/artist/${e}`}>
+                        {e}
+                      </Link>
+                    </div>
+                  );
+                }
+              })}
             </span>
           </div>
 
@@ -116,13 +342,38 @@ function Playbar() {
 
         <div className="playbar__controls">
           <div className="playbar__controls__buttons">
-            <button type="button" className="suffle active">
+            <button
+              type="button"
+              title={suffle ? 'Disable suffle' : 'Enable suffle'}
+              className={suffle ? 'suffle active' : 'suffle'}
+              onClick={() => {
+                if (suffle) {
+                  dispatch(disableShuffle());
+                } else {
+                  dispatch(enableShuffle());
+                }
+              }}
+            >
               <svg role="img" height="16" width="16" viewBox="0 0 16 16">
                 <path d="M4.5 6.8l.7-.8C4.1 4.7 2.5 4 .9 4v1c1.3 0 2.6.6 3.5 1.6l.1.2zm7.5 4.7c-1.2 0-2.3-.5-3.2-1.3l-.6.8c1 1 2.4 1.5 3.8 1.5V14l3.5-2-3.5-2v1.5zm0-6V7l3.5-2L12 3v1.5c-1.6 0-3.2.7-4.2 2l-3.4 3.9c-.9 1-2.2 1.6-3.5 1.6v1c1.6 0 3.2-.7 4.2-2l3.4-3.9c.9-1 2.2-1.6 3.5-1.6z"></path>
               </svg>
             </button>
 
-            <button type="button" className="prev">
+            <button
+              type="button"
+              className="prev"
+              title="Previous"
+              onClick={() => {
+                if (repeat === 'once') {
+                  dispatch(enableRepeat());
+                }
+                if (currentIndex > 0) {
+                  dispatch(prevSong());
+                } else {
+                  audio.currentTime = 0;
+                }
+              }}
+            >
               <svg role="img" height="16" width="16" viewBox="0 0 16 16">
                 <path d="M13 2.5L5 7.119V3H3v10h2V8.881l8 4.619z"></path>
               </svg>
@@ -131,15 +382,16 @@ function Playbar() {
             <button
               type="button"
               className="play"
+              title={isPlaying ? 'Pause' : 'Play'}
               onClick={() => {
-                if (isAudioPlaying) {
-                  audioPause();
+                if (isPlaying) {
+                  dispatch(pauseSong());
                 } else {
-                  audioPlay();
+                  dispatch(playSong());
                 }
               }}
             >
-              {isAudioPlaying ? (
+              {isPlaying ? (
                 <svg role="img" height="16" width="16" viewBox="0 0 16 16">
                   <path className="a" fill="none" d="M0 0h16v16H0z"></path>
                   <path
@@ -155,91 +407,114 @@ function Playbar() {
               )}
             </button>
 
-            <button type="button" className="next">
+            <button
+              type="button"
+              className="next"
+              title="Next"
+              onClick={() => {
+                if (repeat === 'once') {
+                  dispatch(enableRepeat());
+                }
+                dispatch(nextSong());
+              }}
+            >
               <svg role="img" height="16" width="16" viewBox="0 0 16 16">
                 <path d="M11 3v4.119L3 2.5v11l8-4.619V13h2V3z"></path>
               </svg>
             </button>
 
-            <button type="button" className="repeat active">
-              <svg role="img" height="16" width="16" viewBox="0 0 16 16">
-                <path d="M5.5 5H10v1.5l3.5-2-3.5-2V4H5.5C3 4 1 6 1 8.5c0 .6.1 1.2.4 1.8l.9-.5C2.1 9.4 2 9 2 8.5 2 6.6 3.6 5 5.5 5zm9.1 1.7l-.9.5c.2.4.3.8.3 1.3 0 1.9-1.6 3.5-3.5 3.5H6v-1.5l-3.5 2 3.5 2V13h4.5C13 13 15 11 15 8.5c0-.6-.1-1.2-.4-1.8z"></path>
-              </svg>
-              {/* <svg role="img" height="16" width="16" viewBox="0 0 16 16">
-                <path className="a" fill="none" d="M0 0h16v16H0z"></path>
-                <path
-                  className="b"
-                  d="M5 5V4c-2.2.3-4 2.2-4 4.5 0 .6.1 1.2.4 1.8l.9-.5C2.1 9.4 2 9 2 8.5 2 6.7 3.3 5.3 5 5zm5.5 7H6v-1.5l-3.5 2 3.5 2V13h4.5c1.9 0 3.5-1.2 4.2-2.8-.5.3-1 .5-1.5.6-.7.7-1.6 1.2-2.7 1.2zm1-12C9 0 7 2 7 4.5S9 9 11.5 9 16 7 16 4.5 14 0 11.5 0zm.9 7h-1.3V3.6H10v-1h.1c.2 0 .3 0 .4-.1.1 0 .3-.1.4-.2.1-.1.2-.2.2-.3.1-.1.1-.2.1-.3v-.1h1.1V7z"
-                ></path>
-              </svg> */}
+            <button
+              type="button"
+              title={
+                repeat === 'disable'
+                  ? 'Enable repeat'
+                  : repeat === 'enable'
+                  ? 'Enable repeat one'
+                  : 'Disable repeat'
+              }
+              className={repeat === 'disable' ? 'repeat' : 'repeat active'}
+              onClick={() => {
+                if (repeat === 'disable') {
+                  dispatch(enableRepeat());
+                } else if (repeat === 'enable') {
+                  dispatch(onceRepeat());
+                } else {
+                  dispatch(disableRepeat());
+                }
+              }}
+            >
+              {repeat === 'once' ? (
+                <svg role="img" height="16" width="16" viewBox="0 0 16 16">
+                  <path className="a" fill="none" d="M0 0h16v16H0z"></path>
+                  <path
+                    className="b"
+                    d="M5 5V4c-2.2.3-4 2.2-4 4.5 0 .6.1 1.2.4 1.8l.9-.5C2.1 9.4 2 9 2 8.5 2 6.7 3.3 5.3 5 5zm5.5 7H6v-1.5l-3.5 2 3.5 2V13h4.5c1.9 0 3.5-1.2 4.2-2.8-.5.3-1 .5-1.5.6-.7.7-1.6 1.2-2.7 1.2zm1-12C9 0 7 2 7 4.5S9 9 11.5 9 16 7 16 4.5 14 0 11.5 0zm.9 7h-1.3V3.6H10v-1h.1c.2 0 .3 0 .4-.1.1 0 .3-.1.4-.2.1-.1.2-.2.2-.3.1-.1.1-.2.1-.3v-.1h1.1V7z"
+                  ></path>
+                </svg>
+              ) : (
+                <svg role="img" height="16" width="16" viewBox="0 0 16 16">
+                  <path d="M5.5 5H10v1.5l3.5-2-3.5-2V4H5.5C3 4 1 6 1 8.5c0 .6.1 1.2.4 1.8l.9-.5C2.1 9.4 2 9 2 8.5 2 6.6 3.6 5 5.5 5zm9.1 1.7l-.9.5c.2.4.3.8.3 1.3 0 1.9-1.6 3.5-3.5 3.5H6v-1.5l-3.5 2 3.5 2V13h4.5C13 13 15 11 15 8.5c0-.6-.1-1.2-.4-1.8z"></path>
+                </svg>
+              )}
             </button>
           </div>
 
           <div className="playbar__controls__slider">
             <span>{fmtMSS(sliderValue)}</span>
-
             <input
               className="progressBar"
+              title=""
               style={{
-                '--seek-before-width': `${
-                  (sliderValue / audioDuration) * 100
-                }%`,
+                '--seek-before-width': `${(sliderValue / duration) * 100}%`,
               }}
               type="range"
               value={sliderValue}
-              max={audioDuration}
+              max={duration}
               onChange={(e) => {
                 setIsSliderChanging(true);
                 setSliderValue(e.target.value);
               }}
               onMouseUp={(e) => {
                 setSliderValue(e.target.value);
-                audioChangeCurrentTime(e.target.value);
+                dispatch(setCurrentTime(e.target.value));
+                audio.currentTime = e.target.value;
                 setTimeout(() => {
                   setIsSliderChanging(false);
                 }, 1000);
               }}
             />
-            {/* <Slider
-              max={audioDuration}
-              value={sliderValue}
-              onChange={(e) => {
-                setIsSliderChanging(true);
-                setSliderValue(e);
-              }}
-              onAfterChange={(e) => {
-                setSliderValue(e);
-                audioChangeCurrentTime(e);
-                setTimeout(() => {
-                  setIsSliderChanging(false);
-                }, 800);
-              }}
-              tooltipVisible={false}
-              handleStyle={{
-                backgroundColor: '#fff',
-                border: 'none',
-                outline: 'none',
-                boxShadow: 'none',
-              }}
-            /> */}
-            <span>{fmtMSS(audioDuration)}</span>
+            <span>{fmtMSS(duration)}</span>
           </div>
         </div>
 
         <div className="playbar__extras">
-          <button>
+          <button
+            className={activeComponent === 'lyrics' ? 'active' : ''}
+            title="Lyrics"
+            onClick={(e) => {
+              if (activeComponent === 'lyrics') {
+                history.goBack();
+              } else {
+                history.push(`/lyrics`);
+              }
+              setIsOpen(false);
+            }}
+          >
             <svg role="img" height="16" width="16" viewBox="0 0 16 16">
               <path d="M8.5 1A4.505 4.505 0 004 5.5c0 .731.191 1.411.502 2.022L1.99 13.163a1.307 1.307 0 00.541 1.666l.605.349a1.307 1.307 0 001.649-.283L9.009 9.95C11.248 9.692 13 7.807 13 5.5 13 3.019 10.981 1 8.5 1zM4.023 14.245a.307.307 0 01-.388.066l-.605-.349a.309.309 0 01-.128-.393l2.26-5.078A4.476 4.476 0 007.715 9.92l-3.692 4.325zM8.5 9C6.57 9 5 7.43 5 5.5S6.57 2 8.5 2 12 3.57 12 5.5 10.429 9 8.5 9z"></path>
             </svg>
           </button>
+
           <button
             className={activeComponent === 'queue' ? 'active' : ''}
+            title="Queue"
             onClick={(e) => {
               if (activeComponent === 'queue') {
                 history.goBack();
               } else {
                 history.push(`/queue`);
               }
+              setIsOpen(false);
             }}
           >
             <svg
@@ -267,15 +542,15 @@ function Playbar() {
               </g>
             </svg>
           </button>
+
           <div className="playbar__extras__volume-bar">
             <button
+              title={muted ? 'Unmute' : 'Mute'}
               onClick={() => {
-                if (audioMuted) {
-                  {
-                    audioMute(false);
-                  }
+                if (muted) {
+                  dispatch(unMute());
                 } else {
-                  audioMute(true);
+                  dispatch(mute());
                 }
               }}
             >
@@ -285,13 +560,13 @@ function Playbar() {
                 width="16"
                 viewBox="0 0 16 16"
               >
-                {audioMuted ? (
+                {muted ? (
                   <path d="M0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732zm8.623 2.121l-.707-.707-2.147 2.147-2.146-2.147-.707.707L12.062 8l-2.146 2.146.707.707 2.146-2.147 2.147 2.147.707-.707L13.477 8l2.146-2.147z"></path>
-                ) : audioVolume === 0 ? (
+                ) : volume === 0 ? (
                   <path d="M0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732zm8.623 2.121l-.707-.707-2.147 2.147-2.146-2.147-.707.707L12.062 8l-2.146 2.146.707.707 2.146-2.147 2.147 2.147.707-.707L13.477 8l2.146-2.147z"></path>
-                ) : audioVolume > 0 && audioVolume <= 0.3 ? (
+                ) : volume > 0 && volume <= 0.3 ? (
                   <path d="M10.04 5.984l.658-.77q.548.548.858 1.278.31.73.31 1.54 0 .54-.144 1.055-.143.516-.4.957-.259.44-.624.805l-.658-.77q.825-.865.825-2.047 0-1.183-.825-2.048zM0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302z"></path>
-                ) : audioVolume > 0.3 && audioVolume <= 0.6 ? (
+                ) : volume > 0.3 && volume <= 0.6 ? (
                   <path d="M0 11.032v-6h2.802l5.198-3v12l-5.198-3H0zm7 1.27v-8.54l-3.929 2.27H1v4h2.071L7 12.302zm4.464-2.314q.401-.925.401-1.956 0-1.032-.4-1.957-.402-.924-1.124-1.623L11 3.69q.873.834 1.369 1.957.496 1.123.496 2.385 0 1.262-.496 2.385-.496 1.123-1.369 1.956l-.659-.762q.722-.698 1.123-1.623z"></path>
                 ) : (
                   <path d="M12.945 1.379l-.652.763c1.577 1.462 2.57 3.544 2.57 5.858s-.994 4.396-2.57 5.858l.651.763a8.966 8.966 0 00.001-13.242zm-2.272 2.66l-.651.763a4.484 4.484 0 01-.001 6.397l.651.763c1.04-1 1.691-2.404 1.691-3.961s-.65-2.962-1.69-3.962zM0 5v6h2.804L8 14V2L2.804 5H0zm7-1.268v8.536L3.072 10H1V6h2.072L7 3.732z"></path>
@@ -305,14 +580,30 @@ function Playbar() {
             </button>
             <input
               type="range"
+              title=""
               className="progressBar"
               style={{
-                '--seek-before-width': `${audioVolume * 100}%`,
+                '--seek-before-width': `${volume * 100}%`,
               }}
-              value={audioMuted ? 0 : audioVolume * 100}
+              value={muted ? 0 : volume * 100}
               onChange={(e) => {
-                audioMute(false);
-                audioChangeVolume(e.target.value / 100);
+                dispatch(unMute());
+                dispatch(setVolume(e.target.value / 100));
+              }}
+              onWheel={(e) => {
+                if (e.deltaY < 0) {
+                  if (Number(e.target.value) < 90) {
+                    dispatch(setVolume((Number(e.target.value) + 10) / 100));
+                  } else {
+                    dispatch(setVolume(1));
+                  }
+                } else {
+                  if (Number(e.target.value) > 10) {
+                    dispatch(setVolume((Number(e.target.value) - 10) / 100));
+                  } else {
+                    dispatch(setVolume(0));
+                  }
+                }
               }}
               min={0}
               max={100}

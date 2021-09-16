@@ -61,12 +61,10 @@
       &__image {
         width: 100%;
         background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
         padding-bottom: 100%;
         position: relative;
         img {
-          border-radius: 4px 0 0 4px;
           display: block;
           width: 100%;
           height: 100%;
@@ -108,7 +106,12 @@
         text-transform: capitalize;
       }
 
+      div {
+        margin-right: 3px;
+      }
+
       span {
+        display: flex;
         margin: 0;
         font-size: 10px;
         text-transform: capitalize;
@@ -197,6 +200,10 @@
         }
         .b {
           fill: var(--spotify-faded-color);
+        }
+
+        &:hover .a {
+          fill: none;
         }
       }
     }
@@ -327,6 +334,37 @@
   }
 }
 
+.disabled {
+  .playbar__desc {
+    &__image-container,
+    &__name,
+    &__icon {
+      display: none;
+    }
+  }
+
+  .playbar__controls {
+    pointer-events: none;
+
+    button {
+      &::after {
+        display: none;
+      }
+      path {
+        fill: var(--slider-rail-color);
+      }
+    }
+
+    .play {
+      background-color: var(--slider-rail-color);
+
+      .b {
+        fill: var(--playbar-background-color);
+      }
+    }
+  }
+}
+
 // progress bar
 .progressBar {
   --bar-bg: var(--slider-rail-color);
@@ -342,8 +380,8 @@
   position: relative;
   width: 100%;
   height: 4px;
-  border-top: 4px solid var(--playbar-background-color);
-  border-bottom: 4px solid var(--playbar-background-color);
+  // border-top: 4px solid var(--playbar-background-color);
+  // border-bottom: 4px solid var(--playbar-background-color);
   outline: none;
 }
 
@@ -514,12 +552,13 @@
         align-items: center;
         flex-direction: column;
         position: relative;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
+        text-align: center;
 
         &__image-container {
           width: 200px;
           height: 200px;
-          margin-bottom: 30px;
+          margin-bottom: 15px;
         }
 
         &__name {

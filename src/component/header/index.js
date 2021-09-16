@@ -1,24 +1,28 @@
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Popover } from 'antd';
-import { Link, useHistory } from 'react-router-dom';
-import {
-  ActiveContext,
-  IsLoggedInContext,
-  PopupContext,
-  ScrollTopContext,
-  UserContext,
-} from '../../App';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { PopupContext, ScrollTopContext } from '../../App';
 import './index.css';
-import { useState } from 'react/cjs/react.development';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from '../../redux/user/userSlice';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
 
 function Header() {
   let history = useHistory();
+  let location = useLocation();
+
+  const { user, isLoggedIn } = useSelector((state) => state.user);
+  const { active: activeComponent } = useSelector(
+    (state) => state.activeComponent
+  );
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(changeActiveComponent(''));
+  // }, [location, dispatch]);
 
   const scrollTop = useContext(ScrollTopContext);
-  const { activeComponent } = useContext(ActiveContext);
-  const { isLoggedIn, setIsLoggedIn } = useContext(IsLoggedInContext);
   const { setPopup } = useContext(PopupContext);
-  const { user, setUser } = useContext(UserContext);
   const [searchValue, setSearchValue] = useState('');
 
   const [hidePopOver, setHidePopover] = useState(false);
@@ -38,8 +42,9 @@ function Header() {
       </li>
       <li
         onClick={() => {
-          setIsLoggedIn(false);
-          setUser({});
+          // setIsLoggedIn(false);
+          // setUser({});
+          dispatch(logOut());
           setHidePopover(false);
         }}
       >
@@ -150,7 +155,7 @@ function Header() {
                   src="https://i.scdn.co/image/ab6775700000ee859dcd4682008374c5d9ffc8c6"
                   aria-hidden="false"
                   loading="eager"
-                  alt="xanderHere"
+                  alt=""
                 />
                 <span className="one-line">{user.username}</span>
                 <svg

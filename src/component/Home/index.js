@@ -1,11 +1,13 @@
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ActiveContext } from '../../App.js';
 import HomeDefault from '../SmallComponents/HomeDefault/index.js';
 import './index.css';
 import ScrollToTop from '../../ScrollToTop';
+import { useDispatch } from 'react-redux';
+import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice.js';
 
 function Home() {
+  const dispatch = useDispatch();
   const arr = [
     {
       type: 'artist',
@@ -28,12 +30,10 @@ function Home() {
     },
   ];
 
-  const { setActiveComponent } = useContext(ActiveContext);
-
   useEffect(() => {
-    setActiveComponent('home');
+    dispatch(changeActiveComponent('home'));
     document.title = 'Spotify - Web Player';
-  }, [setActiveComponent]);
+  }, [dispatch]);
 
   const arr1 = arr;
   const arr2 = arr;
@@ -60,7 +60,7 @@ function Home() {
                         loading="lazy"
                         draggable="false"
                         src="https://misc.scdn.co/liked-songs/liked-songs-640.png"
-                        alt="dua"
+                        alt=""
                         onError={(e) => {
                           e.target.insertAdjacentHTML(
                             'afterend',
@@ -132,7 +132,7 @@ function Home() {
                           loading="lazy"
                           draggable="false"
                           src="https://i.scdn.co/image/ab67706f000000027cda1a881997b0bb1ca0eb92"
-                          alt="dua"
+                          alt=""
                           onError={(e) => {
                             e.target.insertAdjacentHTML(
                               'afterend',
