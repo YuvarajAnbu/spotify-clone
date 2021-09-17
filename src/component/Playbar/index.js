@@ -482,6 +482,14 @@ function Playbar() {
                   setIsSliderChanging(false);
                 }, 1000);
               }}
+              onTouchEnd={(e) => {
+                setSliderValue(e.target.value);
+                dispatch(setCurrentTime(e.target.value));
+                audio.currentTime = e.target.value;
+                setTimeout(() => {
+                  setIsSliderChanging(false);
+                }, 1000);
+              }}
             />
             <span>{fmtMSS(duration)}</span>
           </div>
