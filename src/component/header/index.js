@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { Popover } from 'antd';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { PopupContext, ScrollTopContext } from '../../App';
+import { OpenSideBarContext, PopupContext, ScrollTopContext } from '../../App';
 import './index.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from '../../redux/user/userSlice';
@@ -17,6 +17,8 @@ function Header() {
   );
   const dispatch = useDispatch();
 
+  const { openSideBar, setOpenSideBar } = useContext(OpenSideBarContext);
+
   // useEffect(() => {
   //   dispatch(changeActiveComponent(''));
   // }, [location, dispatch]);
@@ -31,7 +33,7 @@ function Header() {
     <ul className="header__profile__pop-over">
       <li>
         <Link
-          to="/user/nbmnbnyd"
+          to="/profile/nbmnbnyd"
           style={{ width: '100%' }}
           onClick={() => {
             setHidePopover(false);
@@ -64,6 +66,24 @@ function Header() {
               : 'rgba(16, 16, 16, 1)',
         }}
       >
+        <div
+          className="header__sidebar-btn"
+          onClick={() => {
+            setOpenSideBar(true);
+          }}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            width="24px"
+            height="24px"
+          >
+            <g>
+              <path d="M21,6H3V5h18V6z M21,11H3v1h18V11z M21,17H3v1h18V17z"></path>
+            </g>
+          </svg>
+        </div>
+
         <div className="header__history">
           <button
             type="button"

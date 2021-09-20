@@ -1,6 +1,6 @@
 .playbar {
   width: 100%;
-  z-index: 4;
+  z-index: 3;
   min-width: 650px;
   height: var(--playbar-height);
   background-color: var(--playbar-background-color);
@@ -509,7 +509,6 @@
 @media screen and (max-width: 800px) {
   .playbar {
     min-width: 230px;
-    bottom: 65px;
 
     &__controls,
     &__extras {

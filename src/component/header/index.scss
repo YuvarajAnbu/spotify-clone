@@ -14,8 +14,33 @@ header {
     right: 0;
     height: 60px;
 
+    &__sidebar-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      cursor: pointer;
+      display: none;
+
+      &:hover,
+      &:focus {
+        svg {
+          path {
+            fill: var(--primary-text-color);
+          }
+        }
+      }
+
+      svg {
+        path {
+          fill: var(--secondary-text-color);
+        }
+      }
+    }
+
     &__history {
       display: flex;
+      align-items: center;
       button {
         display: flex;
         align-items: center;
@@ -227,6 +252,21 @@ header {
     .header {
       width: 100vw;
       padding: 16px;
+
+      &__sidebar-btn {
+        display: flex;
+      }
+
+      &__history {
+        button {
+          width: 27px;
+          height: 27px;
+          svg {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
     }
   }
 }

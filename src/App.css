@@ -90,6 +90,17 @@ body .one-line {
   display: flex;
 }
 
+.App .sidebar__close-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  display: none;
+}
+
 .App .main-view {
   overflow-x: hidden;
   scrollbar-width: thin;
@@ -203,11 +214,15 @@ body .one-line {
 }
 
 @media screen and (max-width: 800px) {
-  .dark-theme {
-    --sidebar-width: 100vw;
-  }
-  .App .main-view {
-    height: calc(100vh - var(--playbar-height) - 65px);
+  .App .sidebar__close-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+    display: initial;
   }
 }
 

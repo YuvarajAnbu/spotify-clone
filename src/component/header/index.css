@@ -22,10 +22,36 @@ header .header {
   height: 60px;
 }
 
+header .header__sidebar-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-right: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+header .header__sidebar-btn:hover svg path, header .header__sidebar-btn:focus svg path {
+  fill: var(--primary-text-color);
+}
+
+header .header__sidebar-btn svg path {
+  fill: var(--secondary-text-color);
+}
+
 header .header__history {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 header .header__history button {
@@ -271,6 +297,19 @@ header .header__log__log-in {
   header .header {
     width: 100vw;
     padding: 16px;
+  }
+  header .header__sidebar-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  header .header__history button {
+    width: 27px;
+    height: 27px;
+  }
+  header .header__history button svg {
+    width: 18px;
+    height: 18px;
   }
 }
 
