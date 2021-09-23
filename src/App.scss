@@ -112,6 +112,14 @@ body {
     width: 100%;
     max-width: 1955px;
     height: calc(100vh - 90px);
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #666;
+    }
   }
 }
 

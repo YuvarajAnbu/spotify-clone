@@ -1,0 +1,119 @@
+.membership {
+  padding: 32px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.membership__plan {
+  padding: 16px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+          box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 8px;
+  border-radius: 10px;
+  border: 1px solid #fff;
+  max-width: 300px;
+  min-width: 300px;
+  min-height: 350px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.membership__plan p {
+  color: var(--primary-text-color);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.membership__plan__title {
+  border-bottom: 1px solid var(--faded-background-color);
+  padding-bottom: 20px;
+}
+
+.membership__plan__title h1 {
+  color: var(--primary-text-color);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.membership__plan__content {
+  padding: 16px 0;
+  margin-bottom: 20px;
+}
+
+.membership__plan__content li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.membership__plan__content li svg {
+  margin-right: 10px;
+}
+
+.membership__plan__content li svg polyline {
+  stroke: var(--primary-text-color);
+}
+
+.membership__plan button {
+  display: block;
+  margin-top: auto;
+  background-color: var(--spotify-faded-color);
+  border: 0;
+  justify-self: flex-end;
+  font-size: 13px;
+  width: 100%;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.membership__plan button:hover {
+  background-color: var(--spotify-bright-color);
+}
+
+@media screen and (max-width: 1250px) {
+  .membership {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 30px;
+  }
+  .membership__plan {
+    min-width: 500px;
+    min-height: auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .membership {
+    padding: 16px;
+  }
+  .membership__plan {
+    min-width: 300px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .membership__plan {
+    min-width: auto;
+  }
+}
+/*# sourceMappingURL=index.css.map */

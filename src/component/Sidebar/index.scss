@@ -10,7 +10,21 @@
   user-select: none;
   overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+  scrollbar-color: #6f6f70 transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 4px;
+  }
+
+  &:hover {
+    scrollbar-width: thin;
+  }
 
   &__line {
     width: calc(100% - 48px);
@@ -66,8 +80,7 @@
   &__upload {
     &__title {
       margin: 0 8px 5px;
-      padding: 8px 0;
-      // font-weight: 600;
+      padding: 8px 16px;
       font-size: 12px;
       border-bottom: 1px solid var(--faded-background-color);
     }

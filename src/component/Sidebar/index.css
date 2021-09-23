@@ -13,6 +13,20 @@
           user-select: none;
   overflow-x: hidden;
   overflow-y: auto;
+  scrollbar-width: none;
+  scrollbar-color: #6f6f70 transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
+
+.sidebar:hover {
   scrollbar-width: thin;
 }
 
@@ -67,7 +81,7 @@
 
 .sidebar__links__title, .sidebar__playlists__title, .sidebar__install__title, .sidebar__upload__title {
   margin: 0 8px 5px;
-  padding: 8px 0;
+  padding: 8px 16px;
   font-size: 12px;
   border-bottom: 1px solid var(--faded-background-color);
 }

@@ -110,6 +110,14 @@ body .one-line {
   height: calc(100vh - 90px);
 }
 
+.App .main-view::-webkit-scrollbar {
+  width: 5px;
+}
+
+.App .main-view::-webkit-scrollbar-thumb {
+  background: #666;
+}
+
 .popup {
   z-index: 999;
   width: 100vw;

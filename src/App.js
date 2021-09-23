@@ -1,5 +1,10 @@
 import { useEffect, useState, createContext, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import 'antd/dist/antd.css';
 import './App.css';
 import ErrorBoundary from './ErrorBoundary';
@@ -106,6 +111,7 @@ function App() {
                     <Route component={Song} path="/album/:id" exact />
                     <Route component={Artist} path="/artist/:id" exact />
                     <Route component={Profile} path="/profile/:id" exact />
+                    <Redirect from="/profile" to="/profile/info" />
                     <Route component={Queue} path="/queue" exact />
                     <Route component={Install} path="/download" exact />
                     <Route component={Lyrics} path="/lyrics" exact />

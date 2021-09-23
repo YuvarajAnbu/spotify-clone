@@ -42,13 +42,11 @@ export const logIn = createAsyncThunk('user/logIn', async (_, thunkAPI) => {
       );
       localStorage.setItem('isLogged', JSON.stringify(true));
       return userObj;
-      // setUser(userObj);
-      // setIsLoggedIn(true);
-      // setPopup('');
     } else {
       return thunkAPI.rejectWithValue('Incorrect username or password');
-      // setAlert('Incorrect username or password');
     }
+  } else {
+    return thunkAPI.rejectWithValue('Incorrect username or password');
   }
 });
 

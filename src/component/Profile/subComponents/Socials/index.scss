@@ -1,0 +1,99 @@
+.socials {
+  padding: 32px;
+
+  h1 {
+    color: var(--primary-text-color);
+    font-size: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--transparent-black-color-hover);
+  }
+  &__social {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    user-select: none;
+    padding: 10px;
+    border-radius: 5px;
+
+    p {
+      margin: 0;
+    }
+
+    &__input {
+      flex: 1;
+      background-color: transparent;
+      color: var(--secondary-text-color);
+      border: 0;
+      border-bottom: 1px solid currentColor;
+      padding: 5px;
+      outline: none;
+      font-size: 13px;
+      width: 100%;
+
+      &:focus {
+        color: var(--primary-text-color);
+      }
+    }
+
+    a {
+      font-size: 13px;
+      &:hover {
+        color: var(--primary-text-color);
+      }
+    }
+
+    &__link {
+      flex: 1;
+      word-break: break-all;
+      padding: 5px;
+      border-bottom: 1px solid transparent;
+    }
+
+    button {
+      border: none;
+      background-color: transparent;
+      color: currentColor;
+      font-weight: 600;
+      cursor: pointer;
+
+      svg {
+        fill: currentColor;
+      }
+
+      &:hover,
+      &:active {
+        color: var(--primary-text-color);
+        svg {
+          transform: scale(1.06);
+        }
+      }
+    }
+  }
+
+  &__submit {
+    margin-left: auto;
+    display: block;
+    margin-top: 20px;
+    background-color: var(--spotify-faded-color);
+    border: 0;
+    font-size: 13px;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--spotify-bright-color);
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .socials {
+    padding: 16px;
+
+    &__social {
+      padding: 10px 5px;
+    }
+  }
+}

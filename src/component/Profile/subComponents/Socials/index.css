@@ -1,0 +1,113 @@
+.socials {
+  padding: 32px;
+}
+
+.socials h1 {
+  color: var(--primary-text-color);
+  font-size: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--transparent-black-color-hover);
+}
+
+.socials__social {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 16px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.socials__social p {
+  margin: 0;
+}
+
+.socials__social__input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  padding: 5px;
+  outline: none;
+  font-size: 13px;
+  width: 100%;
+}
+
+.socials__social__input:focus {
+  color: var(--primary-text-color);
+}
+
+.socials__social a {
+  font-size: 13px;
+}
+
+.socials__social a:hover {
+  color: var(--primary-text-color);
+}
+
+.socials__social__link {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  word-break: break-all;
+  padding: 5px;
+  border-bottom: 1px solid transparent;
+}
+
+.socials__social button {
+  border: none;
+  background-color: transparent;
+  color: currentColor;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.socials__social button svg {
+  fill: currentColor;
+}
+
+.socials__social button:hover, .socials__social button:active {
+  color: var(--primary-text-color);
+}
+
+.socials__social button:hover svg, .socials__social button:active svg {
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+}
+
+.socials__submit {
+  margin-left: auto;
+  display: block;
+  margin-top: 20px;
+  background-color: var(--spotify-faded-color);
+  border: 0;
+  font-size: 13px;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.socials__submit:hover {
+  background-color: var(--spotify-bright-color);
+}
+
+@media screen and (max-width: 800px) {
+  .socials {
+    padding: 16px;
+  }
+  .socials__social {
+    padding: 10px 5px;
+  }
+}
+/*# sourceMappingURL=index.css.map */

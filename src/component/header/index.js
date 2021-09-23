@@ -19,9 +19,9 @@ function Header() {
 
   const { openSideBar, setOpenSideBar } = useContext(OpenSideBarContext);
 
-  // useEffect(() => {
-  //   dispatch(changeActiveComponent(''));
-  // }, [location, dispatch]);
+  useEffect(() => {
+    dispatch(changeActiveComponent(''));
+  }, [location, dispatch]);
 
   const scrollTop = useContext(ScrollTopContext);
   const { setPopup } = useContext(PopupContext);
@@ -33,7 +33,7 @@ function Header() {
     <ul className="header__profile__pop-over">
       <li>
         <Link
-          to="/profile/nbmnbnyd"
+          to="/profile"
           style={{ width: '100%' }}
           onClick={() => {
             setHidePopover(false);
