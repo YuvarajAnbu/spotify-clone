@@ -1,0 +1,45 @@
+.one {
+  &__container {
+    &__btns {
+      margin-top: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      button {
+        border: 0;
+        background-color: var(--spotify-faded-color);
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 13px;
+        width: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+          opacity: 0.7;
+        }
+      }
+
+      .active {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .one {
+    &__container {
+      &__btns {
+        button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

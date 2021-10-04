@@ -1,0 +1,32 @@
+.three__container__form {
+  max-width: 900px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 30px 60px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 80px;
+}
+
+.three__container__input-container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 250px;
+}
+
+.three__container__select-container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  min-width: 100%;
+}
+
+@media screen and (max-width: 950px) {
+  .three__container__form {
+    margin-top: 50px;
+    gap: 30px 30px;
+  }
+}
+/*# sourceMappingURL=index.css.map */

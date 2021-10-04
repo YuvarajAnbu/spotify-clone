@@ -18,7 +18,7 @@
 }
 
 .sidebar::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
@@ -28,6 +28,10 @@
 
 .sidebar:hover {
   scrollbar-width: thin;
+}
+
+.sidebar:hover::-webkit-scrollbar {
+  width: 5px;
 }
 
 .sidebar__line {

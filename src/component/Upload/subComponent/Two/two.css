@@ -1,0 +1,89 @@
+.two__container__p {
+  margin-bottom: 30px;
+}
+
+.two__container__p p {
+  margin-bottom: 0 !important;
+}
+
+.two__container__popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 3;
+}
+
+.two__container__popup__background {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.548);
+}
+
+.two__container__popup__content {
+  padding: 32px;
+  border-radius: 8px;
+  z-index: 2;
+  min-width: 500px;
+  background-color: var(--playbar-background-color);
+}
+
+.two__container__popup__content form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 20px;
+}
+
+.two__container__popup__content__btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.two__container__popup__content__btns button {
+  padding: 5px 10px;
+  width: 80px;
+  border: 0;
+  border-radius: 4px;
+  color: var(--primary-background-color);
+  background-color: var(--primary-text-color);
+  cursor: pointer;
+}
+
+.two__container__popup__content__btns button:hover {
+  -webkit-transform: scale(1.06);
+          transform: scale(1.06);
+}
+
+.two__container__popup__content__btns button:last-child {
+  background-color: var(--spotify-faded-color);
+  color: #fff;
+}
+/*# sourceMappingURL=two.css.map */

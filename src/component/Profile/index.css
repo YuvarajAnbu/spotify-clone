@@ -198,11 +198,8 @@
   }
   .profile__info__desc__about {
     width: 100%;
-    margin-bottom: 40px;
   }
   .profile__info__desc__btns button {
-    padding: 8px 10px;
-    font-size: 10px;
     margin-right: 15px;
   }
   .profile__info__desc__btns__more {

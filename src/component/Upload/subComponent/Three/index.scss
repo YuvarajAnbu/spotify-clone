@@ -1,0 +1,32 @@
+.three {
+  &__container {
+    &__form {
+      max-width: 900px;
+      display: flex;
+      gap: 30px 60px;
+      flex-wrap: wrap;
+      margin-top: 80px;
+    }
+
+    &__input-container {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    &__select-container {
+      flex: 1;
+      min-width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .three {
+    &__container {
+      &__form {
+        margin-top: 50px;
+        gap: 30px 30px;
+      }
+    }
+  }
+}

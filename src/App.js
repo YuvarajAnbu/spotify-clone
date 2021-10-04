@@ -29,6 +29,7 @@ const Install = lazy(() => import('./component/Install'));
 const Lyrics = lazy(() => import('./component/Lyrics'));
 const NoMatch = lazy(() => import('./component/404'));
 const Genre = lazy(() => import('./component/Genre'));
+const Upload = lazy(() => import('./component/Upload'));
 
 export const ScrollTopContext = createContext();
 export const PopupContext = createContext();
@@ -116,6 +117,7 @@ function App() {
                     <Route component={Install} path="/download" exact />
                     <Route component={Lyrics} path="/lyrics" exact />
                     <Route component={Genre} path="/genre/:id" exact />
+                    <Route component={Upload} path="/upload" exact />
                     <Route component={NoMatch} />
                   </Switch>
                 </Suspense>

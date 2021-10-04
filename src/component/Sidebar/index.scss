@@ -14,7 +14,7 @@
   scrollbar-color: #6f6f70 transparent;
 
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 0px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -24,6 +24,10 @@
 
   &:hover {
     scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
   }
 
   &__line {

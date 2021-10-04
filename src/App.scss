@@ -105,12 +105,12 @@ body {
   }
 
   .main-view {
-    // scroll-behavior: smooth;
     overflow-x: hidden;
     scrollbar-width: thin;
     position: relative;
     width: 100%;
     max-width: 1955px;
+    max-height: calc(100vh - 90px);
     height: calc(100vh - 90px);
 
     &::-webkit-scrollbar {

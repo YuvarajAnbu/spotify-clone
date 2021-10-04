@@ -10,7 +10,7 @@ import Info from './subComponents/Info';
 import Socials from './subComponents/Socials';
 import Membership from './subComponents/Membership';
 
-function Profile(props) {
+function Profile() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams();
