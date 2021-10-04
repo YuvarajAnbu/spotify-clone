@@ -11,6 +11,7 @@ function Four({ prev, next }) {
   const {
     register,
     formState: { errors },
+    getValues,
     handleSubmit,
   } = useForm({
     defaultValues: {
@@ -25,6 +26,16 @@ function Four({ prev, next }) {
       recordLabel: form.recordLabel ? form.recordLabel : '',
     },
   });
+
+  const goBack = () => {
+    setForm((prev) => {
+      return {
+        ...prev,
+        ...getValues(),
+      };
+    });
+    prev();
+  };
 
   const OnSubmit = (data) => {
     setForm((prev) => {
@@ -152,7 +163,9 @@ function Four({ prev, next }) {
         <button
           className="upload__btns__prev"
           type="button"
-          onClick={() => prev()}
+          onClick={() => {
+            goBack();
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

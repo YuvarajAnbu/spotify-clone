@@ -30,13 +30,10 @@ function Two({ prev, next }) {
   const [showPopup, setShowPop] = useState(false);
   const [currentPopup, setCurrentPopup] = useState(0);
 
-  console.log(currentPopup);
-
   // React hook form
   const {
     register,
     formState: { errors },
-    setValue,
     handleSubmit,
     reset,
   } = useForm();
@@ -72,10 +69,56 @@ function Two({ prev, next }) {
     el.scrollTop = el.scrollHeight;
   }, [songs]);
 
+  const goBack = () => {
+    const filteredCount = songs.map((e) => {
+      delete e.count;
+      return e;
+    });
+    const master = filteredCount[0];
+    filteredCount.shift();
+
+    const components = filteredCount;
+
+    setForm((prev) => {
+      prev.songs.master = master;
+      prev.songs.components = components;
+
+      return prev;
+    });
+    prev();
+  };
+
+  const OnSubmit = () => {
+    const filteredCount = songs.map((e) => {
+      delete e.count;
+      return e;
+    });
+    const master = filteredCount[0];
+    filteredCount.shift();
+
+    const components = filteredCount.filter((e) => e.song);
+
+    if (master.song) {
+      if (components.length > 0) {
+        setForm((prev) => {
+          prev.songs.master = master;
+          prev.songs.components = components;
+
+          return prev;
+        });
+        next();
+      } else {
+        message.error('Upload atleast one Audio and one master Audio');
+      }
+    } else {
+      message.error('Upload atleast one Audio and one master Audio');
+    }
+  };
+
   return (
     <div className="two">
       <div className="two__container">
-        <h1>Beat Stems</h1>
+        <h1>{form?.type.slice(0, -1)} Stems</h1>
         <div className="two__container__p">
           <p>Lets add your individual beat stems. ( .wav, .aiff, .mp3 )</p>
           <p>
@@ -311,12 +354,12 @@ function Two({ prev, next }) {
                     >
                       <path d="M 19.171875 2 C 18.448125 2 17.724375 2.275625 17.171875 2.828125 L 16 4 L 20 8 L 21.171875 6.828125 C 22.275875 5.724125 22.275875 3.933125 21.171875 2.828125 C 20.619375 2.275625 19.895625 2 19.171875 2 z M 14.5 5.5 L 3 17 L 3 21 L 7 21 L 18.5 9.5 L 14.5 5.5 z" />
                     </svg>
-                  </div>
+                  </div> */}
                   <div className="upload__songs__song__lyrics">
                     <span>
                       <p>{e.lyrics.name}</p>
                     </span>
-                  </div> */}
+                  </div>
                   <div className="upload__songs__song__name">
                     <span>
                       <p>{e.name}</p>
@@ -596,7 +639,9 @@ function Two({ prev, next }) {
         <button
           className="upload__btns__prev"
           type="button"
-          onClick={() => prev()}
+          onClick={() => {
+            goBack();
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -613,30 +658,7 @@ function Two({ prev, next }) {
         <button
           type="button"
           onClick={() => {
-            const filteredCount = songs.map((e) => {
-              delete e.count;
-              return e;
-            });
-            const master = filteredCount[0];
-            filteredCount.shift();
-
-            const components = filteredCount.filter((e) => e.song);
-
-            if (master.song) {
-              if (components.length > 0) {
-                setForm((prev) => {
-                  prev.songs.master = master;
-                  prev.songs.components = components;
-
-                  return prev;
-                });
-                next();
-              } else {
-                message.error('Upload atleast one Audio and one master Audio');
-              }
-            } else {
-              message.error('Upload atleast one Audio and one master Audio');
-            }
+            OnSubmit();
           }}
         >
           <span>

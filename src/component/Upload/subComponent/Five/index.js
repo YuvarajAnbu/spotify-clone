@@ -44,6 +44,28 @@ function Five({ prev, next }) {
     }
   }, []);
 
+  const goBack = () => {
+    const obj = {};
+    let totalLength = 0;
+    Object.keys(items).forEach((e) => {
+      const arr = [];
+      items[e].forEach((k) => {
+        arr.push(k.file);
+      });
+      obj[e] = arr;
+      totalLength = totalLength + arr.length;
+    });
+
+    setForm((prev) => {
+      return {
+        ...prev,
+        licenses: obj,
+      };
+    });
+
+    prev();
+  };
+
   const OnSubmit = () => {
     const obj = {};
     let totalLength = 0;
@@ -188,7 +210,9 @@ function Five({ prev, next }) {
         <button
           className="upload__btns__prev"
           type="button"
-          onClick={() => prev()}
+          onClick={() => {
+            goBack();
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

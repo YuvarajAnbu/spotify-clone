@@ -14,6 +14,7 @@ function Three({ prev, next }) {
     formState: { errors },
     watch,
     setValue,
+    getValues,
     handleSubmit,
   } = useForm({
     defaultValues: {
@@ -25,6 +26,16 @@ function Three({ prev, next }) {
       desc: form.desc ? form.desc : '',
     },
   });
+
+  const goBack = () => {
+    setForm((prev) => {
+      return {
+        ...prev,
+        ...getValues(),
+      };
+    });
+    prev();
+  };
 
   const OnSubmit = (data) => {
     setForm((prev) => {
@@ -148,7 +159,9 @@ function Three({ prev, next }) {
         <button
           className="upload__btns__prev"
           type="button"
-          onClick={() => prev()}
+          onClick={() => {
+            goBack();
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -159,7 +172,11 @@ function Three({ prev, next }) {
             <path d="M24 12l-12-9v5h-12v8h12v5l12-9z" />
           </svg>
           <span>
-            Back <span>to " Vocal Stems "</span>
+            Back{' '}
+            <span>
+              to " {form?.type?.[0].toUpperCase()}
+              {form?.type.slice(1, -1)} Stems "
+            </span>
           </span>
         </button>
         <button type="submit">

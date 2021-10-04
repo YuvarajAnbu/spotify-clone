@@ -18,6 +18,7 @@
   margin-bottom: 40px;
   position: relative;
   line-height: 83px;
+  text-transform: capitalize;
 }
 
 .upload__content h1::after {
