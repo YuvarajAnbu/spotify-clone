@@ -5,6 +5,7 @@
   max-width: var(--sidebar-width);
   width: var(--sidebar-width);
   height: calc(100vh - var(--playbar-height));
+  max-height: calc(100vh - var(--playbar-height));
   position: relative;
   z-index: 5;
   user-select: none;
@@ -227,6 +228,7 @@
     top: 0;
     left: 0;
     height: 100vh;
+    max-height: 100vh;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
 
