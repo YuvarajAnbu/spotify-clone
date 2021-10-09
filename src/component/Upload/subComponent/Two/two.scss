@@ -78,3 +78,29 @@
     }
   }
 }
+
+@media screen and (max-width: 1000px) {
+  .two {
+    &__container {
+      &__popup {
+        &__content {
+          padding: 32px 16px;
+          min-width: auto;
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .two {
+    &__container {
+      &__popup {
+        &__content {
+          width: 90%;
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 .genre {
   transform: translateY(-60px);
   &__info {
-    height: 30vh;
+    height: calc(30 * var(--vh));
     max-height: 400px;
     min-height: 250px;
     display: flex;

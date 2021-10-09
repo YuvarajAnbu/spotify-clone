@@ -4,7 +4,7 @@
 }
 
 .album__info {
-  height: 30vh;
+  height: calc(30 * var(--vh));
   max-height: 500px;
   min-height: 340px;
   display: -webkit-box;

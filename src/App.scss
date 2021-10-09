@@ -98,7 +98,7 @@ body {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(100 * var(--vh));
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 4;
     display: none;
@@ -110,8 +110,8 @@ body {
     position: relative;
     width: 100%;
     max-width: 1955px;
-    max-height: calc(100vh - 90px);
-    height: calc(100vh - 90px);
+    height: calc(calc(100 * var(--vh)) - 90px);
+    max-height: calc(calc(100 * var(--vh)) - 90px);
 
     &::-webkit-scrollbar {
       width: 5px;
@@ -254,7 +254,7 @@ body {
 .popup {
   z-index: 999;
   width: 100vw;
-  height: 100vh;
+  height: calc(100 * var(--vh));
   position: absolute;
   top: 0;
   right: 0;
@@ -351,13 +351,14 @@ body {
       top: 0;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      height: calc(100 * var(--vh));
       background-color: rgba(0, 0, 0, 0.5);
       z-index: 4;
       display: initial;
     }
   }
 }
+
 @media screen and (max-width: 600px) {
   .popup {
     &__container {

@@ -1,7 +1,7 @@
 .lyrics {
   display: grid;
   grid-template-rows: 1fr;
-  height: calc(100vh - var(--playbar-height));
+  height: calc(calc(100 * var(--vh)) - var(--playbar-height));
   margin-bottom: -32px;
   margin-top: -60px;
 
@@ -86,7 +86,7 @@
 
 @media screen and (max-width: 800px) {
   .lyrics {
-    height: calc(100vh - var(--playbar-height) - 65px);
+    height: calc(calc(100 * var(--vh)) - var(--playbar-height) - 65px);
     &__container {
       &__content {
         p {

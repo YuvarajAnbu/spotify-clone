@@ -105,7 +105,7 @@ body .one-line {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(100 * var(--vh));
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 4;
   display: none;
@@ -117,8 +117,8 @@ body .one-line {
   position: relative;
   width: 100%;
   max-width: 1955px;
-  max-height: calc(100vh - 90px);
-  height: calc(100vh - 90px);
+  height: calc(calc(100 * var(--vh)) - 90px);
+  max-height: calc(calc(100 * var(--vh)) - 90px);
 }
 
 .App .main-view::-webkit-scrollbar {
@@ -257,7 +257,7 @@ body .one-line {
 .popup {
   z-index: 999;
   width: 100vw;
-  height: 100vh;
+  height: calc(100 * var(--vh));
   position: absolute;
   top: 0;
   right: 0;
@@ -363,7 +363,7 @@ body .one-line {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: calc(100 * var(--vh));
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 4;
     display: initial;

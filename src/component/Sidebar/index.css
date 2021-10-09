@@ -4,8 +4,8 @@
   min-width: var(--sidebar-width);
   max-width: var(--sidebar-width);
   width: var(--sidebar-width);
-  height: calc(100vh - var(--playbar-height));
-  max-height: calc(100vh - var(--playbar-height));
+  height: calc(calc(100 * var(--vh)) - var(--playbar-height));
+  max-height: calc(calc(100 * var(--vh)) - var(--playbar-height));
   position: relative;
   z-index: 5;
   -webkit-user-select: none;
@@ -210,8 +210,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
-    max-height: 100vh;
+    height: calc(100 * var(--vh));
+    max-height: calc(100 * var(--vh));
     -webkit-transform: translateX(-100%);
             transform: translateX(-100%);
     -webkit-transition: -webkit-transform 0.3s ease;

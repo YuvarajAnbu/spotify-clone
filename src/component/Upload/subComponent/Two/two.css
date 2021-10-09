@@ -86,4 +86,18 @@
   background-color: var(--spotify-faded-color);
   color: #fff;
 }
+
+@media screen and (max-width: 1000px) {
+  .two__container__popup__content {
+    padding: 32px 16px;
+    min-width: auto;
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .two__container__popup__content {
+    width: 90%;
+  }
+}
 /*# sourceMappingURL=two.css.map */

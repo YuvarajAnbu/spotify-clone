@@ -4,7 +4,7 @@
 }
 
 .genre__info {
-  height: 30vh;
+  height: calc(30 * var(--vh));
   max-height: 400px;
   min-height: 250px;
   display: -webkit-box;

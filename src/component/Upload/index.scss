@@ -3,12 +3,17 @@
   margin: 32px;
   border: 1px solid white;
   border-radius: 10px;
-  height: calc(100vh - var(--playbar-height) - 60px - (32px * 2) - (1px * 2));
+  height: calc(
+    calc(100 * var(--vh)) - var(--playbar-height) - 60px - (32px * 2) -
+      (1px * 2)
+  );
   min-height: calc(
-    100vh - var(--playbar-height) - 60px - (32px * 2) - (1px * 2)
+    calc(100 * var(--vh)) - var(--playbar-height) - 60px - (32px * 2) -
+      (1px * 2)
   );
   max-height: calc(
-    100vh - var(--playbar-height) - 60px - (32px * 2) - (1px * 2)
+    calc(100 * var(--vh)) - var(--playbar-height) - 60px - (32px * 2) -
+      (1px * 2)
   );
 
   &__content {
@@ -601,13 +606,16 @@
     padding-bottom: 32px;
     border: 0;
     height: calc(
-      100vh - var(--playbar-height) - 60px - (32px + 16px) - (1px * 2)
+      calc(100 * var(--vh)) - var(--playbar-height) - 60px - (32px + 16px) -
+        (1px * 2)
     );
     min-height: calc(
-      100vh - var(--playbar-height) - 60px - (32px + 16px) - (1px * 2)
+      calc(100 * var(--vh)) - var(--playbar-height) - 60px - (32px + 16px) -
+        (1px * 2)
     );
     max-height: calc(
-      100vh - var(--playbar-height) - 60px - (32px + 16px) - (1px * 2)
+      calc(100 * var(--vh)) - var(--playbar-height) - 60px - (32px + 16px) -
+        (1px * 2)
     );
     &__content {
       h1 {

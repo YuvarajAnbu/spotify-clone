@@ -3,7 +3,7 @@
   display: grid;
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
-  height: calc(100vh - var(--playbar-height));
+  height: calc(calc(100 * var(--vh)) - var(--playbar-height));
   margin-bottom: -32px;
   margin-top: -60px;
 }
@@ -82,7 +82,7 @@
 
 @media screen and (max-width: 800px) {
   .lyrics {
-    height: calc(100vh - var(--playbar-height) - 65px);
+    height: calc(calc(100 * var(--vh)) - var(--playbar-height) - 65px);
   }
   .lyrics__container__content p {
     text-align: center;

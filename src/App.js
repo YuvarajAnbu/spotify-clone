@@ -53,6 +53,29 @@ function App() {
     dispatch(getUser());
   }, [dispatch]);
 
+  //get view height and adding as style variable
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      document
+        .querySelector(':root')
+        .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+    });
+
+    return () => {
+      window.addEventListener('resize', () => {
+        document
+          .querySelector(':root')
+          .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    document
+      .querySelector(':root')
+      .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+  }, []);
+
   return isGetLoading ? (
     <div></div>
   ) : (
