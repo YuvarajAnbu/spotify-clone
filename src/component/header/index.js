@@ -192,7 +192,7 @@ function Header() {
                   role="img"
                   height="16"
                   width="16"
-                  class="Svg-sc-1bi12j5-0 gSLhUO _kBqVtNa6io1mPbycO8V"
+                  className="Svg-sc-1bi12j5-0 gSLhUO _kBqVtNa6io1mPbycO8V"
                   viewBox="0 0 16 16"
                 >
                   <path d="M13 10L8 4.206 3 10z"></path>

@@ -1,4 +1,4 @@
-export default [
+const arr = [
   {
     id: 0,
     img: 'https://i.scdn.co/image/ab67616d00001e0290a50cfe99a4c19ff3cbfbdb',
@@ -227,3 +227,5 @@ export default [
           [03:33.01]Line up the rappers, take my pic like a photo shoot`,
   },
 ];
+
+export default arr;

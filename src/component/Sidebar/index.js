@@ -45,7 +45,7 @@ function Sidebar() {
             setOpenSideBar(false);
           }}
         >
-          <svg viewBox="0 0 1134 340" class="spotify-logo--text">
+          <svg viewBox="0 0 1134 340" className="spotify-logo--text">
             <title>Spotify</title>
             <path
               fill="currentColor"
@@ -151,7 +151,7 @@ function Sidebar() {
                 role="img"
                 height="24"
                 width="24"
-                class="Svg-sc-1bi12j5-0 jgfuCe search-icon"
+                className="Svg-sc-1bi12j5-0 jgfuCe search-icon"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -182,7 +182,7 @@ function Sidebar() {
                 role="img"
                 height="24"
                 width="24"
-                class="Svg-sc-1bi12j5-0 jgfuCe collection-icon"
+                className="Svg-sc-1bi12j5-0 jgfuCe collection-icon"
                 viewBox="0 0 24 24"
               >
                 <path
