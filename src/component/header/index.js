@@ -75,6 +75,7 @@ function Header() {
           <svg
             viewBox="0 0 24 24"
             preserveAspectRatio="xMidYMid meet"
+            className={openSideBar ? 'a' : 'b'}
             width="24px"
             height="24px"
           >

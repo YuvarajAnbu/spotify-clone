@@ -42,7 +42,7 @@ function Five({ prev, next }) {
       });
       setCount(localCount);
     }
-  }, []);
+  }, [form.licenses]);
 
   const goBack = () => {
     const obj = {};

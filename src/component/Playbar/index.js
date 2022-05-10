@@ -48,11 +48,11 @@ function Playbar() {
 
   useEffect(() => {
     if (isPlaying) {
-      document.title = 'Crazy Life · Free Hexel, Free Hexel';
+      document.title = currentSong?.name;
     } else {
       document.title = `Spotify - Web Player`;
     }
-  }, [isPlaying]);
+  }, [isPlaying, currentSong]);
 
   //pop over
   const [isOpen, setIsOpen] = useState(false);
@@ -81,7 +81,7 @@ function Playbar() {
   //creating audio based on song
   useEffect(() => {
     if (initialQueue.length >= 1) {
-      audio.src = currentSong.song;
+      audio.src = currentSong?.song;
     }
   }, [audio, currentSong, initialQueue]);
 
@@ -220,6 +220,11 @@ function Playbar() {
     }
   }, [isPlaying, isLoaded, audio, currentSong]);
 
+  useEffect(() => {
+    if (audio.paused && isPlaying) dispatch(pauseSong());
+    if (!audio.paused && !isPlaying) dispatch(playSong());
+  }, [audio.paused]);
+
   const fmtMSS = (s) => {
     return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
   };
@@ -246,7 +251,7 @@ function Playbar() {
                 <img
                   loading="lazy"
                   draggable="false"
-                  src={currentSong.img}
+                  src={currentSong?.img}
                   alt=""
                   onError={(e) => {
                     e.target.insertAdjacentHTML(
@@ -267,11 +272,13 @@ function Playbar() {
           </Link>
           <div className="playbar__desc__name one-line">
             <p className="one-line">
-              <Link to={`/album/${currentSong.name}`}>{currentSong.name}</Link>
+              <Link to={`/album/${currentSong?.name}`}>
+                {currentSong?.name}
+              </Link>
             </p>
             <span className="one-line">
-              {currentSong.artists.map((e, i) => {
-                if (i < currentSong.artists.length - 1) {
+              {currentSong?.artists.map((e, i) => {
+                if (i < currentSong?.artists.length - 1) {
                   return (
                     <div key={i}>
                       <Link to={`/artist/${e}`}>{e}</Link>,{' '}

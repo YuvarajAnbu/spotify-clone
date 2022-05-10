@@ -79,7 +79,7 @@
 
 .sidebar__top__logo svg {
   color: var(--logo-color);
-  height: 30px;
+  height: 40px;
   max-width: 131px;
   width: 100%;
 }
@@ -151,6 +151,19 @@
   height: 24px;
 }
 
+.sidebar__links__link a .icon img,
+.sidebar__links__link a .default-icon img,
+.sidebar__links__link a .active-icon img, .sidebar__playlists__link a .icon img,
+.sidebar__playlists__link a .default-icon img,
+.sidebar__playlists__link a .active-icon img, .sidebar__install__link a .icon img,
+.sidebar__install__link a .default-icon img,
+.sidebar__install__link a .active-icon img, .sidebar__upload__link a .icon img,
+.sidebar__upload__link a .default-icon img,
+.sidebar__upload__link a .active-icon img {
+  width: 24px;
+  height: 24px;
+}
+
 .sidebar__links__link a .liked, .sidebar__playlists__link a .liked, .sidebar__install__link a .liked, .sidebar__upload__link a .liked {
   background: linear-gradient(135deg, #450af5, #c4efd9);
   border-radius: 1px;
@@ -182,11 +195,10 @@
 }
 
 .sidebar__links {
-  margin-bottom: 20px;
+  margin-bottom: 0 !important;
 }
 
 .sidebar__upload {
-  border-top: 1px solid var(--faded-background-color);
   padding: 5px 0;
   margin-bottom: 0;
 }

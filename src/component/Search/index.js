@@ -9,44 +9,39 @@ function Search() {
   const dispatch = useDispatch();
   const arr = [
     {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
+      img: 'https://i.scdn.co/image/567158eb895ad26718a814345af0fc43ee785ec5',
       color: '#27856a',
+      title: 'podcast',
     },
     {
       img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
+      color: '#1e3264',
+      title: 'made for you',
     },
     {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
+      img: 'https://i.scdn.co/image/ab67706f00000002aa93fe4e8c2d24fc62556cba',
+      color: '#8d67ab',
+      title: 'mood',
     },
     {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
+      img: 'https://i.scdn.co/image/ab67706f000000027ea4d505212b9de1f72c5112',
+      color: '#e8115b',
+      title: 'new releases',
     },
     {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
+      img: 'https://i.scdn.co/image/ab67706f000000029249b35f23fb596b6f006a15',
+      color: '#777777',
+      title: 'workout',
     },
     {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
+      img: 'https://i.scdn.co/image/ab67706f00000002ec9d60059aa215a7ba364695',
+      color: '#477d95',
+      title: 'at home',
     },
     {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
-    },
-    {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
-    },
-    {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
-    },
-    {
-      img: 'https://t.scdn.co/images/ea364e99656e46a096ea1df50f581efe',
-      color: '#27856a',
+      img: 'https://i.scdn.co/image/ab67706f00000002aa93fe4e8c2d24fc62556cba',
+      color: '#477d95',
+      title: 'chill',
     },
   ];
 
@@ -62,12 +57,15 @@ function Search() {
         <h2>Browse all</h2>
         <div className="search__genres__container">
           {arr.map((el, i) => (
-            <Link to="/genre/k-pop" key={i}>
+            <Link
+              to={`/genre/${el.title}?c=${el.color.replace('#', '')}`}
+              key={i}
+            >
               <div
                 className="search__genres__container__genre"
                 style={{ backgroundColor: el.color }}
               >
-                <h3>Podcasts</h3>
+                <h3>{el.title}</h3>
                 <img src={el.img} alt="" />
               </div>
             </Link>

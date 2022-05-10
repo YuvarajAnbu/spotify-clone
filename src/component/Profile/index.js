@@ -118,9 +118,9 @@ function Profile() {
           <TabPane tab="INFO" key="1">
             <Info />
           </TabPane>
-          <TabPane tab="ARTISTS HUB" key="2">
+          {/* <TabPane tab="ARTISTS HUB" key="2">
             Content of Tab Pane 2
-          </TabPane>
+          </TabPane> */}
           <TabPane tab="SOCIALS" key="3">
             <Socials />
           </TabPane>

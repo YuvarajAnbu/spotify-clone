@@ -45,6 +45,7 @@
   overflow-wrap: break-word;
   padding: 16px;
   position: absolute;
+  text-transform: capitalize;
 }
 
 .search__genres__container__genre img {

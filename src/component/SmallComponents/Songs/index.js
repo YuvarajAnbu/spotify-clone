@@ -30,12 +30,12 @@ function Songs(props) {
       {arr.map((e, i) => (
         <div
           className={
-            currentSong.song === e.song ? 'songs__song active' : 'songs__song'
+            currentSong?.song === e.song ? 'songs__song active' : 'songs__song'
           }
           key={i}
         >
           <div className="songs__song__index">
-            {currentSong.song === e.song && isPlaying ? (
+            {currentSong?.song === e.song && isPlaying ? (
               <img
                 alt=""
                 src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif"
@@ -48,18 +48,19 @@ function Songs(props) {
 
             <button
               onClick={() => {
-                if (currentSong.song === e.song) {
+                if (currentSong?.song === e.song) {
                   if (isPlaying) {
                     dispatch(pauseSong());
                   } else {
                     dispatch(playSong());
                   }
                 } else {
-                  dispatch(changeCurrentSong({ song: e, index: i }));
+                  console.log({ song: e.id, index: i });
+                  dispatch(changeCurrentSong({ song: e.id, index: i }));
                 }
               }}
             >
-              {currentSong.song === e.song && isPlaying ? (
+              {currentSong?.song === e.song && isPlaying ? (
                 <svg height="32" role="img" width="32" viewBox="0 0 24 24">
                   <rect
                     x="5"

@@ -12,33 +12,35 @@ function Lyrics() {
     document.title = 'Spotify - Lyrics';
   }, [dispatch]);
 
-  const lyrics = `
-  [00:09.29]Ah, ah.
-  [00:19.29]We come from the land of the ice and snow,
-  [00:20.80]From the midnight sun where the hot springs flow.
-  [00:24.55]Hammer of the gods will drive our ships to new land.
-  [00:31.81]To fight the hordes and sing, and cry.
-  [00:35.80]Valhalla, I am coming.
-  [00:44.56]Always sweep with, with threshing oar.
-  [00:49.05]Our only goal will be the western shore.
-  [00:57.06]Ah, ah.
-  [01:05.80]We come from the land of the ice and snow,
-  [01:07.55]From the midnight sun where the hot springs flow.
-  [01:11.05]How soft your fields so green. Can whisper tales of gore.
-  [01:18.30]Of how we calmed the tides of war. We are your overlords.
-  [01:31.05]Always sweep with threshing oar,
-  [01:35.30]Our only goal will be the western shore.
-  [01:45.05]So now you'd better stop and rebuild all your ruins.
-  [01:48.30]For peace and trust can win the day despite of all your losing.
-  [01:56.32]Ooh. Ooh. Ooh. Ooh. Ooh 
-  `;
+  //lyrics lrc type
 
-  const { currentTime } = useSelector((state) => state.songs);
+  // const lyrics = `
+  // [00:09.29]Ah, ah.
+  // [00:19.29]We come from the land of the ice and snow,
+  // [00:20.80]From the midnight sun where the hot springs flow.
+  // [00:24.55]Hammer of the gods will drive our ships to new land.
+  // [00:31.81]To fight the hordes and sing, and cry.
+  // [00:35.80]Valhalla, I am coming.
+  // [00:44.56]Always sweep with, with threshing oar.
+  // [00:49.05]Our only goal will be the western shore.
+  // [00:57.06]Ah, ah.
+  // [01:05.80]We come from the land of the ice and snow,
+  // [01:07.55]From the midnight sun where the hot springs flow.
+  // [01:11.05]How soft your fields so green. Can whisper tales of gore.
+  // [01:18.30]Of how we calmed the tides of war. We are your overlords.
+  // [01:31.05]Always sweep with threshing oar,
+  // [01:35.30]Our only goal will be the western shore.
+  // [01:45.05]So now you'd better stop and rebuild all your ruins.
+  // [01:48.30]For peace and trust can win the day despite of all your losing.
+  // [01:56.32]Ooh. Ooh. Ooh. Ooh. Ooh
+  // `;
+
+  const { currentTime, currentSong } = useSelector((state) => state.songs);
   const [lyricsArr, setLyricsArr] = useState([]);
   const [currentText, setCurrentText] = useState(-1);
 
   useEffect(() => {
-    const linesArr = lyrics.trim().split('\n');
+    const linesArr = currentSong.lyrics.trim().split('\n');
 
     setLyricsArr(
       linesArr.map((e) => {
@@ -48,7 +50,7 @@ function Lyrics() {
         return arr;
       })
     );
-  }, [lyrics]);
+  }, [currentSong]);
 
   useEffect(() => {
     lyricsArr.forEach((item, i) => {

@@ -1,43 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import songsList from './songsList';
 
 export const songsSlice = createSlice({
   name: 'songs',
   initialState: {
-    initialQueue: [
-      {
-        img: 'https://i.scdn.co/image/ab67616d00001e0290a50cfe99a4c19ff3cbfbdb',
-        name: 'Immigrant Song',
-        artists: ['Led Zeppelin'],
-        song: 'https://res.cloudinary.com/xander-ecommerce/video/upload/v1631616594/Led_Zeppelin_Immigrant_Song_._gk3tfc.mp3',
-        duration: '2:25',
-        views: 713413145,
-      },
-      {
-        img: 'https://i.scdn.co/image/ab67616d00001e022d564195ed3dd7b70d64862c',
-        name: 'No Lie',
-        artists: ['Sean Paul', 'Dua Lipa'],
-        song: 'https://res.cloudinary.com/xander-ecommerce/video/upload/v1631344240/No_lie_Feel_your_eyes_they_all_over_me_Sean_Paul_-_No_Lie_ft._Dua_Lipa_wpfxqm.mp3',
-        duration: '4:00',
-        views: 514613134,
-      },
-      {
-        img: 'https://i.scdn.co/image/ab67616d00001e02e4073def0c03a91e3fceaf73',
-        name: 'Kamikaze',
-        artists: ['Eminem'],
-        song: 'https://res.cloudinary.com/xander-ecommerce/video/upload/v1631616605/Kamikaze_Official_Audio_jswjdc.mp3',
-        duration: '3:36',
-        views: 914473187,
-      },
-    ],
+    initialQueue: songsList,
     queue: [],
-    currentSong: {
-      img: 'https://i.scdn.co/image/ab67616d00001e0290a50cfe99a4c19ff3cbfbdb',
-      name: 'Immigrant Song',
-      artists: ['Led Zeppelin'],
-      song: 'https://res.cloudinary.com/xander-ecommerce/video/upload/v1631616594/Led_Zeppelin_Immigrant_Song_._gk3tfc.mp3',
-      duration: '2:25',
-      views: 713413145,
-    },
+    currentSong: songsList.find((e) => e.id === 0),
     currentIndex: 0,
     isPlaying: false,
     duration: 0,
@@ -45,8 +14,7 @@ export const songsSlice = createSlice({
     volume: 1,
     muted: false,
     suffle: false,
-    repeat: 'disable',
-    // "enable", "once"
+    repeat: 'disable', // "disable", "enable", "once"
   },
   reducers: {
     playSong: (state) => {
@@ -180,7 +148,8 @@ export const songsSlice = createSlice({
       state.repeat = 'once';
     },
     changeCurrentSong: (state, { payload }) => {
-      state.currentSong = payload.song;
+      // state.currentSong = payload.song;
+      state.currentSong = songsList.find((e) => e.id === payload.song);
       state.currentIndex = payload.index;
       state.isPlaying = true;
     },

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import HomeDefault from '../SmallComponents/HomeDefault';
 
 import './index.css';
 
-function Genre() {
+function Genre(props) {
   const arr = [
     {
       type: 'artist',
@@ -27,17 +27,23 @@ function Genre() {
     },
   ];
 
+  const { id } = useParams();
+
   return (
     <div className="genre">
       <div className="genre__info">
         <div
           className="genre__info__background"
-          style={{ backgroundColor: 'rgb(39, 133, 106)' }}
+          style={{
+            backgroundColor: `#${new URLSearchParams(props.location.search).get(
+              'c'
+            )}`,
+          }}
         ></div>
         <div className="genre__info__background-noise"></div>
 
         <div className="genre__info__desc">
-          <h1 className="one-line">k-pop</h1>
+          <h1 className="one-line">{id}</h1>
         </div>
       </div>
 
