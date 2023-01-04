@@ -10,11 +10,11 @@ import "./App.css";
 import ErrorBoundary from "./ErrorBoundary";
 import { useDispatch, useSelector } from "react-redux";
 import { checkLogged, clearErrorMsg, getUser } from "./redux/user/userSlice";
-// import SignUp from "./component/Signup";
-// import SignIn from "./component/SignIn";
+import SignUp from "./component/SignUp";
+import SignIn from "./component/SignIn";
 
-const SignUp = lazy(() => import("./component/SignUp"));
-const SignIn = lazy(() => import("./component/SignIn"));
+// const SignUp = lazy(() => import("./component/SignUp"));
+// const SignIn = lazy(() => import("./component/SignIn"));
 const Playbar = lazy(() => import("./component/Playbar"));
 const Sidebar = lazy(() => import("./component/Sidebar"));
 const Header = lazy(() => import("./component/Header"));
