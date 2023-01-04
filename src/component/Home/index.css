@@ -133,6 +133,9 @@
 .home__section__default-section {
   margin-bottom: 16px;
 }
+.home__section__default-section.wrap {
+  padding: 0 16px;
+}
 .home__section__default-section__title {
   display: flex;
   justify-content: space-between;

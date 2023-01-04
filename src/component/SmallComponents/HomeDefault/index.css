@@ -6,6 +6,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 }
+.default__songs.wrap {
+  grid-auto-rows: auto;
+  row-gap: 24px;
+  display: grid;
+  overflow: hidden;
+}
 .default__songs__song {
   background-color: var(--playbar-background-color);
   border-radius: 4px;
@@ -124,6 +130,10 @@
     width: calc(100vw - 32px);
     scrollbar-width: none;
     overflow: scroll;
+  }
+  .default__songs.wrap {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
   }
   .default__songs__song {
     min-width: 30%;

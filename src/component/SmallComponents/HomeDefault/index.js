@@ -39,7 +39,7 @@ function HomeDefault({ arr, wrap }) {
                     loading="lazy"
                     draggable="false"
                     src={obj.profile ? obj.profile : obj.img}
-                    alt="profile"
+                    alt=""
                     onError={(e) => {
                       if (
                         e.target.parentNode.parentNode.parentNode.classList.contains(

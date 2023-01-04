@@ -143,6 +143,10 @@
 
     &__default-section {
       margin-bottom: 16px;
+
+      &.wrap {
+        padding: 0 16px;
+      }
       &__title {
         display: flex;
         justify-content: space-between;
