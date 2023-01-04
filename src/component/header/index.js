@@ -1,11 +1,11 @@
-import { useState, useContext, useEffect } from 'react';
-import { Popover } from 'antd';
-import { Link, useHistory, useLocation } from 'react-router-dom';
-import { OpenSideBarContext, PopupContext, ScrollTopContext } from '../../App';
-import './index.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from '../../redux/user/userSlice';
-import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
+import { useState, useContext, useEffect } from "react";
+import { Popover } from "antd";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import { OpenSideBarContext, PopupContext, ScrollTopContext } from "../../App";
+import "./index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../../redux/user/userSlice";
+import { changeActiveComponent } from "../../redux/activeComponent/activeComponentSlice";
 
 function Header() {
   let history = useHistory();
@@ -20,12 +20,12 @@ function Header() {
   const { openSideBar, setOpenSideBar } = useContext(OpenSideBarContext);
 
   useEffect(() => {
-    dispatch(changeActiveComponent(''));
+    dispatch(changeActiveComponent(""));
   }, [location, dispatch]);
 
   const scrollTop = useContext(ScrollTopContext);
   const { setPopup } = useContext(PopupContext);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const [hidePopOver, setHidePopover] = useState(false);
 
@@ -34,7 +34,7 @@ function Header() {
       <li>
         <Link
           to="/profile"
-          style={{ width: '100%' }}
+          style={{ width: "100%" }}
           onClick={() => {
             setHidePopover(false);
           }}
@@ -63,7 +63,7 @@ function Header() {
           backgroundColor:
             scrollTop <= 100
               ? `rgba(16, 16, 16, ${scrollTop / 100})`
-              : 'rgba(16, 16, 16, 1)',
+              : "rgba(16, 16, 16, 1)",
         }}
       >
         <div
@@ -75,7 +75,7 @@ function Header() {
           <svg
             viewBox="0 0 24 24"
             preserveAspectRatio="xMidYMid meet"
-            className={openSideBar ? 'a' : 'b'}
+            className={openSideBar ? "a" : "b"}
             width="24px"
             height="24px"
           >
@@ -126,7 +126,7 @@ function Header() {
           </button>
         </div>
 
-        {activeComponent === 'search' && (
+        {activeComponent === "search" && (
           <div className="header__search">
             <form
               role="search"
@@ -205,7 +205,7 @@ function Header() {
             <button
               className="header__log__sign-up"
               onClick={() => {
-                setPopup('signup');
+                setPopup("signup");
               }}
             >
               SIGN UP
@@ -213,7 +213,7 @@ function Header() {
             <button
               className="header__log__log-in"
               onClick={() => {
-                setPopup('login');
+                setPopup("login");
               }}
             >
               LOG IN

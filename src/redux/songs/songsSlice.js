@@ -1,12 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
-import songsList from './songsList';
+import { createSlice } from "@reduxjs/toolkit";
+import songs from "./songs";
 
 export const songsSlice = createSlice({
-  name: 'songs',
+  name: "songs",
   initialState: {
-    initialQueue: songsList,
+    initialQueue: songs,
+    prevQueue: [],
     queue: [],
-    currentSong: songsList.find((e) => e.id === 0),
+    tempArr: [],
+    queueType: "",
+    currentSong: songs.find((e) => e.id === 0),
     currentIndex: 0,
     isPlaying: false,
     duration: 0,
@@ -14,7 +17,7 @@ export const songsSlice = createSlice({
     volume: 1,
     muted: false,
     suffle: false,
-    repeat: 'disable', // "disable", "enable", "once"
+    repeat: "disable", // "disable", "enable", "once"
   },
   reducers: {
     playSong: (state) => {
@@ -34,7 +37,7 @@ export const songsSlice = createSlice({
     },
 
     getVolume: (state) => {
-      const volume = localStorage.getItem('volume');
+      const volume = localStorage.getItem("volume");
       if (volume) {
         state.volume = JSON.parse(volume);
       }
@@ -42,7 +45,7 @@ export const songsSlice = createSlice({
 
     setVolume: (state, { payload }) => {
       state.volume = payload;
-      localStorage.setItem('volume', JSON.stringify(payload));
+      localStorage.setItem("volume", JSON.stringify(payload));
     },
 
     mute: (state) => {
@@ -53,16 +56,68 @@ export const songsSlice = createSlice({
       state.muted = false;
     },
 
-    setQueue: (state) => {
-      state.queue = [
-        state.currentSong,
-        ...state.initialQueue.filter((e) => e.song !== state.currentSong.song),
-      ];
+    getCurrentSong: (state) => {
+      const cSong = localStorage.getItem("csong");
+      if (cSong)
+        state.currentSong = songs.find(
+          (e) => Number(e.id) === Number(JSON.parse(cSong))
+        );
+    },
+
+    changeCurrentSong: (state, { payload }) => {
+      // state.currentSong = payload.song;
+      localStorage.setItem("csong", JSON.stringify(payload.song));
+      state.currentSong = songs.find((e) => e.id === payload.song);
+      state.currentIndex = payload.index;
+      state.isPlaying = true;
+    },
+
+    setQueue: (state, { payload }) => {
+      if (payload) {
+        state.queue = payload.songs;
+        state.currentSong = payload.songs[0];
+
+        localStorage.setItem(
+          "queue",
+          JSON.stringify(payload.songs.map((e) => e.id))
+        );
+      } else {
+        const lqueue = localStorage.getItem("queue");
+        const pqueue = JSON.parse(lqueue);
+
+        if (pqueue) {
+          if (!state.currentSong)
+            state.currentSong = songs.find(
+              (k) => Number(k.id) === Number(pqueue[0])
+            );
+          state.queue = [
+            state.currentSong,
+            ...pqueue
+              .map((e) => songs.find((k) => Number(k.id) === Number(e)))
+              .filter((k) => Number(state.currentSong.id) !== Number(k.id)),
+          ];
+        } else {
+          if (!state.currentSong)
+            state.currentSong = songs.find(
+              (k) => Number(k.id) === Number(state.initialQueue[0])
+            );
+          state.queue = [
+            state.currentSong,
+            ...state.initialQueue.filter((e) => e.id !== state.currentSong.id),
+          ];
+        }
+      }
+    },
+
+    setQueueType: (state, { payload }) => {
+      state.queueType = payload.type;
     },
 
     prevSong: (state) => {
       state.currentIndex -= 1;
       state.currentSong = state.queue[state.currentIndex];
+
+      localStorage.setItem("csong", JSON.stringify(state.currentSong.id));
     },
 
     nextSong: (state) => {
@@ -72,14 +127,15 @@ export const songsSlice = createSlice({
       } else {
         state.currentIndex = 0;
         state.currentSong = state.queue[state.currentIndex];
-        if (state.repeat !== 'enable') {
+        if (state.repeat !== "enable") {
           state.isPlaying = false;
         }
       }
+      localStorage.setItem("csong", JSON.stringify(state.currentSong.id));
     },
 
     getShuffle: (state) => {
-      const suffle = localStorage.getItem('suffle');
+      const suffle = localStorage.getItem("suffle");
       if (suffle) {
         state.suffle = JSON.parse(suffle);
       }
@@ -105,53 +161,74 @@ export const songsSlice = createSlice({
 
         return array;
       }
-      const suffledArr = shuffle(
-        state.queue.filter((e) => e.song !== state.currentSong.song)
-      );
 
-      localStorage.setItem('suffle', JSON.stringify(true));
+      localStorage.setItem("suffle", JSON.stringify(true));
+      state.prevQueue = [...state.queue];
+
+      const suffledArr = shuffle([
+        ...state.queue.filter((e) => e.id !== state.currentSong.id),
+      ]);
+
       state.queue = [state.currentSong, ...suffledArr];
       state.currentIndex = 0;
       state.suffle = true;
+
+      localStorage.setItem(
+        "queue",
+        JSON.stringify(state.queue.map((e) => e.id))
+      );
     },
 
     disableShuffle: (state) => {
-      localStorage.setItem('suffle', JSON.stringify(false));
+      localStorage.setItem("suffle", JSON.stringify(false));
 
       state.queue = [
         state.currentSong,
-        ...state.initialQueue.filter((e) => e.song !== state.currentSong.song),
+        ...state.prevQueue.filter((e) => e.id !== state.currentSong.id),
       ];
       state.currentIndex = 0;
       state.suffle = false;
+
+      localStorage.setItem(
+        "queue",
+        JSON.stringify(state.queue.map((e) => e.id))
+      );
     },
 
     getRepeat: (state) => {
-      const repeat = localStorage.getItem('repeat');
+      const repeat = localStorage.getItem("repeat");
       if (repeat) {
         state.repeat = repeat;
       }
     },
 
     enableRepeat: (state) => {
-      localStorage.setItem('repeat', 'enable');
-      state.repeat = 'enable';
+      localStorage.setItem("repeat", "enable");
+      state.repeat = "enable";
     },
 
     disableRepeat: (state) => {
-      localStorage.setItem('repeat', 'disable');
-      state.repeat = 'disable';
+      localStorage.setItem("repeat", "disable");
+      state.repeat = "disable";
     },
 
     onceRepeat: (state) => {
-      localStorage.setItem('repeat', 'once');
-      state.repeat = 'once';
+      localStorage.setItem("repeat", "once");
+      state.repeat = "once";
     },
-    changeCurrentSong: (state, { payload }) => {
-      // state.currentSong = payload.song;
-      state.currentSong = songsList.find((e) => e.id === payload.song);
-      state.currentIndex = payload.index;
-      state.isPlaying = true;
+
+    setTempArr: (state, { payload }) => {
+      state.tempArr = payload;
+      localStorage.setItem("tempArr", JSON.stringify(payload));
+    },
+
+    getTempArr: (state) => {
+      let arr = localStorage.getItem("tempArr");
+
+      if (arr) {
+        arr = JSON.parse(arr);
+        if (arr.length > 0) state.tempArr = arr;
+      }
     },
   },
 });
@@ -166,6 +243,7 @@ export const {
   mute,
   unMute,
   setQueue,
+  setQueueType,
   getShuffle,
   enableShuffle,
   disableShuffle,
@@ -176,4 +254,7 @@ export const {
   disableRepeat,
   onceRepeat,
   changeCurrentSong,
+  setTempArr,
+  getTempArr,
+  getCurrentSong,
 } = songsSlice.actions;

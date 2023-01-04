@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
-import { Alert, Input } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearErrorMsg, logIn } from '../../redux/user/userSlice';
-import { PopupContext } from '../../App';
+import { useContext, useState } from "react";
+import { Alert, Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrorMsg, logIn } from "../../redux/user/userSlice";
+import { PopupContext } from "../../App";
 
 function SignIn() {
   const dispatch = useDispatch();
@@ -10,15 +10,15 @@ function SignIn() {
 
   const { setPopup } = useContext(PopupContext);
 
-  const [login, setLogin] = useState({ username: '', password: '' });
+  const [login, setLogin] = useState({ username: "", password: "" });
 
   const onSubmitLogin = (e) => {
     e.preventDefault();
 
     dispatch(logIn(login)).then((a) => {
-      if (a.type !== 'user/logIn/rejected') {
+      if (a.type !== "user/logIn/rejected") {
         dispatch(clearErrorMsg());
-        setPopup('');
+        setPopup("");
       }
     });
   };
@@ -27,7 +27,7 @@ function SignIn() {
     <div className="popup__container">
       <h1>Log in to Spotify</h1>
 
-      {errorMsg !== '' && (
+      {errorMsg !== "" && (
         <Alert
           role="alert"
           message={errorMsg}

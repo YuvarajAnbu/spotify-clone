@@ -1,14 +1,14 @@
-import { Input } from 'antd';
-import { useContext, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { PopupContext } from '../../App';
-import { clearErrorMsg, signUp } from '../../redux/user/userSlice';
+import { Input } from "antd";
+import { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
+import { PopupContext } from "../../App";
+import { clearErrorMsg, signUp } from "../../redux/user/userSlice";
 
 function SignUp() {
   const [signup, setSignup] = useState({
-    email: '',
-    username: '',
-    password: '',
+    email: "",
+    username: "",
+    password: "",
   });
   const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ function SignUp() {
     e.preventDefault();
     dispatch(signUp(signup));
     dispatch(clearErrorMsg());
-    setPopup('');
+    setPopup("");
   };
 
   return (

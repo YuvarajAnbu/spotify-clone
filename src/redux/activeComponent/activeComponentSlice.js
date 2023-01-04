@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const activeComponentSlice = createSlice({
-  name: 'activeComponent',
+  name: "activeComponent",
 
   initialState: {
-    active: '',
+    active: "",
   },
 
   reducers: {

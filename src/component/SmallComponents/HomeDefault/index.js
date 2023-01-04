@@ -1,28 +1,54 @@
-import { Link } from 'react-router-dom';
-import './index.css';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import artists from "../../../redux/songs/artists";
+import songs from "../../../redux/songs/songs";
+import {
+  changeCurrentSong,
+  pauseSong,
+  playSong,
+  setCurrentTime,
+  setQueue,
+  setQueueType,
+} from "../../../redux/songs/songsSlice";
+import "./index.css";
 
-function HomeDefault(props) {
+function HomeDefault({ arr, wrap }) {
+  const { isPlaying, queueType } = useSelector((state) => state.songs);
+  const dispatch = useDispatch();
+
   return (
-    <div className="default__songs">
-      {props.arr.map((e, i) => (
-        <div key={i} className={`default__songs__song ${e.type}`}>
-          <div className="link__container">
-            <div className="default__songs__song__image-container">
-              <div className="default__songs__song__image-container__image">
-                <img
-                  loading="lazy"
-                  draggable="false"
-                  src="https://i.scdn.co/image/ab67706f000000027cda1a881997b0bb1ca0eb92"
-                  alt="dua"
-                  onError={(e) => {
-                    if (
-                      e.target.parentNode.parentNode.parentNode.classList.contains(
-                        'artist'
-                      )
-                    ) {
-                      e.target.insertAdjacentHTML(
-                        'afterend',
-                        `<svg
+    <div className={`default__songs ${wrap ? "wrap" : ""}`}>
+      {arr.map((e, i) => {
+        let obj =
+          e.type === "artist"
+            ? {
+                ...artists.find((k) => k.id === e.id),
+                songs: songs.filter((k) => k.artists.includes(e.id)),
+              }
+            : songs.find((k) => k.id === e.id);
+
+        const type = `${
+          e.type !== "artist" ? `album/${e.id}` : `artist/${e.id}`
+        }`;
+        return (
+          <div key={i} className={`default__songs__song ${e.type}`}>
+            <div className="link__container">
+              <div className="default__songs__song__image-container">
+                <div className="default__songs__song__image-container__image">
+                  <img
+                    loading="lazy"
+                    draggable="false"
+                    src={obj.profile ? obj.profile : obj.img}
+                    alt="profile"
+                    onError={(e) => {
+                      if (
+                        e.target.parentNode.parentNode.parentNode.classList.contains(
+                          "artist"
+                        )
+                      ) {
+                        e.target.insertAdjacentHTML(
+                          "afterend",
+                          `<svg
                             height="32"
                             role="img"
                             width="32"
@@ -35,11 +61,11 @@ function HomeDefault(props) {
                               fill-rule="evenodd"
                             ></path>
                           </svg>`
-                      );
-                    } else {
-                      e.target.insertAdjacentHTML(
-                        'afterend',
-                        `<svg
+                        );
+                      } else {
+                        e.target.insertAdjacentHTML(
+                          "afterend",
+                          `<svg
                       height="32"
                       role="img"
                       width="32"
@@ -52,62 +78,100 @@ function HomeDefault(props) {
                         fill-rule="evenodd"
                       ></path>
                     </svg>`
+                        );
+                      }
+
+                      e.target.style.display = "none";
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (queueType === type) {
+                      if (isPlaying) {
+                        dispatch(pauseSong());
+                      } else {
+                        dispatch(playSong());
+                      }
+                    } else {
+                      dispatch(setQueueType({ type }));
+                      dispatch(
+                        setQueue({
+                          songs: e.type !== "artist" ? [obj] : obj?.songs,
+                        })
                       );
+                      dispatch(
+                        changeCurrentSong({
+                          song: e.type !== "artist" ? e.id : obj?.songs[0]?.id,
+                          index: 0,
+                        })
+                      );
+                      dispatch(setCurrentTime(0));
                     }
-
-                    e.target.style.display = 'none';
                   }}
-                />
-              </div>
-
-              <button type="button">
-                <svg
-                  height="16"
-                  role="img"
-                  width="16"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
                 >
-                  <polygon
-                    points="21.57 12 5.98 3 5.98 21 21.57 12"
-                    fill="currentColor"
-                  ></polygon>
-                </svg>
-                {/* <svg
-                height="16"
-                role="img"
-                width="16"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <rect
-                  x="5"
-                  y="3"
-                  width="4"
-                  height="18"
-                  fill="currentColor"
-                ></rect>
-                <rect
-                  x="15"
-                  y="3"
-                  width="4"
-                  height="18"
-                  fill="currentColor"
-                ></rect>
-              </svg> */}
-              </button>
+                  {queueType === type && isPlaying ? (
+                    <svg
+                      height="16"
+                      role="img"
+                      width="16"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <rect
+                        x="5"
+                        y="3"
+                        width="4"
+                        height="18"
+                        fill="currentColor"
+                      ></rect>
+                      <rect
+                        x="15"
+                        y="3"
+                        width="4"
+                        height="18"
+                        fill="currentColor"
+                      ></rect>
+                    </svg>
+                  ) : (
+                    <svg
+                      height="16"
+                      role="img"
+                      width="16"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <polygon
+                        points="21.57 12 5.98 3 5.98 21 21.57 12"
+                        fill="currentColor"
+                      ></polygon>
+                    </svg>
+                  )}
+                </button>
+              </div>
+              <div className="default__songs__song__desc">
+                <h3 className="one-line">{obj.name}</h3>
+                <p className="one-line">
+                  {e.type !== "artist"
+                    ? obj?.artists.map(
+                        (j, i) =>
+                          `${artists.find((k) => k.id === j)?.name}${
+                            i < obj?.artists.length - 1 ? ", " : ""
+                          }`
+                      )
+                    : "Artist"}
+                </p>
+              </div>
+              <Link
+                className="link"
+                to={`/${e.type === "artist" ? "artist" : "album"}/${e.id}`}
+              ></Link>
             </div>
-            <div className="default__songs__song__desc">
-              <h3 className="one-line">Dua Lipa</h3>
-              <p className="one-line">This is dua lipa</p>
-            </div>
-            <Link
-              className="link"
-              to={`/${e.type === 'artist' ? 'artist' : 'album'}/1tre1uy1r2f3i`}
-            ></Link>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

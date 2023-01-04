@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import './index.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
-import { useContext } from 'react';
-import { OpenSideBarContext } from '../../App';
+import { Link } from "react-router-dom";
+import "./index.css";
+import { useDispatch, useSelector } from "react-redux";
+import { changeActiveComponent } from "../../redux/activeComponent/activeComponentSlice";
+import { useContext } from "react";
+import { OpenSideBarContext } from "../../App";
 
 function Sidebar() {
   const { user, isLoggedIn } = useSelector((state) => state.user);
@@ -19,9 +19,9 @@ function Sidebar() {
 
   const { openSideBar, setOpenSideBar } = useContext(OpenSideBarContext);
   return (
-    <div className={openSideBar ? 'sidebar active' : 'sidebar'}>
+    <div className={openSideBar ? "sidebar active" : "sidebar"}>
       <div className="sidebar__top">
-        <div
+        {/* <div
           className="sidebar__top__close"
           onClick={() => {
             setOpenSideBar(false);
@@ -37,7 +37,7 @@ function Sidebar() {
               <path d="M21,6H3V5h18V6z M21,11H3v1h18V11z M21,17H3v1h18V17z"></path>
             </g>
           </svg>
-        </div>
+        </div> */}
         <Link
           className="sidebar__top__logo"
           to="/"
@@ -109,13 +109,13 @@ function Sidebar() {
 
         <li
           className={
-            activeComponent === 'home'
-              ? 'sidebar__links__link sidebar__links__link--active'
-              : 'sidebar__links__link'
+            activeComponent === "home"
+              ? "sidebar__links__link sidebar__links__link--active"
+              : "sidebar__links__link"
           }
           onClick={() => {
-            if (activeComponent !== 'home') {
-              setActiveComponent('home');
+            if (activeComponent !== "home") {
+              setActiveComponent("home");
               setOpenSideBar(false);
             }
           }}
@@ -134,13 +134,13 @@ function Sidebar() {
         </li>
         <li
           className={
-            activeComponent === 'search'
-              ? 'sidebar__links__link sidebar__links__link--active'
-              : 'sidebar__links__link'
+            activeComponent === "search"
+              ? "sidebar__links__link sidebar__links__link--active"
+              : "sidebar__links__link"
           }
           onClick={() => {
-            if (activeComponent !== 'search') {
-              setActiveComponent('search');
+            if (activeComponent !== "search") {
+              setActiveComponent("search");
               setOpenSideBar(false);
             }
           }}
@@ -163,7 +163,7 @@ function Sidebar() {
             <span>Search</span>
           </Link>
         </li>
-        <li
+        {/* <li
           className={
             activeComponent === 'playlists'
               ? 'sidebar__links__link sidebar__links__link--active'
@@ -193,16 +193,16 @@ function Sidebar() {
             </div>
             <span>Your Library</span>
           </Link>
-        </li>
+        </li> */}
         <li
           className={
-            activeComponent === 'liked'
-              ? 'sidebar__links__link sidebar__links__link--active'
-              : 'sidebar__links__link'
+            activeComponent === "liked"
+              ? "sidebar__links__link sidebar__links__link--active"
+              : "sidebar__links__link"
           }
           onClick={() => {
-            if (activeComponent !== 'liked') {
-              setActiveComponent('liked');
+            if (activeComponent !== "liked") {
+              setActiveComponent("liked");
               setOpenSideBar(false);
             }
           }}
@@ -373,13 +373,13 @@ function Sidebar() {
         <ul className="sidebar__upload">
           <li
             className={
-              activeComponent === 'upload'
-                ? 'sidebar__upload__link sidebar__upload__link--active'
-                : 'sidebar__upload__link'
+              activeComponent === "upload"
+                ? "sidebar__upload__link sidebar__upload__link--active"
+                : "sidebar__upload__link"
             }
             onClick={() => {
-              if (activeComponent !== 'upload') {
-                setActiveComponent('upload');
+              if (activeComponent !== "upload") {
+                setActiveComponent("upload");
                 setOpenSideBar(false);
               }
             }}
@@ -443,13 +443,13 @@ function Sidebar() {
       >
         <li
           className={
-            activeComponent === 'install'
-              ? 'sidebar__install__link sidebar__install__link--active'
-              : 'sidebar__install__link'
+            activeComponent === "install"
+              ? "sidebar__install__link sidebar__install__link--active"
+              : "sidebar__install__link"
           }
           onClick={() => {
-            if (activeComponent !== 'install') {
-              setActiveComponent('install');
+            if (activeComponent !== "install") {
+              setActiveComponent("install");
               setOpenSideBar(false);
             }
           }}

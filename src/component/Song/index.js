@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
-import Album from '../Album';
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import songs from "../../redux/songs/songs";
+import Album from "../Album";
 
 function Song() {
-  const res = {
-    img: 'https://i.scdn.co/image/ab67706f000000027cda1a881997b0bb1ca0eb92',
-    type: 'song',
-    color: 'rgb(216, 88, 104)',
-    name: 'this is selena gomez',
-  };
+  const { id } = useParams();
+
+  const song = songs.find((e) => Number(e.id) === Number(id));
 
   useEffect(() => {
-    document.title = `Spotify - ${res.name}`;
-  }, [res.name]);
-  return <Album res={res} />;
+    document.title = `Spotify - ${song.name}`;
+  }, [song]);
+  return <Album song={song} />;
 }
 
 export default Song;

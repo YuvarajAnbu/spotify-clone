@@ -1,12 +1,15 @@
-import { message } from 'antd';
-import { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { message } from "antd";
+import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { getLiked, setLiked } from "../../redux/list/listSlice";
+import artists from "../../redux/songs/artists";
 import {
   disableRepeat,
   disableShuffle,
   enableRepeat,
   enableShuffle,
+  getCurrentSong,
   getRepeat,
   getShuffle,
   getVolume,
@@ -21,8 +24,8 @@ import {
   setQueue,
   setVolume,
   unMute,
-} from '../../redux/songs/songsSlice';
-import './index.css';
+} from "../../redux/songs/songsSlice";
+import "./index.css";
 
 function Playbar() {
   let history = useHistory();
@@ -32,7 +35,7 @@ function Playbar() {
   );
 
   const {
-    initialQueue,
+    queue,
     currentSong,
     currentIndex,
     isPlaying,
@@ -43,6 +46,8 @@ function Playbar() {
     suffle,
     repeat,
   } = useSelector((state) => state.songs);
+
+  const { liked } = useSelector((state) => state.list);
 
   const dispatch = useDispatch();
 
@@ -66,48 +71,51 @@ function Playbar() {
   //getting from local storage if exists
   useEffect(() => {
     dispatch(getVolume());
+    dispatch(getCurrentSong());
     dispatch(setQueue());
     dispatch(getShuffle());
     dispatch(getRepeat());
+    dispatch(getLiked());
   }, [dispatch]);
 
   //slider value
   useEffect(() => {
     if (!isSliderChanging) {
       setSliderValue(currentTime);
+      if (currentTime === 0) audio.currentTime = currentTime;
     }
-  }, [currentTime, isSliderChanging]);
+  }, [currentTime, isSliderChanging, audio]);
 
   //creating audio based on song
   useEffect(() => {
-    if (initialQueue.length >= 1) {
+    if (queue.length >= 1 && currentSong && currentSong.song !== audio.src) {
       audio.src = currentSong?.song;
     }
-  }, [audio, currentSong, initialQueue]);
+  }, [audio, currentSong, queue]);
 
   //setting event listeners
   // check audio failed
   useEffect(() => {
-    audio.addEventListener('error', (e) => {
+    audio.addEventListener("error", (e) => {
       setisError(true);
-      message.error('Loading song Failed. Try reloading the page');
+      message.error("Loading song Failed. Try reloading the page");
     });
     return () => {
-      audio.removeEventListener('error', (e) => {
+      audio.removeEventListener("error", (e) => {
         setisError(true);
-        message.error('Loading song Failed. Try reloading the page');
+        message.error("Loading song Failed. Try reloading the page");
       });
     };
   }, [audio]);
 
   //check audio loaded
   useEffect(() => {
-    audio.addEventListener('loadeddata', (e) => {
+    audio.addEventListener("loadeddata", (e) => {
       setisLoaded(true);
       dispatch(setDuration(audio.duration));
     });
     return () => {
-      audio.removeEventListener('loadeddata', (e) => {
+      audio.removeEventListener("loadeddata", (e) => {
         setisLoaded(true);
         dispatch(setDuration(audio.duration));
       });
@@ -117,11 +125,11 @@ function Playbar() {
   // get currentDuration
   useEffect(() => {
     if (isLoaded) {
-      audio.addEventListener('timeupdate', (e) => {
+      audio.addEventListener("timeupdate", (e) => {
         dispatch(setCurrentTime(e.target.currentTime));
       });
       return () => {
-        audio.removeEventListener('timeupdate', (e) => {
+        audio.removeEventListener("timeupdate", (e) => {
           dispatch(setCurrentTime(e.target.currentTime));
         });
       };
@@ -137,10 +145,10 @@ function Playbar() {
   //on ended
   useEffect(() => {
     if (isLoaded) {
-      audio.addEventListener('ended', (e) => {
+      audio.addEventListener("ended", (e) => {
         dispatch(setCurrentTime(0));
         setSliderValue(0);
-        if (repeatRef.current === 'once') {
+        if (repeatRef.current === "once") {
           audio.currentTime = 0;
           audio.play();
         } else {
@@ -148,10 +156,10 @@ function Playbar() {
         }
       });
       return () => {
-        audio.removeEventListener('ended', (e) => {
+        audio.removeEventListener("ended", (e) => {
           dispatch(setCurrentTime(0));
           setSliderValue(0);
-          if (repeatRef.current === 'once') {
+          if (repeatRef.current === "once") {
             audio.currentTime = 0;
             audio.play();
           } else {
@@ -169,8 +177,8 @@ function Playbar() {
   }, [isPlaying]);
 
   useEffect(() => {
-    window.addEventListener('keydown', (e) => {
-      if (e.keyCode === 32 || e.code === 'Space') {
+    window.addEventListener("keydown", (e) => {
+      if (e.keyCode === 32 || e.code === "Space") {
         if (playingRef.current) {
           audio.pause();
           dispatch(pauseSong());
@@ -182,8 +190,8 @@ function Playbar() {
     });
 
     return () => {
-      window.removeEventListener('keydown', (e) => {
-        if (e.keyCode === 32 || e.code === 'Space') {
+      window.removeEventListener("keydown", (e) => {
+        if (e.keyCode === 32 || e.code === "Space") {
           if (playingRef.current) {
             audio.pause();
             dispatch(pauseSong());
@@ -228,11 +236,11 @@ function Playbar() {
   }, [audio.paused, isPlaying, dispatch]);
 
   const fmtMSS = (s) => {
-    return (s - (s %= 60)) / 60 + (9 < s ? ':' : ':0') + ~~s;
+    return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + ~~s;
   };
 
   return (
-    <div className={isOpen ? 'playbar-container open' : 'playbar-container'}>
+    <div className={isOpen ? "playbar-container open" : "playbar-container"}>
       <div
         className="playbar-container__box"
         onClick={() => {
@@ -241,9 +249,9 @@ function Playbar() {
       ></div>
       <div
         className={`${
-          !isError && isLoaded && initialQueue.length >= 1
-            ? 'playbar'
-            : 'playbar disabled'
+          !isError && isLoaded && queue.length >= 1
+            ? "playbar"
+            : "playbar disabled"
         }`}
       >
         <div className="playbar__desc">
@@ -257,7 +265,7 @@ function Playbar() {
                   alt=""
                   onError={(e) => {
                     e.target.insertAdjacentHTML(
-                      'afterend',
+                      "afterend",
                       `<svg
                           role="img"
                           aria-hidden="true"
@@ -266,7 +274,7 @@ function Playbar() {
                             <path d="M9 6.159v10.899A3.485 3.485 0 006.5 16C4.57 16 3 17.57 3 19.5S4.57 23 6.5 23s3.5-1.57 3.5-3.5V6.969L21 4.63v10.178a3.485 3.485 0 00-2.5-1.058c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5V3.395L9 6.159zM6.5 22C5.122 22 4 20.878 4 19.5S5.122 17 6.5 17 9 18.122 9 19.5 7.878 22 6.5 22zm12-2.25a2.503 2.503 0 01-2.5-2.5c0-1.379 1.122-2.5 2.5-2.5s2.5 1.121 2.5 2.5c0 1.378-1.122 2.5-2.5 2.5z"></path>
                       </svg>`
                     );
-                    e.target.style.display = 'none';
+                    e.target.style.display = "none";
                   }}
                 />
               </div>
@@ -274,56 +282,57 @@ function Playbar() {
           </Link>
           <div className="playbar__desc__name one-line">
             <p className="one-line">
-              <Link to={`/album/${currentSong?.name}`}>
-                {currentSong?.name}
-              </Link>
+              <Link to={`/album/${currentSong?.id}`}>{currentSong?.name}</Link>
             </p>
             <span className="one-line">
-              {currentSong?.artists.map((e, i) => {
-                if (i < currentSong?.artists.length - 1) {
-                  return (
-                    <div key={i}>
-                      <Link to={`/artist/${e}`}>{e}</Link>,{' '}
-                    </div>
-                  );
-                } else {
-                  return (
-                    <div key={i}>
-                      <Link key={i} to={`/artist/${e}`}>
-                        {e}
-                      </Link>
-                    </div>
-                  );
-                }
-              })}
+              {currentSong?.artists.map((e, i) => (
+                <div key={i}>
+                  <Link to={`/artist/${e}`}>
+                    {artists.find((k) => k.id === e)?.name}
+                  </Link>
+                  {i < currentSong?.artists.length - 1 && ", "}
+                </div>
+              ))}
             </span>
           </div>
 
           <div
             className="playbar__desc__icon"
-            title="Save to Your Library"
+            title={liked.includes(currentSong.id) ? "Unlike" : "Like"}
+            onClick={() => {
+              dispatch(setLiked({ id: currentSong.id }));
+            }}
             // "Remove form Your Library"
           >
-            {/* <svg className="a" role="img" height="16" width="16" viewBox="0 0 16 16">
-              <path
-                fill="currentColor"
-                d="M13.764 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253A4.05 4.05 0 00.974 5.61c0 1.089.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195A4.052 4.052 0 0014.96 5.61a4.057 4.057 0 00-1.196-2.883zm-.722 5.098L8.58 13.048c-.307.36-.921.36-1.228 0L2.864 7.797a3.072 3.072 0 01-.905-2.187c0-.826.321-1.603.905-2.187a3.091 3.091 0 012.191-.913 3.05 3.05 0 011.957.709c.041.036.408.351.954.351.531 0 .906-.31.94-.34a3.075 3.075 0 014.161.192 3.1 3.1 0 01-.025 4.403z"
-              ></path>
-            </svg> */}
-            <svg
-              className="b"
-              role="img"
-              height="16"
-              width="16"
-              viewBox="0 0 16 16"
-            >
-              <path fill="none" d="M0 0h16v16H0z"></path>
-              <path
+            {liked.includes(currentSong.id) ? (
+              <svg
                 className="b"
-                fill="currentColor"
-                d="M13.797 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253c-.77.77-1.194 1.794-1.194 2.883s.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195a4.052 4.052 0 001.195-2.883 4.057 4.057 0 00-1.196-2.883z"
-              ></path>
-            </svg>
+                role="img"
+                height="16"
+                width="16"
+                viewBox="0 0 16 16"
+              >
+                <path fill="none" d="M0 0h16v16H0z"></path>
+                <path
+                  className="b"
+                  fill="currentColor"
+                  d="M13.797 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253c-.77.77-1.194 1.794-1.194 2.883s.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195a4.052 4.052 0 001.195-2.883 4.057 4.057 0 00-1.196-2.883z"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                className="a"
+                role="img"
+                height="16"
+                width="16"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="currentColor"
+                  d="M13.764 2.727a4.057 4.057 0 00-5.488-.253.558.558 0 01-.31.112.531.531 0 01-.311-.112 4.054 4.054 0 00-5.487.253A4.05 4.05 0 00.974 5.61c0 1.089.424 2.113 1.168 2.855l4.462 5.223a1.791 1.791 0 002.726 0l4.435-5.195A4.052 4.052 0 0014.96 5.61a4.057 4.057 0 00-1.196-2.883zm-.722 5.098L8.58 13.048c-.307.36-.921.36-1.228 0L2.864 7.797a3.072 3.072 0 01-.905-2.187c0-.826.321-1.603.905-2.187a3.091 3.091 0 012.191-.913 3.05 3.05 0 011.957.709c.041.036.408.351.954.351.531 0 .906-.31.94-.34a3.075 3.075 0 014.161.192 3.1 3.1 0 01-.025 4.403z"
+                ></path>
+              </svg>
+            )}
           </div>
         </div>
 
@@ -331,8 +340,8 @@ function Playbar() {
           <div className="playbar__controls__buttons">
             <button
               type="button"
-              title={suffle ? 'Disable suffle' : 'Enable suffle'}
-              className={suffle ? 'suffle active' : 'suffle'}
+              title={suffle ? "Disable suffle" : "Enable suffle"}
+              className={suffle ? "suffle active" : "suffle"}
               onClick={() => {
                 if (suffle) {
                   dispatch(disableShuffle());
@@ -351,7 +360,7 @@ function Playbar() {
               className="prev"
               title="Previous"
               onClick={() => {
-                if (repeat === 'once') {
+                if (repeat === "once") {
                   dispatch(enableRepeat());
                 }
                 if (currentIndex > 0) {
@@ -369,7 +378,7 @@ function Playbar() {
             <button
               type="button"
               className="play"
-              title={isPlaying ? 'Pause' : 'Play'}
+              title={isPlaying ? "Pause" : "Play"}
               onClick={() => {
                 if (isPlaying) {
                   dispatch(pauseSong());
@@ -399,7 +408,7 @@ function Playbar() {
               className="next"
               title="Next"
               onClick={() => {
-                if (repeat === 'once') {
+                if (repeat === "once") {
                   dispatch(enableRepeat());
                 }
                 dispatch(nextSong());
@@ -413,24 +422,24 @@ function Playbar() {
             <button
               type="button"
               title={
-                repeat === 'disable'
-                  ? 'Enable repeat'
-                  : repeat === 'enable'
-                  ? 'Enable repeat one'
-                  : 'Disable repeat'
+                repeat === "disable"
+                  ? "Enable repeat"
+                  : repeat === "enable"
+                  ? "Enable repeat one"
+                  : "Disable repeat"
               }
-              className={repeat === 'disable' ? 'repeat' : 'repeat active'}
+              className={repeat === "disable" ? "repeat" : "repeat active"}
               onClick={() => {
-                if (repeat === 'disable') {
+                if (repeat === "disable") {
                   dispatch(enableRepeat());
-                } else if (repeat === 'enable') {
+                } else if (repeat === "enable") {
                   dispatch(onceRepeat());
                 } else {
                   dispatch(disableRepeat());
                 }
               }}
             >
-              {repeat === 'once' ? (
+              {repeat === "once" ? (
                 <svg role="img" height="16" width="16" viewBox="0 0 16 16">
                   <path className="a" fill="none" d="M0 0h16v16H0z"></path>
                   <path
@@ -452,7 +461,7 @@ function Playbar() {
               className="progressBar"
               title=""
               style={{
-                '--seek-before-width': `${(sliderValue / duration) * 100}%`,
+                "--seek-before-width": `${(sliderValue / duration) * 100}%`,
               }}
               type="range"
               value={sliderValue}
@@ -484,10 +493,10 @@ function Playbar() {
 
         <div className="playbar__extras">
           <button
-            className={activeComponent === 'lyrics' ? 'active' : ''}
+            className={activeComponent === "lyrics" ? "active" : ""}
             title="Lyrics"
             onClick={(e) => {
-              if (activeComponent === 'lyrics') {
+              if (activeComponent === "lyrics") {
                 history.goBack();
               } else {
                 history.push(`/lyrics`);
@@ -501,10 +510,10 @@ function Playbar() {
           </button>
 
           <button
-            className={activeComponent === 'queue' ? 'active' : ''}
+            className={activeComponent === "queue" ? "active" : ""}
             title="Queue"
             onClick={(e) => {
-              if (activeComponent === 'queue') {
+              if (activeComponent === "queue") {
                 history.goBack();
               } else {
                 history.push(`/queue`);
@@ -540,7 +549,7 @@ function Playbar() {
 
           <div className="playbar__extras__volume-bar">
             <button
-              title={muted ? 'Unmute' : 'Mute'}
+              title={muted ? "Unmute" : "Mute"}
               onClick={() => {
                 if (muted) {
                   dispatch(unMute());
@@ -573,7 +582,7 @@ function Playbar() {
               title=""
               className="progressBar"
               style={{
-                '--seek-before-width': `${volume * 100}%`,
+                "--seek-before-width": `${volume * 100}%`,
               }}
               value={muted ? 0 : volume * 100}
               onChange={(e) => {

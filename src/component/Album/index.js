@@ -1,27 +1,52 @@
-import React from 'react';
-import Songs from '../SmallComponents/Songs';
-import './index.css';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeCurrentSong,
+  pauseSong,
+  playSong,
+  setCurrentTime,
+  setQueue,
+  setQueueType,
+} from "../../redux/songs/songsSlice";
+import Songs from "../SmallComponents/Songs";
+import "./index.css";
 
-function Album({ res }) {
+function Album({ song, artist }) {
   // const type = 'song';
   // const image = 'https://t.scdn.co/images/3099b3803ad9496896c43f22fe9be8c4.png';
   // const backgroundImage = 'rgb(80, 56, 160)';
 
+  const { queueType, isPlaying } = useSelector((state) => state.songs);
+  const dispatch = useDispatch();
+
+  const [type, setType] = useState(
+    `${
+      song
+        ? song.songs
+          ? `collection/tracks`
+          : `album/${song?.id}`
+        : `artist/${artist?.id}`
+    }`
+  );
+
+  useEffect(() => {
+    setType(`${song ? `album/${song?.id}` : `artist/${artist?.id}`}`);
+  }, [song, artist]);
+
   return (
-    <div className={`album ${res.type}`}>
+    <div className={`album ${song ? "album" : "artist"}`}>
       <div className="album__info">
-        {res.type === 'artist' ? (
+        {artist ? (
           <div
             className="album__info__background"
             style={{
-              backgroundImage:
-                'url(https://free4kwallpapers.com/uploads/originals/2020/05/09/dj-headphones-by-mikael-kristenson-wallpaper.jpg)',
+              backgroundImage: `url(${artist?.banner})`,
             }}
           ></div>
         ) : (
           <div
             className="album__info__background"
-            style={{ backgroundColor: res.color }}
+            style={{ backgroundColor: song?.color }}
           ></div>
         )}
         <div className="album__info__background-noise"></div>
@@ -31,16 +56,16 @@ function Album({ res }) {
             <img
               loading="lazy"
               draggable="false"
-              src={res.img}
+              src={song?.img}
               alt=""
               onError={(e) => {
                 if (
                   e.target.parentNode.parentNode.parentNode.classList.contains(
-                    'artist'
+                    "artist"
                   )
                 ) {
                   e.target.insertAdjacentHTML(
-                    'afterend',
+                    "afterend",
                     `<svg
                             height="32"
                             role="img"
@@ -57,7 +82,7 @@ function Album({ res }) {
                   );
                 } else {
                   e.target.insertAdjacentHTML(
-                    'afterend',
+                    "afterend",
                     `<svg
                       height="32"
                       role="img"
@@ -74,30 +99,93 @@ function Album({ res }) {
                   );
                 }
 
-                e.target.style.display = 'none';
+                e.target.style.display = "none";
               }}
             />
           </div>
         </div>
 
         <div className="album__info__desc">
-          <h1 className="one-line">{res.name}</h1>
-          <p>225,819 likes</p>
+          <h1 className="one-line">{song ? song?.name : artist?.name}</h1>
+          <p>
+            {song
+              ? song?.views?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              : "13,540,094"}{" "}
+            monthly listeners
+          </p>
         </div>
       </div>
 
       <div
         className="album__background"
-        style={{ backgroundColor: res.color }}
+        style={{ backgroundColor: song ? song?.color : artist?.color }}
       ></div>
       <div className="album__play">
-        <button type="button">
-          <svg role="img" viewBox="0 0 24 24" aria-hidden="true">
+        <button
+          type="button"
+          onClick={() => {
+            if (queueType === type) {
+              if (isPlaying) {
+                dispatch(pauseSong());
+              } else {
+                dispatch(playSong());
+              }
+            } else {
+              dispatch(setQueueType({ type }));
+              dispatch(
+                setQueue({
+                  songs: song
+                    ? song?.songs
+                      ? song.songs
+                      : [song]
+                    : artist?.songs,
+                })
+              );
+              dispatch(
+                changeCurrentSong({
+                  song: song
+                    ? song?.songs
+                      ? song.songs[0]?.id
+                      : song?.id
+                    : artist?.songs[0]?.id,
+                  index: 0,
+                })
+              );
+              dispatch(setCurrentTime(0));
+            }
+          }}
+        >
+          {queueType === type && isPlaying ? (
+            <svg role="img" viewBox="0 0 24 24" aria-hidden="true">
+              <rect
+                x="5"
+                y="3"
+                width="4"
+                height="18"
+                fill="currentColor"
+              ></rect>
+              <rect
+                x="15"
+                y="3"
+                width="4"
+                height="18"
+                fill="currentColor"
+              ></rect>
+            </svg>
+          ) : (
+            <svg role="img" viewBox="0 0 24 24" aria-hidden="true">
+              <polygon
+                points="21.57 12 5.98 3 5.98 21 21.57 12"
+                fill="currentColor"
+              ></polygon>
+            </svg>
+          )}
+          {/* <svg role="img" viewBox="0 0 24 24" aria-hidden="true">
             <polygon
               points="21.57 12 5.98 3 5.98 21 21.57 12"
               fill="currentColor"
             ></polygon>
-          </svg>
+          </svg> */}
           {/* <svg
                 role="img"
                 viewBox="0 0 24 24"
@@ -122,7 +210,9 @@ function Album({ res }) {
       </div>
 
       <div className="album__songs">
-        <Songs />
+        <Songs
+          songs={song ? (song?.songs ? song.songs : [song]) : artist?.songs}
+        />
       </div>
     </div>
   );

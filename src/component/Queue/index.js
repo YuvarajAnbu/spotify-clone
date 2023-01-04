@@ -1,19 +1,19 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
-import ScrollToTop from '../../ScrollToTop';
-import Songs from '../SmallComponents/Songs';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { changeActiveComponent } from "../../redux/activeComponent/activeComponentSlice";
+import ScrollToTop from "../../ScrollToTop";
+import Songs from "../SmallComponents/Songs";
 
-import './index.css';
+import "./index.css";
 
 function Queue() {
   const { queue } = useSelector((state) => state.songs);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(changeActiveComponent('queue'));
-    document.title = 'Spotify - Play Queue';
+    dispatch(changeActiveComponent("queue"));
+    document.title = "Spotify - Play Queue";
   }, [dispatch]);
 
   return (

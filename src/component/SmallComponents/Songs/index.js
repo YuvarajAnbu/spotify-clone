@@ -1,18 +1,21 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import artists from "../../../redux/songs/artists";
 import {
   changeCurrentSong,
   pauseSong,
   playSong,
-} from '../../../redux/songs/songsSlice';
-import './index.css';
+} from "../../../redux/songs/songsSlice";
+import "./index.css";
 
 function Songs(props) {
   const { queue, isPlaying, currentSong } = useSelector((state) => state.songs);
   const dispatch = useDispatch();
-  const arr = props.arr || queue;
+  const arr = props.songs || queue;
 
-  return (
+  return !currentSong ? (
+    <></>
+  ) : (
     <div className="songs">
       <div className="songs__header">
         <div className="songs__header__index">#</div>
@@ -30,18 +33,13 @@ function Songs(props) {
       {arr.map((e, i) => (
         <div
           className={
-            currentSong?.song === e.song ? 'songs__song active' : 'songs__song'
+            currentSong?.song === e.song ? "songs__song active" : "songs__song"
           }
           key={i}
         >
           <div className="songs__song__index">
             {currentSong?.song === e.song && isPlaying ? (
-              <img
-                alt=""
-                src="https://open.scdn.co/cdn/images/equaliser-animated-green.f93a2ef4.gif"
-                width="14"
-                height="14"
-              />
+              <img alt="" src="/images/equalizer.gif" width="14" height="14" />
             ) : (
               <p>{i + 1}</p>
             )}
@@ -55,7 +53,6 @@ function Songs(props) {
                     dispatch(playSong());
                   }
                 } else {
-                  console.log({ song: e.id, index: i });
                   dispatch(changeCurrentSong({ song: e.id, index: i }));
                 }
               }}
@@ -97,10 +94,10 @@ function Songs(props) {
                   alt=""
                   onError={(e) => {
                     e.target.insertAdjacentHTML(
-                      'afterend',
+                      "afterend",
                       '<svg role="img" height="24" width="24" aria-hidden="true" viewBox="0 0 24 24" class="Svg-sc-1bi12j5-0 gSLhUO"><path d="M9 6.159v10.899A3.485 3.485 0 006.5 16C4.57 16 3 17.57 3 19.5S4.57 23 6.5 23s3.5-1.57 3.5-3.5V6.969L21 4.63v10.178a3.485 3.485 0 00-2.5-1.058c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5V3.395L9 6.159zM6.5 22C5.122 22 4 20.878 4 19.5S5.122 17 6.5 17 9 18.122 9 19.5 7.878 22 6.5 22zm12-2.25a2.503 2.503 0 01-2.5-2.5c0-1.379 1.122-2.5 2.5-2.5s2.5 1.121 2.5 2.5c0 1.378-1.122 2.5-2.5 2.5z"></path></svg>'
                     );
-                    e.target.style.display = 'none';
+                    e.target.style.display = "none";
                   }}
                 />
               </div>
@@ -108,26 +105,19 @@ function Songs(props) {
             <div className="songs__song__desc__content">
               <p className="one-line">{e.name}</p>
               <span className="one-line">
-                {e.artists.map((el, k) => {
-                  if (k < e.artists.length - 1) {
-                    return (
-                      <div key={k}>
-                        <Link to={`/artist/${el}`}>{el}</Link>,{' '}
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div key={k}>
-                        <Link to={`/artist/${el}`}>{el}</Link>
-                      </div>
-                    );
-                  }
-                })}
+                {e.artists.map((el, k) => (
+                  <div key={k}>
+                    <Link to={`/artist/${el}`}>
+                      {artists.find((j) => j.id === el)?.name}
+                    </Link>
+                    {k < e.artists.length - 1 && ", "}
+                  </div>
+                ))}
               </span>
             </div>
           </div>
           <div className="songs__song__views">
-            {e.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            {e.views.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </div>
           <div className="songs__song__duration">{e.duration}</div>
         </div>

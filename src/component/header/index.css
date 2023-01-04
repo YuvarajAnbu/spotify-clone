@@ -3,10 +3,7 @@ header {
   height: 60px;
   z-index: 2;
 }
-
 header .header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 16px 32px;
   -webkit-padding-end: 32px;
@@ -21,49 +18,28 @@ header .header {
   right: 0;
   height: 60px;
 }
-
 header .header__sidebar-btn {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   margin-right: 20px;
   cursor: pointer;
   display: none;
 }
-
 header .header__sidebar-btn:hover svg path, header .header__sidebar-btn:focus svg path {
   fill: var(--primary-text-color);
 }
-
 header .header__sidebar-btn svg path {
   fill: var(--secondary-text-color);
 }
-
 header .header__history {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 header .header__history button {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   width: 32px;
   height: 32px;
   background-color: var(--transparent-white-color);
@@ -73,50 +49,36 @@ header .header__history button {
   margin-right: 16px;
   cursor: pointer;
 }
-
 header .header__history button svg {
   height: 22px;
   opacity: 1;
   width: 22px;
   stroke-width: 1pt;
 }
-
 header .header__history button svg polyline {
   stroke: currentColor;
 }
-
 header .header__history .disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
-
 header .header__search {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 1 354px;
-          flex: 0 1 354px;
+  align-items: center;
+  flex: 0 1 354px;
 }
-
 header .header__search form {
   width: 100%;
   color: black;
 }
-
 header .header__search form svg {
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   left: 10px;
   color: #121212;
 }
-
 header .header__search form input {
   border: none;
   border-radius: 500px;
@@ -128,22 +90,14 @@ header .header__search form input {
   padding: 6px 48px;
   outline: none;
 }
-
 header .header__profile {
   margin-left: auto;
   position: relative;
 }
-
 header .header__profile button {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   border-radius: 23px;
   border: none;
   padding: 2px;
@@ -155,43 +109,32 @@ header .header__profile button {
   cursor: pointer;
   color: var(--primary-text-color);
 }
-
 header .header__profile button:hover {
   background-color: var(--faded-background-color);
 }
-
 header .header__profile button img {
   width: 28px;
   height: 28px;
   border-radius: 50%;
 }
-
 header .header__profile button span {
   display: block;
   max-width: 110px;
   font-weight: 600;
   text-transform: capitalize;
 }
-
 header .header__profile button svg {
   -webkit-margin-end: 6px;
           margin-inline-end: 6px;
 }
-
 header .header__profile button svg path {
   fill: currentColor;
 }
-
 header .header__log {
   margin-left: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 header .header__log button {
   border: 2px solid transparent;
   border-radius: 500px;
@@ -204,21 +147,16 @@ header .header__log button {
   padding: 8px 34px;
   text-align: center;
   text-transform: uppercase;
-  -webkit-transition: all 33ms cubic-bezier(0.3, 0, 0, 1);
   transition: all 33ms cubic-bezier(0.3, 0, 0, 1);
   white-space: nowrap;
   will-change: transform;
 }
-
 header .header__log button:hover {
-  -webkit-transform: scale(1.06);
-          transform: scale(1.06);
+  transform: scale(1.06);
 }
-
 header .header__log__sign-up {
   background-color: transparent;
 }
-
 header .header__log__log-in {
   color: #000 !important;
 }
@@ -229,45 +167,33 @@ header .header__log__log-in {
       -ms-user-select: none;
           user-select: none;
 }
-
 .ant-popover-arrow {
   display: none;
 }
-
 .ant-popover-inner {
   -webkit-app-region: no-drag;
   background-color: var(--faded-background-color);
   border-radius: 4px;
-  -webkit-box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
-          box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
-  max-height: calc(calc(100 * var(--vh)) - 24px);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
+  max-height: calc(100 * var(--vh) - 24px);
   max-width: 350px;
   min-width: 160px;
   overflow-y: auto;
 }
-
 .ant-popover-inner-content {
   padding: 4px;
 }
-
 .ant-popover-inner-content ul {
   margin: 0;
 }
-
 .ant-popover-inner-content ul li {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .ant-popover-inner-content ul li:hover {
   background-color: var(--transparent-black-color);
   border-radius: 4px;
 }
-
 .ant-popover-inner-content ul li a,
 .ant-popover-inner-content ul li span {
   padding: 12px;
@@ -292,15 +218,12 @@ header .header__log__log-in {
     display: none;
   }
 }
-
 @media screen and (max-width: 800px) {
   header .header {
     width: 100vw;
     padding: 16px;
   }
   header .header__sidebar-btn {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
   }
   header .header__history button {
@@ -312,11 +235,9 @@ header .header__log__log-in {
     height: 18px;
   }
 }
-
 @media screen and (max-width: 500px) {
   header .header__log button {
     font-size: 10px;
     padding: 5px 20px;
   }
-}
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

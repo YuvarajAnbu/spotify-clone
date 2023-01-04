@@ -1,18 +1,15 @@
 .results__section {
   grid-gap: 24px;
-  display: -ms-grid;
   display: grid;
   padding-top: 24px;
   padding: 24px 32px 32px;
 }
-
 .results__section__no-results {
   color: var(--primary-text-color);
   grid-column: 1/-1;
   padding-top: 25%;
   text-align: center;
 }
-
 .results__section__no-results h1 {
   color: currentColor;
   font-size: 24px;
@@ -20,28 +17,18 @@
   letter-spacing: -0.049em;
   line-height: 28px;
 }
-
 .results__section__default-section {
   margin-bottom: 16px;
 }
-
 .results__section__default-section__title {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 16px;
 }
-
 .results__section__default-section__title a:hover {
   text-decoration: underline;
 }
-
 .results__section__default-section__title h2 {
   font-size: 24px;
   font-weight: 700;
@@ -51,7 +38,6 @@
   color: currentColor;
   margin: 0;
 }
-
 .results__section__default-section__title span {
   margin-left: 8px;
   color: var(--secondary-text-color);
@@ -74,5 +60,4 @@
   .results__section__default-section__title span {
     font-size: 10px;
   }
-}
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

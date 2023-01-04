@@ -1,51 +1,54 @@
-import { useEffect, useState, createContext, lazy, Suspense } from 'react';
+import { useEffect, useState, createContext, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from 'react-router-dom';
-import 'antd/dist/antd.css';
-import './App.css';
-import ErrorBoundary from './ErrorBoundary';
-import { useDispatch, useSelector } from 'react-redux';
-import { checkLogged, clearErrorMsg, getUser } from './redux/user/userSlice';
-import SignUp from './component/Signup';
-import SignIn from './component/SignIn';
+} from "react-router-dom";
+import "antd/dist/antd.css";
+import "./App.css";
+import ErrorBoundary from "./ErrorBoundary";
+import { useDispatch, useSelector } from "react-redux";
+import { checkLogged, clearErrorMsg, getUser } from "./redux/user/userSlice";
+// import SignUp from "./component/Signup";
+// import SignIn from "./component/SignIn";
 
-const Playbar = lazy(() => import('./component/Playbar'));
-const Sidebar = lazy(() => import('./component/Sidebar'));
-const Header = lazy(() => import('./component/Header'));
-const Home = lazy(() => import('./component/Home'));
-const Search = lazy(() => import('./component/Search'));
-const Results = lazy(() => import('./component/Results'));
-const YourPlaylist = lazy(() => import('./component/YourPlaylist'));
-const LikedSongs = lazy(() => import('./component/LikedSongs'));
-const Song = lazy(() => import('./component/Song'));
-const Artist = lazy(() => import('./component/Artist'));
-const Profile = lazy(() => import('./component/Profile'));
-const Queue = lazy(() => import('./component/Queue'));
-const Install = lazy(() => import('./component/Install'));
-const Lyrics = lazy(() => import('./component/Lyrics'));
-const NoMatch = lazy(() => import('./component/404'));
-const Genre = lazy(() => import('./component/Genre'));
-const Upload = lazy(() => import('./component/Upload'));
+const SignUp = lazy(() => import("./component/SignUp"));
+const SignIn = lazy(() => import("./component/SignIn"));
+const Playbar = lazy(() => import("./component/Playbar"));
+const Sidebar = lazy(() => import("./component/Sidebar"));
+const Header = lazy(() => import("./component/Header"));
+const Home = lazy(() => import("./component/Home"));
+const Search = lazy(() => import("./component/Search"));
+const Results = lazy(() => import("./component/Results"));
+const YourPlaylist = lazy(() => import("./component/YourPlaylist"));
+const LikedSongs = lazy(() => import("./component/LikedSongs"));
+const Song = lazy(() => import("./component/Song"));
+const Artist = lazy(() => import("./component/Artist"));
+const Profile = lazy(() => import("./component/Profile"));
+const Queue = lazy(() => import("./component/Queue"));
+const Install = lazy(() => import("./component/Install"));
+const Lyrics = lazy(() => import("./component/Lyrics"));
+const NoMatch = lazy(() => import("./component/404"));
+const Genre = lazy(() => import("./component/Genre"));
+const Upload = lazy(() => import("./component/Upload"));
+const Section = lazy(() => import("./component/Section"));
 
 export const ScrollTopContext = createContext();
 export const PopupContext = createContext();
 export const OpenSideBarContext = createContext();
 
 function App() {
-  const theme = 'dark-theme';
+  const theme = "dark-theme";
   const [scrollTop, setScollTop] = useState(0);
-  const [popup, setPopup] = useState('');
+  const [popup, setPopup] = useState("");
   const [openSideBar, setOpenSideBar] = useState(false);
 
   const dispatch = useDispatch();
   const { isGetLoading } = useSelector((state) => state.user);
 
   useEffect(() => {
-    document.querySelector('body').className = theme;
+    document.querySelector("body").className = theme;
   }, [theme]);
 
   useEffect(() => {
@@ -55,25 +58,25 @@ function App() {
 
   //get view height and adding as style variable
   useEffect(() => {
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       document
-        .querySelector(':root')
-        .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+        .querySelector(":root")
+        .style.setProperty("--vh", window.innerHeight / 100 + "px");
     });
 
     return () => {
-      window.addEventListener('resize', () => {
+      window.addEventListener("resize", () => {
         document
-          .querySelector(':root')
-          .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+          .querySelector(":root")
+          .style.setProperty("--vh", window.innerHeight / 100 + "px");
       });
     };
   }, []);
 
   useEffect(() => {
     document
-      .querySelector(':root')
-      .style.setProperty('--vh', window.innerHeight / 100 + 'px');
+      .querySelector(":root")
+      .style.setProperty("--vh", window.innerHeight / 100 + "px");
   }, []);
 
   return isGetLoading ? (
@@ -106,17 +109,17 @@ function App() {
                 <ScrollTopContext.Provider value={scrollTop}>
                   <PopupContext.Provider value={{ popup, setPopup }}>
                     <Header />
-                    {popup !== '' && (
+                    {popup !== "" && (
                       <div className="popup">
                         <div
                           className="popup__hover-box"
                           onClick={() => {
                             dispatch(clearErrorMsg());
-                            setPopup('');
+                            setPopup("");
                           }}
                         ></div>
-                        {popup === 'login' && <SignIn />}
-                        {popup === 'signup' && <SignUp />}
+                        {popup === "login" && <SignIn />}
+                        {popup === "signup" && <SignUp />}
                       </div>
                     )}
                   </PopupContext.Provider>
@@ -124,6 +127,7 @@ function App() {
                 <Suspense fallback={<div></div>}>
                   <Switch>
                     <Route component={Home} path="/" exact />
+                    <Route component={Section} path="/section" exact />
                     <Route component={Search} path="/search" exact />
                     <Route component={Results} path="/search/:id" exact />
                     <Route component={YourPlaylist} path="/collection" exact />

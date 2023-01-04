@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
@@ -17,26 +17,26 @@ class ErrorBoundary extends React.Component {
       return (
         <div
           style={{
-            margin: 'auto',
-            marginTop: '50px',
-            width: '100vw',
-            textAlign: 'center',
-            padding: '20px',
-            textTransform: 'capitalize',
+            margin: "auto",
+            marginTop: "50px",
+            width: "100vw",
+            textAlign: "center",
+            padding: "20px",
+            textTransform: "capitalize",
           }}
         >
-          Something went wrong. please try again.{' '}
+          Something went wrong. please try again.{" "}
           <button
             style={{
-              display: 'block',
-              margin: 'auto',
-              marginTop: '20px',
-              backgroundColor: 'black',
-              color: 'white',
-              border: 'none',
-              padding: '10px 20px',
-              textTransform: 'uppercase',
-              cursor: 'pointer',
+              display: "block",
+              margin: "auto",
+              marginTop: "20px",
+              backgroundColor: "black",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              textTransform: "uppercase",
+              cursor: "pointer",
             }}
             onClick={() => {
               window.location.reload();

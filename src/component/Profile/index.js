@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory, useParams } from 'react-router';
-import { changeActiveComponent } from '../../redux/activeComponent/activeComponentSlice';
-import ScrollToTop from '../../ScrollToTop';
-import { Tabs } from 'antd';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect, useHistory, useParams } from "react-router";
+import { changeActiveComponent } from "../../redux/activeComponent/activeComponentSlice";
+import ScrollToTop from "../../ScrollToTop";
+import { Tabs } from "antd";
 
-import './index.css';
-import Info from './subComponents/Info';
-import Socials from './subComponents/Socials';
-import Membership from './subComponents/Membership';
+import "./index.css";
+import Info from "./subComponents/Info";
+import Socials from "./subComponents/Socials";
+import Membership from "./subComponents/Membership";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -19,20 +19,20 @@ function Profile() {
 
   //changing document.title
   const res = {
-    img: 'https://i.scdn.co/image/ab676186000010160c8f491d3027f3313929333e',
+    // img: 'https://i.scdn.co/image/ab676186000010160c8f491d3027f3313929333e',
     // img: 'https://free4kwallpapers.com/uploads/originals/2020/05/09/dj-headphones-by-mikael-kristenson-wallpaper.jpg',
-    type: 'profile',
-    color: '#524d49',
+    type: "profile",
+    color: "#4e29ea",
     name: user.username,
   };
 
   useEffect(() => {
-    dispatch(changeActiveComponent('profile'));
+    dispatch(changeActiveComponent("profile"));
     document.title = `Spotify - ${res.name}`;
   }, [res.name, dispatch]);
 
   //handling tabs
-  const [tabs] = useState(['info', 'artistshub', 'social', 'membership']);
+  const [tabs] = useState(["info", "artistshub", "social", "membership"]);
 
   const [defaultTab, setDefautTab] = useState(1);
 
@@ -41,7 +41,7 @@ function Profile() {
     if (index >= 0) {
       setDefautTab(index + 1);
     } else {
-      history.push('/profile/info');
+      history.push("/profile/info");
     }
   }, [history, id, tabs]);
 
@@ -55,23 +55,24 @@ function Profile() {
     <div className="profile">
       <ScrollToTop />
       <div className="profile__info">
-        <div
+        {/* <div
           className="profile__info__background"
           style={{
             backgroundImage: `url(${res.img})`,
           }}
+        ></div> */}
+        <div
+          className="profile__info__background"
+          style={{ backgroundColor: res?.color }}
         ></div>
 
         <div className="profile__info__background-noise"></div>
 
         <div className="profile__info__desc">
-          <p className="profile__info__desc__title">WELCOME TO IINDI</p>
+          <p className="profile__info__desc__title">WELCOME TO Spotify</p>
           <div className="profile__info__desc__name">
             <span className="profile__info__desc__name__container">
-              <h1>
-                {/* {res.name} */}
-                TKAY MAIDZA
-              </h1>
+              <h1>{res.name}</h1>
             </span>
             <span
               className="profile__info__desc__name__container__verified"
@@ -95,15 +96,15 @@ function Profile() {
               </svg>
             </span>
           </div>
-          <p className="profile__info__desc__about">
+          {/* <p className="profile__info__desc__about">
             Tkay Maidza burst onto the electronic music scene in 2014 with her
             debut EP, Switch Tape with her success leading to headliine shows
             across Australia.
-          </p>
+          </p> */}
           <div className="profile__info__desc__btns">
-            <button className="profile__info__desc__btns__followers">
+            {/* <button className="profile__info__desc__btns__followers">
               2.7k Followers
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

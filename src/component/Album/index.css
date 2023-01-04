@@ -1,18 +1,9 @@
-.album {
-  -webkit-transform: translateY(-60px);
-          transform: translateY(-60px);
-}
-
 .album__info {
   height: calc(30 * var(--vh));
   max-height: 500px;
   min-height: 340px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  align-items: flex-end;
   max-width: none;
   overflow: hidden;
   padding: 0 32px;
@@ -24,7 +15,6 @@
       -ms-user-select: none;
           user-select: none;
 }
-
 .album__info__background, .album__info__background-noise {
   position: absolute;
   top: 0;
@@ -32,12 +22,9 @@
   width: 100%;
   height: 100%;
 }
-
 .album__info__background-noise {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), to(rgba(0, 0, 0, 0.5))), var(--background-noise);
   background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%), var(--background-noise);
 }
-
 .album__info__image-container {
   position: relative;
   height: 232px;
@@ -46,17 +33,14 @@
   -webkit-margin-end: 24px;
           margin-inline-end: 24px;
 }
-
 .album__info__image-container__image {
   border-radius: 4px;
   width: 100%;
   background-color: #282828;
-  -webkit-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   padding-bottom: 100%;
   position: relative;
 }
-
 .album__info__image-container__image img {
   border-radius: inherit;
   display: block;
@@ -66,21 +50,17 @@
   position: absolute;
   top: 0;
 }
-
 .album__info__image-container__image svg {
   position: absolute;
   width: 70%;
   height: 70%;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
-
 .album__info__image-container__image svg path {
   fill: var(--secondary-text-color);
 }
-
 .album__info__desc {
   position: relative;
   -webkit-line-clamp: 3;
@@ -88,7 +68,6 @@
   display: -webkit-box;
   text-transform: capitalize;
 }
-
 .album__info__desc h1 {
   color: currentColor;
   padding: 0.08em 0px;
@@ -102,59 +81,41 @@
   line-height: 85px;
   -webkit-box-orient: vertical;
 }
-
 .album__info__desc p {
   color: var(--secondary-text-color);
   font-weight: 600;
   margin-bottom: 0;
 }
-
 .album__background {
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0, 0, 0.6)), to(#121212)), var(--background-noise);
   background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise);
   height: 232px;
   position: absolute;
   width: 100%;
   z-index: -1;
 }
-
 .album__play {
   padding: 24px 32px;
 }
-
 .album__play button {
   width: 56px;
   height: 56px;
   margin-right: 32px;
   background-color: var(--spotify-faded-color);
   color: var(--primary-text-color);
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-transition: -webkit-transform 33ms cubic-bezier(0.3, 0, 0, 1);
-  transition: -webkit-transform 33ms cubic-bezier(0.3, 0, 0, 1);
+  align-items: center;
+  justify-content: center;
   transition: transform 33ms cubic-bezier(0.3, 0, 0, 1);
-  transition: transform 33ms cubic-bezier(0.3, 0, 0, 1), -webkit-transform 33ms cubic-bezier(0.3, 0, 0, 1);
   border: 0;
   border-radius: 500px;
 }
-
 .album__play button svg {
   width: 28px;
   height: 28px;
 }
-
 .album__play button:hover {
-  -webkit-transform: scale(1.06);
-          transform: scale(1.06);
+  transform: scale(1.06);
 }
-
 .album__songs {
   padding: 0 32px;
 }
@@ -162,7 +123,6 @@
 .artist .album__info__image-container {
   display: none;
 }
-
 .artist .album__info__background {
   background-repeat: no-repeat;
   background-position: top;
@@ -179,7 +139,6 @@
     font-size: 70px;
   }
 }
-
 @media screen and (max-width: 1280px) {
   .album__info__image-container {
     height: 192px;
@@ -187,19 +146,11 @@
     width: 192px;
   }
 }
-
 @media screen and (max-width: 1000px) {
   .album__info {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
   }
   .album__info__image-container {
     width: 150px;
@@ -214,7 +165,6 @@
     line-height: 55px;
   }
 }
-
 @media screen and (max-width: 800px) {
   .album__play button {
     width: 46px;
@@ -224,5 +174,4 @@
     width: 22px;
     height: 22px;
   }
-}
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

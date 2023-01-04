@@ -1,7 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getUser = createAsyncThunk('user/getUser', async (_, thunkAPI) => {
-  const userArr = localStorage.getItem('user');
+export const getUser = createAsyncThunk("user/getUser", async (_, thunkAPI) => {
+  const userArr = localStorage.getItem("user");
   if (thunkAPI.getState().user.isLoggedIn) {
     if (userArr) {
       const userObj = JSON.parse(userArr);
@@ -14,22 +14,22 @@ export const getUser = createAsyncThunk('user/getUser', async (_, thunkAPI) => {
   }
 });
 
-export const signUp = createAsyncThunk('user/signUp', async (_, thunkAPI) => {
-  const userArr = localStorage.getItem('user');
+export const signUp = createAsyncThunk("user/signUp", async (_, thunkAPI) => {
+  const userArr = localStorage.getItem("user");
   if (userArr) {
     localStorage.setItem(
-      'user',
-      JSON.stringify([_, ...JSON.parse(localStorage.getItem('user'))])
+      "user",
+      JSON.stringify([_, ...JSON.parse(localStorage.getItem("user"))])
     );
   } else {
-    localStorage.setItem('user', JSON.stringify([_]));
+    localStorage.setItem("user", JSON.stringify([_]));
   }
-  localStorage.setItem('isLogged', JSON.stringify(true));
+  localStorage.setItem("isLogged", JSON.stringify(true));
   return _;
 });
 
-export const logIn = createAsyncThunk('user/logIn', async (_, thunkAPI) => {
-  const userArr = localStorage.getItem('user');
+export const logIn = createAsyncThunk("user/logIn", async (_, thunkAPI) => {
+  const userArr = localStorage.getItem("user");
 
   if (userArr) {
     const userObj = JSON.parse(userArr).find(
@@ -37,46 +37,46 @@ export const logIn = createAsyncThunk('user/logIn', async (_, thunkAPI) => {
     );
     if (userObj) {
       localStorage.setItem(
-        'user',
-        JSON.stringify([userObj, ...JSON.parse(localStorage.getItem('user'))])
+        "user",
+        JSON.stringify([userObj, ...JSON.parse(localStorage.getItem("user"))])
       );
-      localStorage.setItem('isLogged', JSON.stringify(true));
+      localStorage.setItem("isLogged", JSON.stringify(true));
       return userObj;
     } else {
-      return thunkAPI.rejectWithValue('Incorrect username or password');
+      return thunkAPI.rejectWithValue("Incorrect username or password");
     }
   } else {
-    return thunkAPI.rejectWithValue('Incorrect username or password');
+    return thunkAPI.rejectWithValue("Incorrect username or password");
   }
 });
 
-export const logOut = createAsyncThunk('user/logOut', async (_, thunkAPI) => {
-  localStorage.setItem('isLogged', JSON.stringify(false));
+export const logOut = createAsyncThunk("user/logOut", async (_, thunkAPI) => {
+  localStorage.setItem("isLogged", JSON.stringify(false));
 });
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
 
   initialState: {
     user: {},
     isGetLoading: false,
     isLoggedIn: false,
     isLoading: false,
-    successMsg: '',
-    errorMsg: '',
+    successMsg: "",
+    errorMsg: "",
   },
 
   reducers: {
     checkLogged: (state) => {
-      const isLogged = localStorage.getItem('isLogged');
+      const isLogged = localStorage.getItem("isLogged");
       if (!isLogged) {
-        localStorage.setItem('isLogged', JSON.stringify(false));
+        localStorage.setItem("isLogged", JSON.stringify(false));
       } else {
         state.isLoggedIn = JSON.parse(isLogged);
       }
     },
     clearErrorMsg: (state) => {
-      state.errorMsg = '';
+      state.errorMsg = "";
     },
   },
 
@@ -110,7 +110,7 @@ export const userSlice = createSlice({
       state.isLoading = false;
       state.user = payload;
       state.isLoggedIn = true;
-      state.errorMsg = '';
+      state.errorMsg = "";
     },
     [logIn.rejected]: (state, { payload }) => {
       state.isLoading = false;

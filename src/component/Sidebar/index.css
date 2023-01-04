@@ -4,8 +4,8 @@
   min-width: var(--sidebar-width);
   max-width: var(--sidebar-width);
   width: var(--sidebar-width);
-  height: calc(calc(100 * var(--vh)) - var(--playbar-height));
-  max-height: calc(calc(100 * var(--vh)) - var(--playbar-height));
+  height: calc(100 * var(--vh) - var(--playbar-height));
+  max-height: calc(100 * var(--vh) - var(--playbar-height));
   position: relative;
   z-index: 5;
   -webkit-user-select: none;
@@ -17,118 +17,86 @@
   scrollbar-width: none;
   scrollbar-color: #6f6f70 transparent;
 }
-
 .sidebar::-webkit-scrollbar {
   width: 0px;
 }
-
 .sidebar::-webkit-scrollbar-thumb {
   background: #666;
   border-radius: 4px;
 }
-
 .sidebar:hover {
   scrollbar-width: thin;
 }
-
 .sidebar:hover::-webkit-scrollbar {
   width: 5px;
 }
-
 .sidebar__line {
   width: calc(100% - 48px);
   margin: 8px 24px;
   height: 1px;
   background-color: var(--faded-background-color);
 }
-
 .sidebar__top {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   padding: 0 24px;
   margin-bottom: 18px;
 }
-
 .sidebar__top__close {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   cursor: pointer;
   display: none;
 }
-
 .sidebar__top__close:hover svg path, .sidebar__top__close:focus svg path {
   fill: var(--primary-text-color);
 }
-
 .sidebar__top__close svg path {
   fill: var(--secondary-text-color);
 }
-
 .sidebar__top__logo {
   display: block;
   width: 100%;
 }
-
 .sidebar__top__logo svg {
   color: var(--logo-color);
   height: 40px;
   max-width: 131px;
   width: 100%;
 }
-
 .sidebar__links__title, .sidebar__playlists__title, .sidebar__install__title, .sidebar__upload__title {
   margin: 0 8px 5px;
   padding: 8px 16px;
   font-size: 12px;
   border-bottom: 1px solid var(--faded-background-color);
 }
-
 .sidebar__links__link, .sidebar__playlists__link, .sidebar__install__link, .sidebar__upload__link {
   padding: 0 8px;
   color: var(--secondary-text-color);
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
-  -webkit-transition-property: color;
+  transition-duration: 0.2s;
   transition-property: color;
-  -webkit-transition-timing-function: linear;
-          transition-timing-function: linear;
+  transition-timing-function: linear;
 }
-
 .sidebar__links__link:hover, .sidebar__playlists__link:hover, .sidebar__install__link:hover, .sidebar__upload__link:hover {
   color: var(--primary-text-color);
 }
-
 .sidebar__links__link:hover .liked, .sidebar__playlists__link:hover .liked, .sidebar__install__link:hover .liked, .sidebar__upload__link:hover .liked {
   opacity: 1;
 }
-
 .sidebar__links__link a, .sidebar__playlists__link a, .sidebar__install__link a, .sidebar__upload__link a {
   color: inherit;
   font-weight: 700;
   text-decoration: none;
   padding: 0 16px;
   border-radius: 4px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
   gap: 16px;
   cursor: pointer;
   height: 40px;
   text-transform: capitalize;
   white-space: nowrap;
 }
-
 .sidebar__links__link a .icon,
 .sidebar__links__link a .default-icon,
 .sidebar__links__link a .active-icon, .sidebar__playlists__link a .icon,
@@ -138,19 +106,12 @@
 .sidebar__install__link a .active-icon, .sidebar__upload__link a .icon,
 .sidebar__upload__link a .default-icon,
 .sidebar__upload__link a .active-icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
   width: 24px;
   height: 24px;
 }
-
 .sidebar__links__link a .icon img,
 .sidebar__links__link a .default-icon img,
 .sidebar__links__link a .active-icon img, .sidebar__playlists__link a .icon img,
@@ -163,54 +124,41 @@
   width: 24px;
   height: 24px;
 }
-
 .sidebar__links__link a .liked, .sidebar__playlists__link a .liked, .sidebar__install__link a .liked, .sidebar__upload__link a .liked {
   background: linear-gradient(135deg, #450af5, #c4efd9);
   border-radius: 1px;
   color: var(--primary-text-color);
   opacity: 0.7;
 }
-
 .sidebar__links__link a .active-icon, .sidebar__playlists__link a .active-icon, .sidebar__install__link a .active-icon, .sidebar__upload__link a .active-icon {
   display: none;
 }
-
 .sidebar__links__link--active a, .sidebar__playlists__link--active a, .sidebar__install__link--active a, .sidebar__upload__link--active a {
   background-color: var(--faded-background-color);
   color: var(--primary-text-color);
 }
-
 .sidebar__links__link--active a .icon, .sidebar__playlists__link--active a .icon, .sidebar__install__link--active a .icon, .sidebar__upload__link--active a .icon {
   display: none;
 }
-
 .sidebar__links__link--active a .liked, .sidebar__playlists__link--active a .liked, .sidebar__install__link--active a .liked, .sidebar__upload__link--active a .liked {
   opacity: 1;
 }
-
 .sidebar__links__link--active a .active-icon, .sidebar__playlists__link--active a .active-icon, .sidebar__install__link--active a .active-icon, .sidebar__upload__link--active a .active-icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .sidebar__links {
   margin-bottom: 0 !important;
 }
-
 .sidebar__upload {
   padding: 5px 0;
   margin-bottom: 0;
 }
-
 .sidebar__install {
   margin-bottom: 5px;
 }
-
 .sidebar__install svg {
   padding: 2px;
 }
-
 .sidebar__bottom {
   position: absolute;
   width: 100%;
@@ -224,21 +172,13 @@
     left: 0;
     height: calc(100 * var(--vh));
     max-height: calc(100 * var(--vh));
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-    -webkit-transition: -webkit-transform 0.3s ease;
-    transition: -webkit-transform 0.3s ease;
+    transform: translateX(-100%);
     transition: transform 0.3s ease;
-    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
   }
   .sidebar__top__close {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
   }
   .sidebar.active {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
-}
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */

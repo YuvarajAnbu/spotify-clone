@@ -1,17 +1,11 @@
 .profile {
-  -webkit-transform: translateY(-60px);
-          transform: translateY(-60px);
+  transform: translateY(-60px);
   min-height: calc(101% - 60px);
 }
-
 .profile__info {
   min-height: 340px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
+  align-items: flex-end;
   max-width: none;
   overflow: hidden;
   padding: 0 32px;
@@ -19,7 +13,6 @@
   position: relative;
   color: var(--primary-text-color);
 }
-
 .profile__info__background, .profile__info__background-noise {
   position: absolute;
   top: 0;
@@ -27,39 +20,28 @@
   width: 100%;
   height: 100%;
 }
-
 .profile__info__background {
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;
 }
-
 .profile__info__background-noise {
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, transparent), to(rgba(0, 0, 0, 0.5))), var(--background-noise);
   background: linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%), var(--background-noise);
 }
-
 .profile__info__desc {
   position: relative;
   margin-top: 100px;
 }
-
 .profile__info__desc__title {
   font-size: 14px;
   text-transform: capitalize;
   margin-bottom: 10px;
 }
-
 .profile__info__desc__name {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  align-items: flex-start;
   width: 100%;
 }
-
 .profile__info__desc__name__container {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -71,7 +53,6 @@
   margin-right: 20px;
   margin-bottom: 20px;
 }
-
 .profile__info__desc__name__container h1 {
   margin: 0;
   font-size: 60px;
@@ -84,20 +65,13 @@
   color: currentColor;
   text-transform: capitalize;
 }
-
 .profile__info__desc__about {
   width: 60%;
 }
-
 .profile__info__desc__btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .profile__info__desc__btns button {
   text-transform: capitalize;
   border: 0;
@@ -108,52 +82,37 @@
   font-size: 12px;
   margin-right: 20px;
 }
-
 .profile__info__desc__btns__more {
   border-radius: 50% !important;
   padding: 0 !important;
   width: 35px;
   height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  align-items: center;
+  justify-content: center;
 }
-
 .profile__info__desc__btns__more svg path {
   fill: var(--primary-text-color);
 }
-
 .profile__background {
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, rgba(0, 0, 0, 0.6)), to(#121212)), var(--background-noise);
   background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%), var(--background-noise);
   height: 232px;
   position: absolute;
   width: 100%;
   z-index: -1;
 }
-
 .profile__content {
   margin-top: 40px;
 }
-
 .profile__content .ant-tabs {
   color: var(--secondary-text-color);
 }
-
 .profile__content .ant-tabs-nav {
   padding: 0 32px;
 }
-
 .profile__content .ant-tabs-nav::before {
   border-bottom: 1px solid var(--transparent-black-color-hover);
 }
-
 .profile__content .ant-tabs-nav .ant-tabs-tab {
   font-size: 13px;
   -webkit-user-select: none;
@@ -161,22 +120,18 @@
       -ms-user-select: none;
           user-select: none;
 }
-
 .profile__content .ant-tabs-nav .ant-tabs-tab:hover {
   color: var(--primary-text-color);
 }
-
 .profile__content .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-btn:focus,
 .profile__content .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-remove:focus,
 .profile__content .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-btn:active,
 .profile__content .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-remove:active {
   color: var(--primary-text-color);
 }
-
 .profile__content .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
   color: var(--primary-text-color) !important;
 }
-
 .profile__content .ant-tabs-ink-bar {
   background: var(--spotify-faded-color);
 }
@@ -222,5 +177,4 @@
   .profile__content .ant-tabs .ant-tabs-tab + .ant-tabs-tab {
     margin: 0 0 0 22px;
   }
-}
-/*# sourceMappingURL=index.css.map */
+}/*# sourceMappingURL=index.css.map */
