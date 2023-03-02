@@ -33,7 +33,7 @@
         transform: translateY(
           calc((var(--animation-index) - 1) * var(--lyrics-line-height))
         );
-        transition: all 0.25s cubic-bezier(0, 0, 0, 1);
+        transition: all 0.5s cubic-bezier(0, 0, 0, 1);
         user-select: none;
         color: rgb(35, 44, 38);
 

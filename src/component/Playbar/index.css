@@ -43,7 +43,6 @@
   width: 30%;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 .playbar__desc a {
@@ -130,7 +129,6 @@
   align-items: center;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 .playbar__controls__buttons {
@@ -196,7 +194,6 @@
   align-items: center;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 .playbar__extras button {
@@ -225,7 +222,6 @@
 .playbar__open-btn {
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   width: 32px;
   height: 32px;

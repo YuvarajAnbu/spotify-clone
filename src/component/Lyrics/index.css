@@ -30,10 +30,9 @@
   margin-left: 200px;
   margin-right: 200px;
   transform: translateY(calc((var(--animation-index) - 1) * var(--lyrics-line-height)));
-  transition: all 0.25s cubic-bezier(0, 0, 0, 1);
+  transition: all 0.5s cubic-bezier(0, 0, 0, 1);
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   color: rgb(35, 44, 38);
 }

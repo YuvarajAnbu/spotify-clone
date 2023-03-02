@@ -15,7 +15,6 @@
   color: var(--primary-text-color);
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
 }
 .genre__info__background, .genre__info__background-noise {

@@ -61,7 +61,6 @@
 .upload__songs__song {
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   display: flex;
   align-items: center;
@@ -368,7 +367,6 @@
   font-size: 13px;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   position: relative;
   padding-right: 30px;
@@ -397,7 +395,6 @@
   border-radius: 4px;
   -webkit-user-select: none;
      -moz-user-select: none;
-      -ms-user-select: none;
           user-select: none;
   position: absolute;
   top: 32.43px;
