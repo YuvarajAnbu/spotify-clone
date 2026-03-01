@@ -29,8 +29,7 @@
   height: 232px;
   min-width: 232px;
   width: 232px;
-  -webkit-margin-end: 24px;
-          margin-inline-end: 24px;
+  margin-inline-end: 24px;
 }
 .album__info__image-container__image {
   border-radius: 4px;

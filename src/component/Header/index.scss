@@ -54,6 +54,11 @@ header {
         margin-right: 16px;
         cursor: pointer;
 
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
+
         svg {
           height: 22px;
           opacity: 1;

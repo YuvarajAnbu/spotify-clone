@@ -6,8 +6,7 @@ header {
 header .header {
   display: flex;
   padding: 16px 32px;
-  -webkit-padding-end: 32px;
-          padding-inline-end: 32px;
+  padding-inline-end: 32px;
   width: calc(100vw - var(--sidebar-width));
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -47,6 +46,10 @@ header .header__history button {
   border-radius: 50%;
   margin-right: 16px;
   cursor: pointer;
+}
+header .header__history button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 header .header__history button svg {
   height: 22px;
@@ -103,8 +106,7 @@ header .header__profile button {
   gap: 8px;
   height: 32px;
   background-color: var(--transparent-white-color);
-  -webkit-margin-start: 16px;
-          margin-inline-start: 16px;
+  margin-inline-start: 16px;
   cursor: pointer;
   color: var(--primary-text-color);
 }
@@ -123,8 +125,7 @@ header .header__profile button span {
   text-transform: capitalize;
 }
 header .header__profile button svg {
-  -webkit-margin-end: 6px;
-          margin-inline-end: 6px;
+  margin-inline-end: 6px;
 }
 header .header__profile button svg path {
   fill: currentColor;
@@ -195,8 +196,7 @@ header .header__log__log-in {
 .ant-popover-inner-content ul li a,
 .ant-popover-inner-content ul li span {
   padding: 12px;
-  -webkit-padding-end: 8px;
-          padding-inline-end: 8px;
+  padding-inline-end: 8px;
   white-space: nowrap;
   background: transparent;
   border: 0;

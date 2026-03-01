@@ -58,6 +58,11 @@ function Home() {
     { type: "album", id: 6 },
     { type: "album", id: 12 },
     { type: "album", id: 8 },
+    { type: "album", id: 7 },
+    { type: "album", id: 11 },
+    { type: "album", id: 13 },
+    { type: "album", id: 2 },
+
   ];
 
   const arr2 = [
@@ -70,6 +75,10 @@ function Home() {
     { type: "album", id: 9 },
     { type: "album", id: 4 },
     { type: "album", id: 7 },
+    { type: "album", id: 2 },
+    { type: "album", id: 10 },
+    { type: "album", id: 12 },
+    { type: "album", id: 8 },
   ];
 
   const arr3 = [
@@ -82,6 +91,10 @@ function Home() {
     { type: "album", id: 6 },
     { type: "album", id: 11 },
     { type: "album", id: 13 },
+    { type: "album", id: 5 },
+    { type: "album", id: 4 },
+    { type: "album", id: 9 },
+    { type: "album", id: 2 },
   ];
 
   const [color, setColor] = useState("#121212");
